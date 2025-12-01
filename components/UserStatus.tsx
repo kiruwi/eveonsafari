@@ -69,7 +69,7 @@ export function UserStatus() {
 
   if (state.status === 'loading') {
     return (
-      <div className="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-600">
+      <div className="rounded-2xl border border-[#c3c3c3] bg-white px-4 py-3 text-sm text-[#231f20]/70">
         Checking auth status...
       </div>
     );
@@ -77,14 +77,14 @@ export function UserStatus() {
 
   if (state.status === 'signedOut') {
     return (
-      <div className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-3">
+      <div className="flex items-center justify-between gap-4 rounded-2xl border border-[#c3c3c3] bg-white px-4 py-3">
         <div>
-          <p className="text-sm font-semibold text-zinc-900">You are signed out</p>
-          <p className="text-xs text-zinc-600">Use Google to sign in or create an account.</p>
+          <p className="text-sm font-semibold text-[#231f20]">You are signed out</p>
+          <p className="text-xs text-[#231f20]/70">Use Google to sign in or create an account.</p>
         </div>
         <a
           href="/auth"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-xs font-medium text-white transition hover:bg-indigo-500"
+          className="rounded-full bg-[#ba7e47] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#8a592e]"
         >
           Sign in
         </a>
@@ -93,16 +93,16 @@ export function UserStatus() {
   }
 
   return (
-    <div className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-3">
+    <div className="flex items-center justify-between gap-4 rounded-2xl border border-[#c3c3c3] bg-white px-4 py-3">
       <div>
-        <p className="text-sm font-semibold text-zinc-900">Signed in</p>
-        <p className="text-xs text-zinc-600">{state.email}</p>
+        <p className="text-sm font-semibold text-[#231f20]">Signed in</p>
+        <p className="text-xs text-[#231f20]/70">{state.email}</p>
         {error && <p className="text-xs text-red-600">{error}</p>}
       </div>
       <button
         type="button"
         onClick={handleSignOut}
-        className="rounded-md border border-zinc-200 px-3 py-2 text-xs font-medium text-zinc-800 transition hover:bg-zinc-100"
+        className="rounded-full border border-[#231f20] px-4 py-2 text-xs font-semibold text-[#231f20] transition hover:bg-[#231f20] hover:text-white"
       >
         Sign out
       </button>

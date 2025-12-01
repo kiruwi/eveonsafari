@@ -53,6 +53,38 @@ type PesapalOrderResponse = {
   order_tracking_id?: string;
   status: string;
   message: string;
+  error?: {
+    error_type?: string;
+    code?: string;
+    message?: string;
+  };
+};
+
+type PesapalTransactionStatusResponse = {
+  merchant_reference?: string;
+  order_tracking_id?: string;
+  status_code?: string;
+  payment_method?: string;
+  payment_status_description?: string;
+  amount?: string;
+  created_date?: string;
+  confirmation_code?: string;
+  description?: string;
+  call_back_url?: string;
+  error?: {
+    error_type?: string;
+    code?: string;
+    message?: string;
+  };
+  message?: string;
+  status?: string;
+};
+
+type CreateOrderOptions = {
+  amount?: number | null;
+  currency?: string | null;
+  description?: string | null;
+  billingAddressOverride?: Partial<PesapalConfig["billingAddress"]>;
 };
 
 function getPesapalConfig(): PesapalConfig {
@@ -80,7 +112,7 @@ function getPesapalConfig(): PesapalConfig {
     defaultAmount: Number.isFinite(defaultAmount) ? defaultAmount : 5,
     billingAddress: {
       email_address: process.env.PESAPAL_BILLING_EMAIL ?? 'customer@example.com',
-      phone_number: process.env.PESAPAL_BILLING_PHONE ?? '254700000000',
+      phone_number: process.env.PESAPAL_BILLING_PHONE ?? '255700000000',
       country_code: process.env.PESAPAL_BILLING_COUNTRY ?? 'KE',
       first_name: process.env.PESAPAL_BILLING_FIRST_NAME ?? 'Demo',
       middle_name: process.env.PESAPAL_BILLING_MIDDLE_NAME ?? '',
@@ -169,11 +201,22 @@ async function resolveNotificationId(config: PesapalConfig, token: string) {
   return data.ipn_id;
 }
 
-export async function createPesapalOrder() {
+export async function createPesapalOrder(options: CreateOrderOptions = {}) {
   const config = getPesapalConfig();
   const token = await requestToken(config);
   const notificationId = await resolveNotificationId(config, token);
   const merchantReference = randomUUID();
+  const validAmount =
+    typeof options.amount === 'number' && Number.isFinite(options.amount) && options.amount > 0
+      ? options.amount
+      : config.defaultAmount;
+  const amount = Number.parseFloat(validAmount.toFixed(2));
+  const currency = (options.currency || config.currency || 'USD').toUpperCase();
+  const description = options.description?.trim() || 'Eve On Safari order';
+  const billingAddress = {
+    ...config.billingAddress,
+    ...options.billingAddressOverride,
+  };
 
   const res = await fetch(`${config.baseUrl}/api/Transactions/SubmitOrderRequest`, {
     method: 'POST',
@@ -183,20 +226,26 @@ export async function createPesapalOrder() {
     },
     body: JSON.stringify({
       id: merchantReference,
-      currency: config.currency,
-      amount: config.defaultAmount,
-      description: 'Eve On Safari sample order',
+      currency,
+      amount,
+      description,
       callback_url: config.callbackUrl,
       notification_id: notificationId,
-      billing_address: config.billingAddress,
+      billing_address: billingAddress,
     }),
   });
 
   const data = await readJson<PesapalOrderResponse>(res);
 
   if (!res.ok || !data.redirect_url) {
+    const detail =
+      data.error?.message ||
+      data.error?.code ||
+      data.message ||
+      data.status ||
+      res.statusText;
     throw new Error(
-      `Unable to create Pesapal checkout session: ${data.message || res.statusText}`,
+      `Unable to create Pesapal checkout session: ${detail}. Payload: ${JSON.stringify(data)}`,
     );
   }
 
@@ -205,4 +254,48 @@ export async function createPesapalOrder() {
     orderTrackingId: data.order_tracking_id,
     merchantReference,
   };
+}
+
+export async function getPesapalTransactionStatus({
+  orderTrackingId,
+  merchantReference,
+}: {
+  orderTrackingId?: string | null;
+  merchantReference?: string | null;
+}) {
+  if (!orderTrackingId && !merchantReference) {
+    throw new Error('Provide orderTrackingId or merchantReference to check Pesapal status.');
+  }
+
+  const config = getPesapalConfig();
+  const token = await requestToken(config);
+  const url = new URL(`${config.baseUrl}/api/Transactions/GetTransactionStatus`);
+
+  if (orderTrackingId) {
+    url.searchParams.set('orderTrackingId', orderTrackingId);
+  }
+  if (merchantReference) {
+    url.searchParams.set('merchantReference', merchantReference);
+  }
+
+  const res = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await readJson<PesapalTransactionStatusResponse>(res);
+
+  if (!res.ok) {
+    const errorDetail =
+      data.error?.message ||
+      data.error?.error_type ||
+      data.error?.code ||
+      data.message ||
+      data.status ||
+      res.statusText;
+    throw new Error(`Unable to fetch Pesapal transaction status: ${errorDetail}`);
+  }
+
+  return data;
 }
