@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
@@ -159,16 +159,36 @@ export function SiteHeader() {
     return tl;
   };
 
-  const openMenu = () => {
+  const clearInactivity = useCallback(() => {
+    if (inactivityTimeoutRef.current) {
+      clearTimeout(inactivityTimeoutRef.current);
+      inactivityTimeoutRef.current = null;
+    }
+  }, []);
+
+  const handleUserActivity = useCallback(
+    (scrolled: boolean) => {
+      setNavHidden(false);
+      clearInactivity();
+      if (scrolled) {
+        inactivityTimeoutRef.current = setTimeout(() => {
+          setNavHidden(true);
+        }, 2000);
+      }
+    },
+    [clearInactivity],
+  );
+
+  const openMenu = useCallback(() => {
     if (isExpanded) return;
     const tl = timelineRef.current;
     if (!tl) return;
     tl.eventCallback("onReverseComplete", null);
     setIsExpanded(true);
     tl.play(0);
-  };
+  }, [isExpanded]);
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     if (!isExpanded) return;
     const tl = timelineRef.current;
     if (!tl) return;
@@ -178,7 +198,7 @@ export function SiteHeader() {
       setMobileMenuOpen(false);
     });
     tl.reverse();
-  };
+  }, [isExpanded]);
 
   useLayoutEffect(() => {
     const tl = createTimeline();
@@ -216,7 +236,7 @@ export function SiteHeader() {
       window.removeEventListener("mousemove", handleMouseMove);
       clearInactivity();
     };
-  }, []);
+  }, [clearInactivity, handleUserActivity]);
 
   useEffect(() => {
     if (isMobile) {
@@ -227,7 +247,7 @@ export function SiteHeader() {
       return;
     }
     setMobileMenuOpen(false);
-  }, [isMobile]);
+  }, [closeMenu, isMobile, isMobileMenuOpen]);
 
   useEffect(() => {
     if (isMobile) {
@@ -242,7 +262,7 @@ export function SiteHeader() {
     if (activeIndex !== null && activeIndex !== 0) {
       openMenu();
     }
-  }, [activeIndex, isMobileMenuOpen, isMobile]);
+  }, [activeIndex, closeMenu, isMobile, isMobileMenuOpen, openMenu]);
 
   const handleDesktopNav = (index: number) => {
     if (isMobile || index === 0) return;
@@ -260,23 +280,6 @@ export function SiteHeader() {
       closeMenu();
     } else {
       setMobileMenuOpen(true);
-    }
-  };
-
-  const clearInactivity = () => {
-    if (inactivityTimeoutRef.current) {
-      clearTimeout(inactivityTimeoutRef.current);
-      inactivityTimeoutRef.current = null;
-    }
-  };
-
-  const handleUserActivity = (scrolled: boolean) => {
-    setNavHidden(false);
-    clearInactivity();
-    if (scrolled) {
-      inactivityTimeoutRef.current = setTimeout(() => {
-        setNavHidden(true);
-      }, 2000);
     }
   };
 

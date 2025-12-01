@@ -258,7 +258,7 @@ export function KiliRoutePage(props: KiliRoutePageProps) {
         <section className="flex flex-wrap items-center justify-between gap-4 border border-[#e0d7c4] bg-[#f7f3ea] px-6 py-5">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-[#7c6137]">Ready to plan?</p>
-            <p className="text-lg font-semibold text-[#231f20]">Share your dates and group size, and we'll confirm availability and final pricing.</p>
+            <p className="text-lg font-semibold text-[#231f20]">Share your dates and group size, and we&apos;ll confirm availability and final pricing.</p>
           </div>
           <Link
             href="/plan"

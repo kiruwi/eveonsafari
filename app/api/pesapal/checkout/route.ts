@@ -22,17 +22,9 @@ export async function POST(request: Request) {
       typeof payload?.tier === 'string' && payload.tier.trim().length
         ? payload.tier
         : undefined;
-    const perPerson =
-      Number.isFinite(Number(payload?.perPerson)) && Number(payload?.perPerson) > 0
-        ? Number(payload?.perPerson)
-        : undefined;
     const packageName =
       typeof payload?.packageName === 'string' && payload.packageName.trim().length
         ? payload.packageName
-        : undefined;
-    const packageSlug =
-      typeof payload?.packageSlug === 'string' && payload.packageSlug.trim().length
-        ? payload.packageSlug
         : undefined;
 
     const descriptionBase = packageName || 'Eve On Safari checkout';

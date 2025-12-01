@@ -10,12 +10,6 @@ import {
   kilimanjaroRoutes,
 } from "@/lib/siteContent";
 
-const featuredSampleRoutes = safariPackages.map((pkg) => ({
-  title: pkg.name.replace("Days ", "Days Tanzania Safari – "),
-  description: pkg.highlights,
-  href: `/plan?package=${pkg.slug}`,
-}));
-
 const customItineraryImages: Record<string, string> = {
   "2-day-ngorongoro-crater-adventure": "/photos/landing-page/elephants.webp",
   "3-day-manyara-ngorongoro-tarangire": "/photos/landing-page/ngorongoro.jpg",
@@ -131,7 +125,7 @@ export default function HomePage() {
             </div>
             {/* <p className="text-sm uppercase tracking-[0.3em] text-[#ba7e47]">Secure travel deposits</p> */}
             <h3 className="mt-0 text-2xl font-semibold uppercase text-white text-center">
-              Let's get you started.
+              Let&apos;s get you started.
             </h3>
             {/* <p className="mt-3 text-sm text-[#231f20]/80">
               Select a safari itinerary, pick midrange or luxury, and set your guest count. 1–2 guests can pay directly; larger groups click “Plan a safari” for a custom link.

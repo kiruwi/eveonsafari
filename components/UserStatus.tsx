@@ -15,6 +15,7 @@ export function UserStatus() {
 
   useEffect(() => {
     let active = true;
+    let errorTimeout: NodeJS.Timeout | null = null;
 
     const loadUser = async () => {
       const { data, error: authError } = await supabase.auth.getUser();
@@ -35,10 +36,7 @@ export function UserStatus() {
 
     loadUser();
 
-    const {
-      data: authListener,
-      error: listenerError,
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       if (!active) return;
 
       if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
@@ -51,12 +49,11 @@ export function UserStatus() {
       }
     });
 
-    if (listenerError) {
-      setError(listenerError.message);
-    }
-
     return () => {
       active = false;
+      if (errorTimeout) {
+        clearTimeout(errorTimeout);
+      }
       authListener?.subscription.unsubscribe();
     };
   }, []);

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { PackageCheckoutSelector } from "@/components/PackageCheckoutSelector";
 import { PackagePricing, safariPackagePricingUSD } from "@/lib/pricing";
@@ -124,12 +125,14 @@ export default function ItinerariesPage() {
                   href={card.href}
                   className="group rounded-[28px] border border-[#c3c3c3] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div className="h-44 w-full overflow-hidden rounded-[28px_28px_0_0]">
-                    <img
+                  <div className="relative h-44 w-full overflow-hidden rounded-[28px_28px_0_0]">
+                    <Image
                       src={card.image}
                       alt={card.title}
+                      fill
                       className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                       loading="lazy"
+                      sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
                     />
                   </div>
                   <div className="space-y-2 px-4 py-4">
