@@ -13,7 +13,12 @@ export default function ExperiencesPage() {
       <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 py-16 md:px-6 lg:px-0">
         <header className="space-y-4 text-center">
           <p className="text-xs uppercase tracking-[0.4em] text-[#ba7e47]">Experiences</p>
-          <h1 className="text-4xl font-semibold text-[#231f20]">Choose by travel style or region</h1>
+          <h1
+            className="text-4xl font-semibold text-[#231f20]"
+            style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+          >
+            Choose by travel style or region
+          </h1>
           <p className="text-sm text-[#231f20]/80">
             Every option below comes directly from the Eve On Safari catalog—pick a style, then pair it with trekking, day trips, or Zanzibar breaks.
           </p>
@@ -28,7 +33,12 @@ export default function ExperiencesPage() {
                 href={`/travel-style/${style.slug}`}
                 className="rounded-[24px] border border-[#c3c3c3] p-5 transition hover:-translate-y-1 hover:shadow"
               >
-                <h3 className="text-xl font-semibold text-[#231f20]">{style.name}</h3>
+                <h3
+                  className="text-xl font-semibold text-[#231f20]"
+                  style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+                >
+                  {style.name}
+                </h3>
                 <p className="mt-2 text-sm text-[#231f20]/70">/{style.slug}</p>
               </Link>
             ))}
@@ -40,7 +50,12 @@ export default function ExperiencesPage() {
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             {destinationGroups.map((group) => (
               <article key={group.region} className="rounded-[24px] border border-[#c3c3c3] bg-white p-6">
-                <h3 className="text-2xl font-semibold text-[#231f20]">{group.region}</h3>
+                <h3
+                  className="text-2xl font-semibold text-[#231f20]"
+                  style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+                >
+                  {group.region}
+                </h3>
                 <ul className="mt-3 grid gap-1 text-sm text-[#231f20]/80">
                   {group.items.map((item) => (
                     <li key={item.slug}>• {item.name}</li>
@@ -80,7 +95,12 @@ export default function ExperiencesPage() {
             {trekkingPackages.map((trek) => (
               <div key={trek.slug} className="rounded-[20px] border border-[#c3c3c3] p-4">
                 <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">{trek.route}</p>
-                <h4 className="text-lg font-semibold text-[#231f20]">{trek.name}</h4>
+                <h4
+                  className="text-lg font-semibold text-[#231f20]"
+                  style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+                >
+                  {trek.name}
+                </h4>
                 <p className="text-sm text-[#231f20]/70">/{trek.slug}</p>
               </div>
             ))}

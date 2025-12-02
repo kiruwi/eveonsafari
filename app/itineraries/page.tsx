@@ -9,57 +9,49 @@ const sampleRoutes = [
     title: "Safaris",
     description: "2–7 Day Tanzania safaris across Ngorongoro, Manyara, Tarangire, and Serengeti.",
     href: "/safaris/3-days/3-day-manyara-ngorongoro-tarangire",
-    image:
-      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=900&q=80",
+    image: "/itenerary%20photos/safaris.webp",
   },
   {
     title: "Safari + Zanzibar",
     description: "10 Days Best of Tanzania Safari – Wildlife, Lakes & Culture with a Zanzibar finale.",
     href: "/safaris/10-days/10-day-best-of-tanzania",
-    image:
-      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=900&q=80",
+    image: "/itenerary%20photos/safari.webp",
   },
   {
     title: "Zanzibar",
     description: "Zanzibar 2–6 Days: spice tours, dhow sundowners, and reef-friendly lodges.",
     href: "/zanzibar/5-days/zanzibar-5-days",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+    image: "/itenerary%20photos/zanzibar.webp",
   },
   {
     title: "Kilimanjaro",
     description: "Machame, Lemosho, Marangu, and Northern Circuit treks with pro crews.",
     href: "/trekking",
-    image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+    image: "/itenerary%20photos/kilimanjaro.webp",
   },
   {
     title: "Honeymoon Trips",
     description: "5 Days Iconic Wildlife Adventure and 7 Days Northern Highlights with private villas.",
     href: "/travel-style/honeymoon-safaris",
-    image:
-      "https://images.unsplash.com/photo-1511732351157-1865efcb7b7b?auto=format&fit=crop&w=900&q=80",
+    image: "/itenerary%20photos/honeymoon.webp",
   },
   {
     title: "Family-Friendly Tours",
     description: "3 Days Quick Serengeti Escape and Lake Manyara day trips tailored for kids.",
     href: "/travel-style/family-safaris",
-    image:
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80",
+    image: "/itenerary%20photos/family%20trips.webp",
   },
   {
     title: "Diamond Luxury",
     description: "9-Day Grand Tanzania Safari – The Ultimate Serengeti Adventure.",
     href: "/safaris/9-days/9-day-grand-tanzania",
-    image:
-      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80",
+    image: "/itenerary%20photos/luxury%20trip%20tanzania.webp",
   },
   {
     title: "Small Group Trip",
     description: "8 Days Migration & Cultural Wonders departures limited to 8 guests.",
     href: "/safaris/8-days/8-day-migration-cultural-wonders",
-    image:
-      "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=900&q=80",
+    image: "/itenerary%20photos/small%20group%20trip.webp",
   },
 ];
 
@@ -101,11 +93,14 @@ export default function ItinerariesPage() {
       <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 py-16 md:px-6 lg:px-0">
         <header className="space-y-3 text-center">
           <p className="text-xs uppercase tracking-[0.4em] text-[#ba7e47]">Itineraries</p>
-          <h1 className="text-4xl font-semibold text-[#231f20]">
-            View all sample itineraries
+          <h1
+            className="text-4xl font-semibold text-[#231f20]"
+            style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+          >
+            View all our itineraries
           </h1>
           <p className="text-sm text-[#231f20]/80">
-            Pick a style below—safaris, coast, trekking, or luxury—and we’ll tailor the exact routing to your travel dates.
+            Pick a style below which include, safaris, coast, trekking, or luxury trips and we’ll tailor the exact routing to your travel dates.
           </p>
           <Link
             href="#sample-table"
@@ -200,7 +195,10 @@ export default function ItinerariesPage() {
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Pesapal checkout</p>
-              <h2 className="text-2xl font-semibold text-[#231f20]">
+              <h2
+                className="text-2xl font-semibold text-[#231f20]"
+                style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+              >
                 Secure your itinerary with live pricing.
               </h2>
               <p className="text-sm text-[#231f20]/80">
