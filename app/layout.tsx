@@ -51,6 +51,9 @@ export const metadata: Metadata = {
   title: "Eve On Safari | Bespoke Tanzania Journeys",
   description:
     "Plan immersive, conservation-led safaris across Tanzania with Eve On Safari’s expert travel designers.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
