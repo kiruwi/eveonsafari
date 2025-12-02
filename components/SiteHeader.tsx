@@ -57,11 +57,11 @@ const NAV_ITEMS: CardNavItem[] = [
     links: [
       { label: "All Experiences", href: "/experiences", ariaLabel: "Explore experiences" },
       {
-        label: "Family Expeditions",
-        href: "/experiences#family",
+        label: "Travel Styles",
+        href: "/experiences#TravelStyles",
         ariaLabel: "View family-friendly experiences",
       },
-      { label: "Active Adventures", href: "/experiences#active", ariaLabel: "View active trips" },
+      { label: "Destination By Circuite", href: "/experiences#active", ariaLabel: "View active trips" },
     ],
   },
   {
@@ -69,7 +69,7 @@ const NAV_ITEMS: CardNavItem[] = [
     bgColor: "#231f20",
     textColor: "#ffffff",
     links: [
-      { label: "Sample Routes", href: "/itineraries", ariaLabel: "Browse itineraries" },
+      { label: "All Routes", href: "/itineraries", ariaLabel: "Browse itineraries" },
       { label: "Migration Focus", href: "/itineraries#migration", ariaLabel: "View migration trips" },
       { label: "Bush & Beach", href: "/itineraries#coast", ariaLabel: "View bush and beach trips" },
     ],

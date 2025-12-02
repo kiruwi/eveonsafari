@@ -39,7 +39,7 @@ export default function ExperiencesPage() {
                 >
                   {style.name}
                 </h3>
-                <p className="mt-2 text-sm text-[#231f20]/70">/{style.slug}</p>
+                <p className="mt-2 text-sm text-[#231f20]/70">{style.slug}</p>
               </Link>
             ))}
           </div>
@@ -101,7 +101,7 @@ export default function ExperiencesPage() {
                 >
                   {trek.name}
                 </h4>
-                <p className="text-sm text-[#231f20]/70">/{trek.slug}</p>
+                <p className="text-sm text-[#231f20]/70">{trek.slug}</p>
               </div>
             ))}
           </div>

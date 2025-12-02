@@ -12,9 +12,9 @@ import {
 
 const customItineraryImages: Record<string, string> = {
   "2-day-ngorongoro-crater-adventure": "/photos/landing-page/elephants.webp",
-  "3-day-manyara-ngorongoro-tarangire": "/photos/landing-page/ngorongoro.jpg",
-  "3-day-serengeti-escape": "/photos/landing-page/serengeti.jpg",
-  "4-day-nyerere-safari": "/photos/landing-page/nyerere.jpg",
+  "3-day-manyara-ngorongoro-tarangire": "/photos/landing-page/ngorongoro.webp",
+  "3-day-serengeti-escape": "/photos/landing-page/serengeti.webp",
+  "4-day-nyerere-safari": "/photos/landing-page/nyerere.webp",
 };
 
 const featuredItineraries = safariPackages.slice(0, 4).map((trip) => ({
@@ -56,7 +56,7 @@ export default function HomePage() {
     <div className="bg-white">
       <section className="relative isolate -mt-[156px] overflow-hidden bg-[#0f0f0f] text-white sm:-mt-[168px]">
         <Image
-          src="/photos/landing-page/ngoro.jpg"
+          src="/photos/landing-page/ngoro.webp"
           alt="Sunrise over the savannah with acacia trees"
           fill
           priority
