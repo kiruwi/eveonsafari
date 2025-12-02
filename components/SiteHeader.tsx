@@ -114,13 +114,14 @@ export function SiteHeader() {
   const [isNavHidden, setNavHidden] = useState(false);
   const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const usesTransparentHeader = pathname === "/";
-  const isLightNav = isScrolled || !usesTransparentHeader;
-  const navTextColor = isLightNav ? "text-[#231f20]" : "text-white";
+  const isLightNavBase = isScrolled || !usesTransparentHeader;
+  const showNavBackground = isLightNavBase && !(isMobile && isMobileMenuOpen);
+  const navTextColor = showNavBackground ? "text-[#231f20]" : "text-white";
   const logoSrc = usesTransparentHeader && !isScrolled ? "/evelogowhite.png" : "/evelogo.png";
-  const ctaClasses = isLightNav
+  const ctaClasses = showNavBackground
     ? "rounded-full border border-[#231f20] px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white"
     : "rounded-full border border-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#231f20]";
-  const menuButtonClasses = isLightNav
+  const menuButtonClasses = showNavBackground
     ? "rounded-full border border-[#231f20] p-3 text-[#231f20] transition hover:bg-[#231f20] hover:text-white"
     : "rounded-full border border-white p-3 text-white transition hover:bg-white hover:text-[#231f20]";
 
@@ -310,7 +311,7 @@ export function SiteHeader() {
         style={{ height: BASE_HEIGHT }}
         onMouseLeave={handleMouseLeave}
       >
-        {isLightNav && (
+        {showNavBackground && (
           <div
             className="pointer-events-none absolute inset-0 -z-10 backdrop-blur-md"
             style={{
