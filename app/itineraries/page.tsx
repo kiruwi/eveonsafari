@@ -29,7 +29,7 @@ const sampleRoutes = [
   {
     title: "Kilimanjaro",
     description: "Machame, Lemosho, Marangu, and Northern Circuit treks with pro crews.",
-    href: "/trekking/kilimanjaro/machame-route/7-day-kilimanjaro-machame",
+    href: "/trekking",
     image:
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
   },
