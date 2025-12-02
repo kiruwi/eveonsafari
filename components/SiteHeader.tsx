@@ -269,6 +269,13 @@ export function SiteHeader() {
     setActiveIndex(index);
   };
 
+  const handleNavLinkClick = useCallback(() => {
+    if (isMobile) {
+      setMobileMenuOpen(false);
+      closeMenu();
+    }
+  }, [closeMenu, isMobile]);
+
   const handleMouseLeave = () => {
     if (!isMobile) {
       closeMenu();
@@ -403,6 +410,7 @@ export function SiteHeader() {
                         key={link.href + link.label}
                         href={link.href}
                         aria-label={link.ariaLabel}
+                        onClick={handleNavLinkClick}
                         className="inline-flex items-center gap-2 font-semibold transition hover:opacity-75"
                       >
                         <ArrowIcon />
