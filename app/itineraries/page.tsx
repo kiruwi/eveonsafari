@@ -92,12 +92,11 @@ export default function ItinerariesPage() {
     <div className="bg-white">
       <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 py-16 md:px-6 lg:px-0">
         <header className="space-y-3 text-center">
-          <p className="text-xs uppercase tracking-[0.4em] text-[#ba7e47]">Itineraries</p>
           <h1
             className="text-4xl font-semibold text-[#231f20]"
             style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
           >
-            View all our itineraries
+            These are our Safari Packages
           </h1>
           <p className="text-sm text-[#231f20]/80">
             Pick a style below which include, safaris, coast, trekking, or luxury trips and we’ll tailor the exact routing to your travel dates.
