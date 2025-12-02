@@ -377,10 +377,10 @@ export function SiteHeader() {
           </div>
         </div>
         <div
-          ref={contentRef}
-          id="card-nav-menu"
-          style={{ pointerEvents: isExpanded ? "auto" : "none", top: `${BASE_HEIGHT}px` }}
-          className="card-nav-content pointer-events-none absolute left-0 right-0 mx-auto max-w-6xl px-6 pb-4"
+        ref={contentRef}
+        id="card-nav-menu"
+        style={{ top: `${BASE_HEIGHT}px` }}
+        className={`card-nav-content absolute left-0 right-0 mx-auto max-w-6xl px-6 pb-4 ${isExpanded ? "pointer-events-auto z-20" : "pointer-events-none"}`}
         >
           {displayedItems.length > 0 && (
             <div
