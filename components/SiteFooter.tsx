@@ -62,9 +62,9 @@ export function SiteFooter() {
               <Image
                 src="/evelogowhite.png"
                 alt="Eve On Safari logo"
-                width={80}
-                height={80}
-                className="h-16 w-16 rounded-full object-contain"
+                width={160}
+                height={160}
+                className="h-32 w-32 rounded-full object-contain"
               />
               <div className="text-sm text-white/80">
                 <p>Mateves Street; Arusha – Tanzania</p>

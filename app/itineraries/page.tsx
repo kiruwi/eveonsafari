@@ -156,8 +156,9 @@ export default function ItinerariesPage() {
               Plan My Safari
             </Link>
             <div className="mt-8 space-y-2 text-xs text-white/70">
-              <p>+255 700 555 123 · concierge@eveonsafari.com</p>
-              <p>WhatsApp & Zoom consultations available daily.</p>
+              <p>WhatsApp: +255 768 611 005</p>
+              <p>Email: info@eveonsafari.com</p>
+              <p>Consultations via WhatsApp & Zoom daily.</p>
             </div>
           </aside>
         </section>
