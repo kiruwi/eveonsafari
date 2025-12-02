@@ -109,7 +109,7 @@ export default function KilimanjaroMaranguRoute8DayPage() {
       title="Kilimanjaro Climb on Marangu Route (8 Days)"
       durationLabel="8 days | 7 nights"
       airport="Pick up and drop off Kilimanjaro airport"
-      heroImage="https://images.unsplash.com/photo-1523978591478-c753949ff840?auto=format&fit=crop&w=1600&q=80"
+      heroImage="/mountain%20routes/marangu/marangu%20route%20main.webp"
       routeStyle="Hut-based 'Coca-Cola' route"
       accommodation="Mountain huts"
       difficulty="Moderate"

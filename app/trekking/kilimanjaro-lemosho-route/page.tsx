@@ -113,7 +113,7 @@ export default function KilimanjaroLemoshoRoutePage() {
       title="Kilimanjaro Climb on Lemosho Route"
       durationLabel="9 days | 8 nights"
       airport="Pick up and drop off at Kilimanjaro airport"
-      heroImage="https://images.unsplash.com/photo-1476611338391-6f395a0ebc71?auto=format&fit=crop&w=1600&q=80"
+      heroImage="/mountain%20routes/marangu/marangu%20route%20main.webp"
       routeStyle="Secluded western approach"
       accommodation="Mountain tents"
       difficulty="Challenging"

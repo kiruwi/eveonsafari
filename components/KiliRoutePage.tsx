@@ -46,6 +46,7 @@ function StatTag({ label, value }: { label: string; value: string }) {
 
 function DayCard({ day, index }: { day: DaySection; index: number }) {
   const isEven = index % 2 === 0;
+  const hasImage = day.image && !day.image.includes("unsplash.com");
   return (
     <article
       className={`grid items-center gap-6 border border-[#e0d7c4] bg-[#f7f3ea] px-6 py-5 md:grid-cols-[1fr_320px] ${
@@ -67,16 +68,26 @@ function DayCard({ day, index }: { day: DaySection; index: number }) {
           </ul>
         )}
       </div>
-      <div className={`relative h-[220px] w-full overflow-hidden ${isEven ? "" : "md:order-first"}`}>
-        <div className="absolute inset-0 bg-gradient-to-br from-black/15 to-black/0" />
-        <Image
-          src={day.image ?? "/photos/landing-page/serengeti.jpg"}
-          alt={day.title}
-          fill
-          className="object-cover"
-          sizes="(min-width: 1024px) 320px, 100vw"
-          priority={index < 2}
-        />
+      <div
+        className={`relative h-[220px] w-full overflow-hidden ${isEven ? "" : "md:order-first"}`}
+      >
+        {hasImage ? (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-black/15 to-black/0" />
+            <Image
+              src={day.image as string}
+              alt={day.title}
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 320px, 100vw"
+              priority={index < 2}
+            />
+          </>
+        ) : (
+          <div className="flex h-full items-center justify-center bg-[#e5dccb] text-sm font-semibold text-[#7c6137]">
+            Coming soon
+          </div>
+        )}
       </div>
     </article>
   );
@@ -107,7 +118,7 @@ export function KiliRoutePage(props: KiliRoutePageProps) {
 
   return (
     <div className="bg-white">
-      <section className="relative isolate overflow-hidden bg-[#0f0f0f] text-white">
+      <section className="relative isolate -mt-[156px] pt-[156px] sm:-mt-[168px] sm:pt-[168px] overflow-hidden bg-[#0f0f0f] text-white">
         <Image
           src={heroImage}
           alt={title}

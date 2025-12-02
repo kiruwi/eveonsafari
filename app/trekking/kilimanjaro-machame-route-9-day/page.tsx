@@ -107,7 +107,7 @@ export default function KilimanjaroMachameRoute9DayPage() {
       title="Kilimanjaro Climb on Machame Route (9 Days)"
       durationLabel="9 days | 8 nights"
       airport="Pick up and drop off Kilimanjaro airport."
-      heroImage="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80"
+      heroImage="/mountain%20routes/marangu/marangu%20route%20main.webp"
       routeStyle="Whiskey Route (camping)"
       accommodation="Mountain tents"
       difficulty="Challenging"

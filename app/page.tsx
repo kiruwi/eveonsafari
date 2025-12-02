@@ -190,7 +190,7 @@ export default function HomePage() {
               </div>
               <Link
                 href="/itineraries"
-                className="inline-flex w-fit items-center justify-center rounded-full bg-[#6f7a3a] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#59612c] sm:mx-0 mx-auto"
+                className="inline-flex w-fit items-center justify-center rounded-full bg-[#ba7e47] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#8a592e] sm:mx-0 mx-auto"
               >
                 Explore more
               </Link>
