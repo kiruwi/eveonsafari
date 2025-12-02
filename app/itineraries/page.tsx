@@ -163,32 +163,65 @@ export default function ItinerariesPage() {
         </section>
 
         <section id="sample-table" className="overflow-hidden rounded-[28px] border border-[#c3c3c3]">
-          <table className="w-full text-left text-sm text-[#231f20]">
-            <thead className="bg-[#c3c3c3]/40 text-xs uppercase tracking-[0.2em] text-[#231f20]">
-              <tr>
-                <th className="px-4 py-3">Trip</th>
-                <th className="px-4 py-3">Duration</th>
-                <th className="px-4 py-3">Countries</th>
-                <th className="px-4 py-3">Highlights</th>
-                <th className="px-4 py-3">Price Range</th>
-              </tr>
-            </thead>
-            <tbody>
-              {itineraries.map((trip, index) => (
-                <tr
-                  key={trip.name}
-                  id={trip.id}
-                  className={index % 2 ? "bg-[#c3c3c3]/10" : "bg-white"}
+          <div className="grid gap-4 p-4 sm:hidden">
+            {itineraries.map((trip) => (
+              <article
+                key={trip.name}
+                id={trip.id}
+                className="rounded-[20px] border border-[#c3c3c3] bg-white p-4 shadow-sm"
+              >
+                <p
+                  className="text-base font-semibold text-[#231f20]"
+                  style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
                 >
-                  <td className="px-4 py-4 font-semibold">{trip.name}</td>
-                  <td className="px-4 py-4">{trip.duration}</td>
-                  <td className="px-4 py-4">{trip.countries}</td>
-                  <td className="px-4 py-4">{trip.highlights}</td>
-                  <td className="px-4 py-4">{trip.price}</td>
+                  {trip.name}
+                </p>
+                <div className="mt-3 space-y-1 text-sm text-[#231f20]/80">
+                  <p>
+                    <span className="font-semibold text-[#231f20]">Duration:</span> {trip.duration}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-[#231f20]">Countries:</span> {trip.countries}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-[#231f20]">Highlights:</span> {trip.highlights}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-[#231f20]">Price Range:</span> {trip.price}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="hidden sm:block">
+            <table className="w-full text-left text-sm text-[#231f20]">
+              <thead className="bg-[#c3c3c3]/40 text-xs uppercase tracking-[0.2em] text-[#231f20]">
+                <tr>
+                  <th className="px-4 py-3">Trip</th>
+                  <th className="px-4 py-3">Duration</th>
+                  <th className="px-4 py-3">Countries</th>
+                  <th className="px-4 py-3">Highlights</th>
+                  <th className="px-4 py-3">Price Range</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {itineraries.map((trip, index) => (
+                  <tr
+                    key={trip.name}
+                    id={trip.id}
+                    className={index % 2 ? "bg-[#c3c3c3]/10" : "bg-white"}
+                  >
+                    <td className="px-4 py-4 font-semibold">{trip.name}</td>
+                    <td className="px-4 py-4">{trip.duration}</td>
+                    <td className="px-4 py-4">{trip.countries}</td>
+                    <td className="px-4 py-4">{trip.highlights}</td>
+                    <td className="px-4 py-4">{trip.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section className="rounded-[28px] border border-[#c3c3c3] bg-white p-6 shadow-sm">
