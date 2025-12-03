@@ -75,20 +75,6 @@ const NAV_ITEMS: CardNavItem[] = [
     ],
   },
   {
-    label: "Conservation",
-    bgColor: "#c3c3c3",
-    textColor: "#231f20",
-    links: [
-      { label: "Impact Overview", href: "/conservation", ariaLabel: "See conservation page" },
-      {
-        label: "Community Partners",
-        href: "/conservation#partners",
-        ariaLabel: "View partners",
-      },
-      { label: "Donate or Volunteer", href: "/conservation#get-involved", ariaLabel: "Get involved" },
-    ],
-  },
-  {
     label: "Trekking",
     bgColor: "#fdf2e4",
     textColor: "#231f20",

@@ -5,7 +5,6 @@ const staticRoutes = [
   "/itineraries",
   "/experiences",
   "/plan",
-  "/conservation",
   "/auth",
   "/auth/callback",
   "/trekking",
