@@ -75,12 +75,26 @@ const formatPriceRange = (pricing?: PackagePricing) => {
 
 const itineraries = safariPackages.map((pkg) => ({
   id: pkg.slug,
-  name: pkg.name.replace("Days ", "Days Tanzania Safari — "),
+  name: pkg.name
+    .replace(/^[0-9]+\s*Days?\s*/i, "")
+    .replace(/^[0-9]+[-\s]*Day\s*/i, "")
+    .replace(/^Tanzania\s*/i, "")
+    .replace(/^Safari\s*/i, "")
+    .replace(/^-/, "")
+    .trim(),
   duration: pkg.subcategory ?? "",
   countries: "Tanzania",
   highlights: pkg.highlights,
   price: formatPriceRange(safariPackagePricingUSD[pkg.slug]),
+  href: `/safaris/${pkg.slug}`,
 }));
+
+const safariImages: Record<string, string | undefined> = {
+  "2-day-ngorongoro-crater-adventure": "/photos/landing-page/elephants.webp",
+  "3-day-manyara-ngorongoro-tarangire": "/photos/landing-page/ngorongoro.webp",
+  "3-day-serengeti-escape": "/photos/landing-page/serengeti.webp",
+  "4-day-nyerere-safari": "/photos/landing-page/nyerere.webp",
+};
 
 const checkoutPackages = safariPackages.map((pkg) => ({
   name: pkg.name,
@@ -102,7 +116,7 @@ export default function ItinerariesPage() {
             Pick a style below which include, safaris, coast, trekking, or luxury trips and we’ll tailor the exact routing to your travel dates.
           </p>
           <Link
-            href="#sample-table"
+            href="#safari-grid"
             className="inline-flex items-center gap-2 rounded-full border border-[#231f20] px-5 py-2 text-xs font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white"
           >
             View detailed packages
@@ -117,7 +131,7 @@ export default function ItinerariesPage() {
                 <Link
                   key={card.title}
                   href={card.href}
-                  className="group rounded-[28px] border border-[#c3c3c3] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  className="group rounded-[28px] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className="relative h-44 w-full overflow-hidden rounded-[28px_28px_0_0]">
                     <Image
@@ -162,69 +176,73 @@ export default function ItinerariesPage() {
           </aside>
         </section>
 
-        <section id="sample-table" className="overflow-hidden rounded-[28px] border border-[#c3c3c3]">
-          <div className="grid gap-4 p-4 sm:hidden">
-            {itineraries.map((trip) => (
-              <article
-                key={trip.name}
-                id={trip.id}
-                className="rounded-[20px] border border-[#c3c3c3] bg-white p-4 shadow-sm"
+        <section
+          id="safari-grid"
+          className="rounded-[28px] bg-[#e5e0c8]/70 p-4 sm:p-6"
+        >
+          <div className="mb-4 flex items-center justify-between text-[#231f20]">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Safaris</p>
+              <h2
+                className="text-xl font-semibold text-[#231f20]"
+                style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
               >
-                <p
-                  className="text-base font-semibold text-[#231f20]"
-                  style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
-                >
-                  {trip.name}
-                </p>
-                <div className="mt-3 space-y-1 text-sm text-[#231f20]/80">
-                  <p>
-                    <span className="font-semibold text-[#231f20]">Duration:</span> {trip.duration}
-                  </p>
-                  <p>
-                    <span className="font-semibold text-[#231f20]">Countries:</span> {trip.countries}
-                  </p>
-                  <p>
-                    <span className="font-semibold text-[#231f20]">Highlights:</span> {trip.highlights}
-                  </p>
-                  <p>
-                    <span className="font-semibold text-[#231f20]">Price Range:</span> {trip.price}
-                  </p>
-                </div>
-              </article>
-            ))}
+                Pick your route
+              </h2>
+            </div>
+            <Link
+              href="#top"
+              className="hidden text-xs font-semibold uppercase tracking-wide text-[#231f20]/80 underline-offset-4 hover:text-[#231f20] sm:inline-flex"
+            >
+              Back to top
+            </Link>
           </div>
-
-          <div className="hidden sm:block">
-            <table className="w-full text-left text-sm text-[#231f20]">
-              <thead className="bg-[#c3c3c3]/40 text-xs uppercase tracking-[0.2em] text-[#231f20]">
-                <tr>
-                  <th className="px-4 py-3">Trip</th>
-                  <th className="px-4 py-3">Duration</th>
-                  <th className="px-4 py-3">Countries</th>
-                  <th className="px-4 py-3">Highlights</th>
-                  <th className="px-4 py-3">Price Range</th>
-                </tr>
-              </thead>
-              <tbody>
-                {itineraries.map((trip, index) => (
-                  <tr
-                    key={trip.name}
-                    id={trip.id}
-                    className={index % 2 ? "bg-[#c3c3c3]/10" : "bg-white"}
-                  >
-                    <td className="px-4 py-4 font-semibold">{trip.name}</td>
-                    <td className="px-4 py-4">{trip.duration}</td>
-                    <td className="px-4 py-4">{trip.countries}</td>
-                    <td className="px-4 py-4">{trip.highlights}</td>
-                    <td className="px-4 py-4">{trip.price}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {itineraries.map((trip) => {
+              const image = safariImages[trip.id];
+              return (
+                <Link
+                  key={trip.id}
+                  href={trip.href}
+                  className="group relative flex min-h-[300px] flex-col justify-end overflow-hidden rounded-[20px] bg-black p-4 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
+                  id={trip.id}
+                >
+                  <div className="pointer-events-none absolute inset-0">
+                    {image ? (
+                      <Image
+                        src={image}
+                        alt={trip.name}
+                        fill
+                        sizes="(min-width: 1280px) 240px, (min-width: 1024px) 220px, (min-width: 768px) 240px, 100vw"
+                        className="object-cover opacity-70 transition duration-500 group-hover:opacity-90"
+                        priority={false}
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-black" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                  </div>
+                  <div className="relative space-y-2 text-white">
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-[#ba7e47]">{trip.duration || "Safari"}</p>
+                    <h3
+                      className="text-lg font-semibold leading-tight tracking-[0.08em]"
+                      style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+                    >
+                      {trip.name}
+                    </h3>
+                    {/* Description removed per request */}
+                    <p className="text-sm font-semibold text-white">{trip.price}</p>
+                    <span className="inline-flex items-center text-sm font-semibold text-white">
+                      Details →
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
 
-        <section className="rounded-[28px] border border-[#c3c3c3] bg-white p-6 shadow-sm">
+        <section className="rounded-[28px] bg-white p-6 shadow-sm">
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Pesapal checkout</p>

@@ -98,10 +98,12 @@ export function SiteHeader() {
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNavHidden, setNavHidden] = useState(false);
+  const [contentHeight, setContentHeight] = useState(0);
   const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const usesTransparentHeader = pathname === "/";
   const isLightNavBase = isScrolled || !usesTransparentHeader;
-  const showNavBackground = isLightNavBase && !(isMobile && isMobileMenuOpen);
+  const showNavBackground =
+    (isLightNavBase || isExpanded || isMobileMenuOpen) && !(isMobile && isMobileMenuOpen);
   const navTextColor = showNavBackground ? "text-[#231f20]" : "text-white";
   const logoSrc = usesTransparentHeader && !isScrolled ? "/evelogowhite.png" : "/evelogo.png";
   const ctaClasses = showNavBackground
@@ -251,6 +253,25 @@ export function SiteHeader() {
     }
   }, [activeIndex, closeMenu, isMobile, isMobileMenuOpen, openMenu]);
 
+  useLayoutEffect(() => {
+    const measureHeight = () => {
+      const el = contentRef.current;
+      if (!el) return;
+      const height = el.scrollHeight ?? 0;
+      setContentHeight((prev) => (height > 0 ? height : prev));
+    };
+    measureHeight();
+
+    const observer = new ResizeObserver(measureHeight);
+    if (contentRef.current) {
+      observer.observe(contentRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [displayedItems]);
+
   const handleDesktopNav = (index: number) => {
     if (isMobile || index === 0) return;
     setActiveIndex(index);
@@ -278,6 +299,7 @@ export function SiteHeader() {
   };
 
   const showMobileBackdrop = isMobile && isMobileMenuOpen;
+  const navHeight = isExpanded ? BASE_HEIGHT + Math.max(contentHeight + 16, 0) : BASE_HEIGHT;
 
   return (
     <header
@@ -294,7 +316,7 @@ export function SiteHeader() {
       <div
         ref={navRef}
         className="relative z-10 w-full overflow-visible transition-colors duration-300"
-        style={{ height: BASE_HEIGHT }}
+        style={{ height: navHeight }}
         onMouseLeave={handleMouseLeave}
       >
         {showNavBackground && (

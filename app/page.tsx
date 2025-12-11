@@ -17,6 +17,19 @@ const customItineraryImages: Record<string, string> = {
   "4-day-nyerere-safari": "/photos/landing-page/nyerere.webp",
 };
 
+const itineraryDetailLinks: Record<string, string> = {
+  "2-day-ngorongoro-crater-adventure": "/safaris/2-day-ngorongoro-crater-adventure",
+  "3-day-manyara-ngorongoro-tarangire": "/safaris/3-day-manyara-ngorongoro-tarangire",
+  "3-day-serengeti-escape": "/safaris/3-day-serengeti-escape",
+  "4-day-nyerere-safari": "/safaris/4-day-nyerere-safari",
+  "5-day-iconic-wildlife-adventure": "/safaris/5-day-iconic-wildlife-adventure",
+  "6-day-best-northern-parks": "/safaris/6-day-best-northern-parks",
+  "7-day-northern-highlights": "/safaris/7-day-northern-highlights",
+  "8-day-migration-cultural-wonders": "/safaris/8-day-migration-cultural-wonders",
+  "9-day-grand-tanzania": "/safaris/9-day-grand-tanzania",
+  "10-day-best-of-tanzania": "/safaris/10-day-best-of-tanzania",
+};
+
 const featuredItineraries = safariPackages.slice(0, 4).map((trip) => ({
   ...trip,
   image: customItineraryImages[trip.slug],
@@ -199,7 +212,7 @@ export default function HomePage() {
               {featuredItineraries.map((trip) => (
                 <article
                   key={trip.slug}
-                  className="relative flex h-[360px] flex-col justify-end overflow-hidden rounded-[32px] bg-cover bg-center p-6 text-white shadow-xl transition-transform hover:-translate-y-1"
+                  className="relative flex h-[360px] flex-col justify-end overflow-hidden rounded-[32px] bg-cover bg-center p-6 text-white shadow-lg transition-transform hover:-translate-y-1"
                   style={{
                     backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.7) 100%), url(${trip.image})`,
                   }}
@@ -217,8 +230,8 @@ export default function HomePage() {
                     </p>
                   </div>
                   <Link
-                    href={`/plan?package=${trip.slug}`}
-                    className="mt-6 inline-flex items-center gap-2 rounded-full border border-white px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+                    href={itineraryDetailLinks[trip.slug] ?? `/plan?package=${trip.slug}`}
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/25"
                   >
                     Details →
                   </Link>
