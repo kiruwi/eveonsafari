@@ -14,9 +14,14 @@ body {
 }
 
 h1 {
-  font-family: var(--font-title), var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-american-grunge), var(--font-geist-sans), Arial, Helvetica, sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
+}
+
+/* Add gentle spacing for display titles set with the grunge font */
+[style*="var(--font-american-grunge"] {
+  letter-spacing: 0.08em;
 }
 
 @layer base {

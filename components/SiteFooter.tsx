@@ -55,7 +55,7 @@ export function SiteFooter() {
               {safariLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="inline-flex items-center gap-2 hover:text-[#f2d3b0]">
-                    <span aria-hidden className="inline-block" style={{ transform: "rotate(45deg)" }}>→</span>
+                    <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
                     {link.label}
                   </Link>
                 </li>
@@ -69,7 +69,7 @@ export function SiteFooter() {
               {trekLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="inline-flex items-center gap-2 hover:text-[#f2d3b0]">
-                    <span aria-hidden className="inline-block" style={{ transform: "rotate(45deg)" }}>→</span>
+                    <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
                     {link.label}
                   </Link>
                 </li>
@@ -83,7 +83,7 @@ export function SiteFooter() {
               {planningLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="inline-flex items-center gap-2 hover:text-[#f2d3b0]">
-                    <span aria-hidden className="inline-block" style={{ transform: "rotate(45deg)" }}>→</span>
+                    <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
                     {link.label}
                   </Link>
                 </li>
