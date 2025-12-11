@@ -191,7 +191,7 @@ export function PesapalCheckoutButton({
   const selectValue = options.length ? tier : '';
 
   return (
-    <div className="space-y-3 rounded-[20px] border border-[#c3c3c3] bg-white/80 p-4 text-[#231f20] shadow-sm backdrop-blur">
+    <div className="space-y-3 rounded-[20px] bg-white/80 p-4 text-[#231f20] shadow-md backdrop-blur">
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="text-sm font-semibold text-[#231f20]">
           Price option

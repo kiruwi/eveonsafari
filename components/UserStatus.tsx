@@ -66,7 +66,7 @@ export function UserStatus() {
 
   if (state.status === 'loading') {
     return (
-      <div className="rounded-2xl border border-[#c3c3c3] bg-white px-4 py-3 text-sm text-[#231f20]/70">
+      <div className="rounded-2xl bg-white px-4 py-3 text-sm text-[#231f20]/70 shadow-md">
         Checking auth status...
       </div>
     );
@@ -74,7 +74,7 @@ export function UserStatus() {
 
   if (state.status === 'signedOut') {
     return (
-      <div className="flex items-center justify-between gap-4 rounded-2xl border border-[#c3c3c3] bg-white px-4 py-3">
+      <div className="flex items-center justify-between gap-4 rounded-2xl bg-white px-4 py-3 shadow-md">
         <div>
           <p className="text-sm font-semibold text-[#231f20]">You are signed out</p>
           <p className="text-xs text-[#231f20]/70">Use Google to sign in or create an account.</p>
@@ -90,7 +90,7 @@ export function UserStatus() {
   }
 
   return (
-    <div className="flex items-center justify-between gap-4 rounded-2xl border border-[#c3c3c3] bg-white px-4 py-3">
+    <div className="flex items-center justify-between gap-4 rounded-2xl bg-white px-4 py-3 shadow-md">
       <div>
         <p className="text-sm font-semibold text-[#231f20]">Signed in</p>
         <p className="text-xs text-[#231f20]/70">{state.email}</p>

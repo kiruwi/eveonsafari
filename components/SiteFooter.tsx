@@ -1,64 +1,39 @@
 import Image from "next/image";
 import Link from "next/link";
-import { guides, travelStyles } from "@/lib/siteContent";
-
 const contactInfo = {
   address: "Mateves Street; Arusha – Tanzania",
   phone: "+255 768 611 005",
   email: "info@eveonsafari.com",
 };
 
-const wildlifeGuideSlugs = [
-  "safari-planning-guide",
-  "best-time-to-visit",
-  "tipping-guide",
-  "entry-requirements",
-  "safari-faq",
-  "gear-checklist",
+const safariLinks = [
+  { label: "2 Days Ngorongoro", href: "/safaris/2-day-ngorongoro-crater-adventure" },
+  { label: "3 Days Manyara–Ngorongoro–Tarangire", href: "/safaris/3-day-manyara-ngorongoro-tarangire" },
+  { label: "3 Days Serengeti Escape", href: "/safaris/3-day-serengeti-escape" },
+  { label: "4 Days Nyerere", href: "/safaris/4-day-nyerere-safari" },
+  { label: "5-10 Day Safaris", href: "/itineraries#safari-grid" },
 ];
 
-const travelStyleMapping = [
-  { label: "Serengeti Migration Safaris", slug: "The Serengeti Great Migration Safari" },
-  { label: "Tanzania Photographic Safaris", slug: "Tanzania Photographic Safaris" },
-  { label: "Bird Watching Safaris", slug: "Bird Watching Safaris" },
-  { label: "Tanzania Family Safaris", slug: "Tanzania Family Safaris" },
-  { label: "Cultural & Eco-Tourism Safari", slug: "Cultural & Eco-Tourism Safaris" },
-  { label: "Tanzania Safari & Beach Holiday", slug: "Tanzania Safari & Beach Holidays" },
+const trekLinks = [
+  { label: "Kilimanjaro Lemosho", href: "/trekking/kilimanjaro-lemosho-route" },
+  { label: "Kilimanjaro Machame", href: "/trekking/kilimanjaro-machame-route" },
+  { label: "Kilimanjaro Marangu", href: "/trekking/kilimanjaro-marangu-route" },
 ];
 
-const kilimanjaroPrepLinks = [
-  { label: "How To Prepare?", href: "/guides/kilimanjaro-preparation" },
-  { label: "Kilimanjaro Gear List", href: "/guides/gear-checklist" },
-  { label: "Physical Training", href: "/guides/kilimanjaro-preparation#physical-training" },
-  { label: "Altitude Training", href: "/guides/kilimanjaro-preparation#altitude" },
-  { label: "Travel Insurance", href: "/plan" },
-  { label: "Vaccines & Immunizations", href: "/guides/entry-requirements" },
+const planningLinks = [
+  { label: "Plan a Safari", href: "/plan" },
+  { label: "Itineraries", href: "/itineraries" },
+  { label: "Experiences", href: "/experiences" },
 ];
 
 export function SiteFooter() {
-  const wildlifeLinks = wildlifeGuideSlugs
-    .map((slug) => {
-      const guide = guides.find((g) => g.slug === slug);
-      if (!guide) return null;
-      return { label: guide.name, href: `/guides/${slug}` };
-    })
-    .filter((item): item is { label: string; href: string } => Boolean(item));
-
-  const travelStyleLinks = travelStyleMapping
-    .map((item) => {
-      const exists = travelStyles.find((style) => style.name === item.label);
-      if (!exists) return null;
-      return { label: item.label, href: `/travel-style/${item.label.toLowerCase().replace(/ /g, "-")}` };
-    })
-    .filter((item): item is { label: string; href: string } => Boolean(item));
-
   return (
     <footer className="border-t border-white/10 bg-[#6b3b1f] text-white">
       <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10 md:px-6 lg:px-0">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <div>
+          <div className="text-center">
             <p className="text-sm font-semibold text-white">Contact Info</p>
-            <div className="mt-4 flex items-center gap-4">
+            <div className="mt-4 flex flex-col items-center gap-3">
               <Image
                 src="/evelogowhite.png"
                 alt="Eve On Safari logo"
@@ -66,23 +41,21 @@ export function SiteFooter() {
                 height={160}
                 className="h-32 w-32 rounded-full object-contain"
               />
-              <div className="text-sm text-white/80">
-                <p>Mateves Street; Arusha – Tanzania</p>
-              </div>
+              <p className="text-sm text-white/80 leading-snug">{contactInfo.address}</p>
             </div>
-            <div className="mt-4 space-y-2 text-sm text-white/80">
-              <p>WhatsApp: {contactInfo.phone}</p>
-              <p>Email: {contactInfo.email}</p>
+            <div className="mt-3 space-y-1 text-sm text-white/80">
+              <p className="text-center">WhatsApp: {contactInfo.phone}</p>
+              <p className="text-center">Email: {contactInfo.email}</p>
             </div>
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-white">Wildlife Safari Guide</p>
+            <p className="text-sm font-semibold text-white">Safaris</p>
             <ul className="mt-3 space-y-2 text-sm text-white/80">
-              {wildlifeLinks.map((link) => (
+              {safariLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="inline-flex items-center gap-2 hover:text-[#f2d3b0]">
-                    <span aria-hidden>→</span>
+                    <span aria-hidden>↗</span>
                     {link.label}
                   </Link>
                 </li>
@@ -91,12 +64,12 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-white">Travel Styles & Tour Experiences</p>
+            <p className="text-sm font-semibold text-white">Trekking</p>
             <ul className="mt-3 space-y-2 text-sm text-white/80">
-              {travelStyleLinks.map((link) => (
+              {trekLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="inline-flex items-center gap-2 hover:text-[#f2d3b0]">
-                    <span aria-hidden>→</span>
+                    <span aria-hidden>↗</span>
                     {link.label}
                   </Link>
                 </li>
@@ -105,12 +78,12 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-white">Kilimanjaro Climbing Preparation</p>
+            <p className="text-sm font-semibold text-white">Planning</p>
             <ul className="mt-3 space-y-2 text-sm text-white/80">
-              {kilimanjaroPrepLinks.map((link) => (
-                <li key={link.label}>
+              {planningLinks.map((link) => (
+                <li key={link.href}>
                   <Link href={link.href} className="inline-flex items-center gap-2 hover:text-[#f2d3b0]">
-                    <span aria-hidden>→</span>
+                    <span aria-hidden>↗</span>
                     {link.label}
                   </Link>
                 </li>

@@ -22,7 +22,7 @@ export default function TrekkingPage() {
               <p className="mt-2 text-sm text-[#231f20]/70">{route.duration}</p>
               <p className="mt-4 text-sm text-[#231f20]/80">{route.summary}</p>
               <Link href={`/trekking/${route.slug}`} className="mt-4 inline-block text-sm font-semibold text-[#ba7e47]">
-                Read route →
+                Read route ↗
               </Link>
             </article>
           ))}

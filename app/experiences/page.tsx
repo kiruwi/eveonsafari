@@ -14,7 +14,7 @@ export default function ExperiencesPage() {
         <header className="space-y-4 text-center">
           <p className="text-xs uppercase tracking-[0.4em] text-[#ba7e47]">Experiences</p>
           <h1
-            className="text-4xl font-semibold text-[#231f20]"
+            className="text-4xl font-semibold text-[#231f20] tracking-[0.04em]"
             style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
           >
             Choose by travel style or region
@@ -24,17 +24,17 @@ export default function ExperiencesPage() {
           </p>
         </header>
 
-        <section className="rounded-[32px] border border-[#c3c3c3] bg-white p-8 shadow-sm">
+        <section className="rounded-[32px] bg-white p-8 shadow-md">
           <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Travel styles</p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {travelStyles.map((style) => (
               <Link
                 key={style.slug}
                 href={`/travel-style/${style.slug}`}
-                className="rounded-[24px] border border-[#c3c3c3] p-5 transition hover:-translate-y-1 hover:shadow"
+                className="rounded-[24px] p-5 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
               >
                 <h3
-                  className="text-xl font-semibold text-[#231f20]"
+                  className="text-xl font-semibold text-[#231f20] tracking-[0.04em]"
                   style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
                 >
                   {style.name}
@@ -45,13 +45,13 @@ export default function ExperiencesPage() {
           </div>
         </section>
 
-        <section className="rounded-[32px] border border-[#c3c3c3] bg-[#c3c3c3]/10 p-8">
+        <section className="rounded-[32px] bg-[#c3c3c3]/10 p-8 shadow-md">
           <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Destinations by circuit</p>
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             {destinationGroups.map((group) => (
-              <article key={group.region} className="rounded-[24px] border border-[#c3c3c3] bg-white p-6">
+              <article key={group.region} className="rounded-[24px] bg-white p-6 shadow-md">
                 <h3
-                  className="text-2xl font-semibold text-[#231f20]"
+                  className="text-2xl font-semibold text-[#231f20] tracking-[0.04em]"
                   style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
                 >
                   {group.region}
@@ -67,7 +67,7 @@ export default function ExperiencesPage() {
         </section>
 
         <section className="grid gap-6 md:grid-cols-2">
-          <article className="rounded-[28px] border border-[#c3c3c3] bg-white p-6 shadow-sm">
+          <article className="rounded-[28px] bg-white p-6 shadow-md">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Day trips</p>
             <ul className="mt-3 space-y-2 text-sm text-[#231f20]/80">
               {dayTrips.map((trip) => (
@@ -77,7 +77,7 @@ export default function ExperiencesPage() {
               ))}
             </ul>
           </article>
-          <article className="rounded-[28px] border border-[#c3c3c3] bg-white p-6 shadow-sm">
+          <article className="rounded-[28px] bg-white p-6 shadow-md">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Zanzibar Tours</p>
             <ul className="mt-3 space-y-2 text-sm text-[#231f20]/80">
               {zanzibarTours.map((tour) => (
@@ -89,14 +89,14 @@ export default function ExperiencesPage() {
           </article>
         </section>
 
-        <section className="rounded-[32px] border border-[#c3c3c3] bg-white p-8 shadow-sm">
+        <section className="rounded-[32px] bg-white p-8 shadow-md">
           <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Trekking Routes</p>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             {trekkingPackages.map((trek) => (
-              <div key={trek.slug} className="rounded-[20px] border border-[#c3c3c3] p-4">
+              <div key={trek.slug} className="rounded-[20px] p-4 shadow-md">
                 <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">{trek.route}</p>
                 <h4
-                  className="text-lg font-semibold text-[#231f20]"
+                  className="text-lg font-semibold text-[#231f20] tracking-[0.03em]"
                   style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
                 >
                   {trek.name}
