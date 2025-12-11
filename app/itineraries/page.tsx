@@ -94,6 +94,12 @@ const safariImages: Record<string, string | undefined> = {
   "3-day-manyara-ngorongoro-tarangire": "/photos/landing-page/ngorongoro.webp",
   "3-day-serengeti-escape": "/photos/landing-page/serengeti.webp",
   "4-day-nyerere-safari": "/photos/landing-page/nyerere.webp",
+  "5-day-iconic-wildlife-adventure": "/itenerary photos/route/Iconic Wildlife.webp",
+  "6-day-best-northern-parks": "/itenerary photos/route/Best of Northern Park.webp",
+  "7-day-northern-highlights": "/itenerary photos/route/Northern Highights.webp",
+  "8-day-migration-cultural-wonders": "/itenerary photos/route/Migration Safari.webp",
+  "9-day-grand-tanzania": "/itenerary photos/route/i.webp",
+  "10-day-best-of-tanzania": "/itenerary photos/route/best of tanzania.webp",
 };
 
 const checkoutPackages = safariPackages.map((pkg) => ({
@@ -197,7 +203,7 @@ export default function ItinerariesPage() {
               Back to top
             </Link>
           </div>
-          <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
             {itineraries.map((trip) => {
               const image = safariImages[trip.id];
               return (
