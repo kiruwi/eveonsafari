@@ -48,7 +48,7 @@ const stats = [
 ];
 
 const heroCardWaveClip =
-  "polygon(0 0, 100% 0, 100% calc(100% - 3px), 96% 100%, 90% calc(100% - 4px), 84% 100%, 78% calc(100% - 3px), 72% 100%, 66% calc(100% - 4px), 60% 100%, 54% calc(100% - 3px), 48% 100%, 42% calc(100% - 4px), 36% 100%, 30% calc(100% - 3px), 24% 100%, 18% calc(100% - 4px), 12% 100%, 6% calc(100% - 3px), 0 100%, 0 calc(100% - 3px))";
+  "polygon(0 0, 100% 0, 100% calc(100% - 10px), 80% 100%, 60% calc(100% - 8px), 40% 100%, 20% calc(100% - 8px), 0 100%, 0 calc(100% - 10px))";
 
 const usdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",

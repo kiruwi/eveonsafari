@@ -326,8 +326,8 @@ export function SiteHeader() {
               backgroundColor: "rgba(229, 224, 200, 0.6)",
               clipPath:
                 isMobile
-                  ? "polygon(0 0, 100% 0, 100% calc(100% - 6px), 90% 100%, 75% calc(100% - 4px), 60% 100%, 45% calc(100% - 3px), 30% 100%, 15% calc(100% - 4px), 0 calc(100% - 3px))"
-                  : "polygon(0 0, 100% 0, 100% calc(100% - 6px), 96% 100%, 92% calc(100% - 3px), 88% 100%, 84% calc(100% - 5px), 80% 100%, 76% calc(100% - 4px), 72% 100%, 68% calc(100% - 6px), 64% 100%, 60% calc(100% - 4px), 56% 100%, 52% calc(100% - 5px), 48% 100%, 44% calc(100% - 3px), 40% 100%, 36% calc(100% - 6px), 32% 100%, 28% calc(100% - 4px), 24% 100%, 20% calc(100% - 5px), 16% 100%, 12% calc(100% - 3px), 8% 100%, 4% calc(100% - 4px), 0 calc(100% - 3px))",
+                  ? "polygon(0 0, 100% 0, 100% calc(100% - 8px), 75% 100%, 50% calc(100% - 6px), 25% 100%, 0 calc(100% - 6px))"
+                  : "polygon(0 0, 100% 0, 100% calc(100% - 8px), 82% 100%, 64% calc(100% - 6px), 46% 100%, 28% calc(100% - 6px), 10% 100%, 0 calc(100% - 8px))",
             }}
             aria-hidden="true"
           />
