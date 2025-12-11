@@ -134,7 +134,7 @@ export default function IconicWildlifeAdventurePage() {
     <div className="bg-white">
       <section className="relative isolate overflow-hidden bg-[#0f0f0f] text-white">
         <Image
-          src="/photos/landing-page/elephants.webp"
+          src="/itenerary%20photos/route/Iconic%20Wildlife.webp"
           alt="Elephants and acacia in Tanzania"
           fill
           priority

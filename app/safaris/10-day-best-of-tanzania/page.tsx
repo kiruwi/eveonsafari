@@ -169,7 +169,7 @@ export default function BestOfTanzaniaTenDayPage() {
     <div className="bg-white">
       <section className="relative isolate overflow-hidden bg-[#0f0f0f] text-white">
         <Image
-          src="/photos/landing-page/ngorongoro.webp"
+          src="/itenerary%20photos/route/best%20of%20tanzania.webp"
           alt="Tanzania safari scenery"
           fill
           priority

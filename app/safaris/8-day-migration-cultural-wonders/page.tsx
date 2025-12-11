@@ -155,7 +155,7 @@ export default function MigrationCulturalWondersPage() {
     <div className="bg-white">
       <section className="relative isolate overflow-hidden bg-[#0f0f0f] text-white">
         <Image
-          src="/photos/landing-page/ngorongoro.webp"
+          src="/itenerary%20photos/route/Migration%20Safari.webp"
           alt="Tanzania safari landscape"
           fill
           priority

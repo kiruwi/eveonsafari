@@ -148,7 +148,7 @@ export default function NorthernHighlightsPage() {
     <div className="bg-white">
       <section className="relative isolate overflow-hidden bg-[#0f0f0f] text-white">
         <Image
-          src="/photos/landing-page/elephants.webp"
+          src="/itenerary%20photos/route/Northern%20Highights.webp"
           alt="Tanzania safari landscape"
           fill
           priority
