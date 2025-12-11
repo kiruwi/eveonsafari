@@ -172,7 +172,7 @@ export default function HomePage() {
               <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">{route.title}</p>
               <p className="mt-2 text-sm text-[#231f20]/80">{route.description}</p>
               <Link href={route.href} className="mt-4 inline-flex text-sm font-semibold text-[#ba7e47]">
-                Explore ↗
+                Explore <span aria-hidden className="inline-block" style={{ transform: "rotate(45deg)" }}>→</span>
               </Link>
             </article>
           ))}
@@ -233,7 +233,7 @@ export default function HomePage() {
                     href={itineraryDetailLinks[trip.slug] ?? `/plan?package=${trip.slug}`}
                     className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/25"
                   >
-                    Details ↗
+                    Details <span aria-hidden className="inline-block" style={{ transform: "rotate(45deg)" }}>→</span>
                   </Link>
                 </article>
               ))}
@@ -249,7 +249,7 @@ export default function HomePage() {
                 <h3 className="text-xl font-semibold text-[#231f20]">{route.name}</h3>
                 <p className="mt-2 text-sm text-[#231f20]/80">{route.duration}</p>
                 <Link href={`/trekking/${route.slug}`} className="mt-3 inline-block text-sm font-semibold text-[#ba7e47]">
-                  Continue reading ↗
+                  Continue reading <span aria-hidden className="inline-block" style={{ transform: "rotate(45deg)" }}>→</span>
                 </Link>
               </article>
             ))}
