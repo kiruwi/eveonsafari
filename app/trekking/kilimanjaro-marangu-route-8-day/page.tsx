@@ -87,7 +87,7 @@ const exclusions = [
 ];
 
 const cancellation = [
-  "Itinerary is flexible and can be modified to suit preferences.",
+  "Safari plan is flexible and can be modified to suit preferences.",
   "Quotation only until confirmed; prices may change with park fee or supplier adjustments.",
   "30% deposit at confirmation; balance due at least 35 days before departure.",
   "35 days prior: 30% fee; 34–15 days: 50%; 14 days to no-show: 100%.",

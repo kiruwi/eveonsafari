@@ -51,6 +51,16 @@ const NAV_ITEMS: CardNavItem[] = [
     ],
   },
   {
+    label: "About",
+    bgColor: "#e5e0c8",
+    textColor: "#231f20",
+    links: [
+      { label: "About Us", href: "/about-us", ariaLabel: "Learn about Eve On Safari" },
+      { label: "Our Values", href: "/about-us#values", ariaLabel: "Read Eve On Safari values" },
+      { label: "Meet Evaline", href: "/about-us#founder", ariaLabel: "Meet the founder of Eve On Safari" },
+    ],
+  },
+  {
     label: "Experiences",
     bgColor: "#ba7e47",
     textColor: "#ffffff",
@@ -65,11 +75,11 @@ const NAV_ITEMS: CardNavItem[] = [
     ],
   },
   {
-    label: "Itineraries",
+    label: "Safaris",
     bgColor: "#231f20",
     textColor: "#ffffff",
     links: [
-      { label: "All Routes", href: "/itineraries", ariaLabel: "Browse itineraries" },
+      { label: "All Safaris", href: "/itineraries", ariaLabel: "Browse safari journeys" },
       { label: "Migration Focus", href: "/itineraries#migration", ariaLabel: "View migration trips" },
       { label: "Bush & Beach", href: "/itineraries#coast", ariaLabel: "View bush and beach trips" },
     ],
@@ -324,10 +334,7 @@ export function SiteHeader() {
             className="pointer-events-none absolute inset-0 -z-10 backdrop-blur-md"
             style={{
               backgroundColor: "rgba(229, 224, 200, 0.6)",
-              clipPath:
-                isMobile
-                  ? "polygon(0 0, 100% 0, 100% calc(100% - 8px), 75% 100%, 50% calc(100% - 6px), 25% 100%, 0 calc(100% - 6px))"
-                  : "polygon(0 0, 100% 0, 100% calc(100% - 8px), 82% 100%, 64% calc(100% - 6px), 46% 100%, 28% calc(100% - 6px), 10% 100%, 0 calc(100% - 8px))",
+              // clipPath removed to keep nav edge straight
             }}
             aria-hidden="true"
           />

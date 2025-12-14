@@ -49,7 +49,7 @@ function DayCard({ day, index }: { day: DaySection; index: number }) {
   const hasImage = day.image && !day.image.includes("unsplash.com");
   return (
     <article
-      className={`grid items-center gap-6 border border-[#e0d7c4] bg-[#f7f3ea] px-6 py-5 md:grid-cols-[1fr_320px] ${
+      className={`grid items-center gap-6 border border-[#e0d7c4] bg-[#f7f3ea] px-6 py-5 md:grid-cols-[1fr_360px] ${
         isEven ? "" : "md:grid-flow-col-dense"
       }`}
     >
@@ -63,7 +63,7 @@ function DayCard({ day, index }: { day: DaySection; index: number }) {
         {day.highlights && (
           <ul className="space-y-1 text-sm text-[#231f20]/80">
             {day.highlights.map((item) => (
-              <li key={item}>• {item}</li>
+              <li key={item}>- {item}</li>
             ))}
           </ul>
         )}
@@ -79,7 +79,7 @@ function DayCard({ day, index }: { day: DaySection; index: number }) {
               alt={day.title}
               fill
               className="object-cover"
-              sizes="(min-width: 1024px) 320px, 100vw"
+              sizes="(min-width: 1024px) 400px, 100vw"
               priority={index < 2}
             />
           </>
@@ -179,7 +179,7 @@ export function KiliRoutePage(props: KiliRoutePageProps) {
         <section id="itinerary" className="space-y-6">
           <div className="space-y-2">
             <p className="text-xs uppercase tracking-[0.3em] text-[#7c6137]">Day by day</p>
-            <h2 className="text-3xl font-semibold text-[#231f20]">Itinerary outline</h2>
+          <h2 className="text-3xl font-semibold text-[#231f20]">Safari outline</h2>
             <p className="text-sm text-[#231f20]/75">
               Follow the daily rhythm: early starts, steady climbs, acclimatization pauses, and summit night, all staged for altitude success.
             </p>

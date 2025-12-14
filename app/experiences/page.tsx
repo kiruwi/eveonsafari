@@ -31,7 +31,7 @@ export default function ExperiencesPage() {
               <Link
                 key={style.slug}
                 href={`/travel-style/${style.slug}`}
-                className="rounded-[24px] p-5 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
+                className="rounded-[24px] bg-white p-5 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
               >
                 <h3
                   className="text-xl font-semibold text-[#231f20] tracking-[0.04em]"
@@ -39,7 +39,9 @@ export default function ExperiencesPage() {
                 >
                   {style.name}
                 </h3>
-                <p className="mt-2 text-sm text-[#231f20]/70">{style.slug}</p>
+                {style.description && (
+                  <p className="mt-2 text-sm text-[#231f20]/70">{style.description}</p>
+                )}
               </Link>
             ))}
           </div>

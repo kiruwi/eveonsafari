@@ -22,7 +22,7 @@ const trekLinks = [
 
 const planningLinks = [
   { label: "Plan a Safari", href: "/plan" },
-  { label: "Itineraries", href: "/itineraries" },
+  { label: "Safaris", href: "/itineraries" },
   { label: "Experiences", href: "/experiences" },
 ];
 
@@ -55,7 +55,19 @@ export function SiteFooter() {
               {safariLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="inline-flex items-center gap-2 hover:text-[#f2d3b0]">
-                    <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
+                    <svg
+                      aria-hidden="true"
+                      className="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17 17 7" />
+                      <path d="M10 7h7v7" />
+                    </svg>
                     {link.label}
                   </Link>
                 </li>
@@ -69,7 +81,19 @@ export function SiteFooter() {
               {trekLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="inline-flex items-center gap-2 hover:text-[#f2d3b0]">
-                    <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
+                    <svg
+                      aria-hidden="true"
+                      className="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17 17 7" />
+                      <path d="M10 7h7v7" />
+                    </svg>
                     {link.label}
                   </Link>
                 </li>
@@ -83,7 +107,19 @@ export function SiteFooter() {
               {planningLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="inline-flex items-center gap-2 hover:text-[#f2d3b0]">
-                    <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
+                    <svg
+                      aria-hidden="true"
+                      className="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17 17 7" />
+                      <path d="M10 7h7v7" />
+                    </svg>
                     {link.label}
                   </Link>
                 </li>

@@ -55,12 +55,14 @@ export const safariPackages = [
 ];
 
 export const trekkingPackages = [
-  { name: "Marangu 6 Days", slug: "6-day-kilimanjaro-marangu", route: "Marangu Route" },
-  { name: "Umbwe 6 Days", slug: "6-day-kilimanjaro-umbwe", route: "Umbwe Route" },
-  { name: "Machame 7 Days", slug: "7-day-kilimanjaro-machame", route: "Machame Route" },
-  { name: "Rongai 7 Days", slug: "7-day-kilimanjaro-rongai", route: "Rongai Route" },
-  { name: "Lemosho 8 Days", slug: "8-day-kilimanjaro-lemosho", route: "Lemosho Route" },
-  { name: "Northern Circuit 9 Days", slug: "9-day-kilimanjaro-northern-circuit", route: "Northern Circuit" },
+  { name: "6 Days Umbwe Route Kilimanjaro Climb", slug: "6-day-umbwe-route-kilimanjaro-trek", route: "Umbwe Route" },
+  { name: "7 Days Marangu Route Kilimanjaro Climb", slug: "kilimanjaro-marangu-route", route: "Marangu Route" },
+  { name: "8 Days Machame Route Kilimanjaro Climb", slug: "kilimanjaro-machame-route", route: "Machame Route" },
+  { name: "7 Days Rongai Route Kilimanjaro Climb", slug: "7-day-rongai-route-kilimanjaro-trek", route: "Rongai Route" },
+  { name: "9 Days Lemosho Route Kilimanjaro Climb", slug: "kilimanjaro-lemosho-route", route: "Lemosho Route" },
+  { name: "9 Days Northern Circuit Route Kilimanjaro Climb", slug: "9-days-northern-circuit-route-kilimanjaro-trek", route: "Northern Circuit" },
+  { name: "Marangu 8 Days", slug: "kilimanjaro-marangu-route-8-day", route: "Marangu Route" },
+  { name: "Machame 9 Days", slug: "kilimanjaro-machame-route-9-day", route: "Machame Route" },
   { name: "Meru 3 Days", slug: "3-day-mount-meru", route: "Mount Meru" },
   { name: "Meru 4 Days", slug: "4-day-mount-meru", route: "Mount Meru" },
 ];
@@ -83,12 +85,67 @@ export const zanzibarTours = [
 ];
 
 export const travelStyles = [
-  { name: "Tanzania Family Safaris", slug: "Create Unforgettable Family Memories on Safari..." },
-  { name: "Tanzania Photographic Safaris", slug: "Capture the Wild Like Never Before..." },
-  { name: "The Serengeti Great Migration Safari", slug: "Witness the Greatest Wildlife Show on Earth..." },
-  { name: "Bird Watching Safaris", slug: "Discover East Africa’s Feathered Wonders..." },
-  { name: "Cultural & Eco-Tourism Safaris", slug: "Travel With Purpose. Connect With People. Respect Nature..." },
-  { name: "Tanzania Safari & Beach Holidays", slug: "Relax by the Ocean After Your Safari Adventure..." },];
+  {
+    name: "Africa Family Safaris",
+    slug: "africa-family-safari",
+    description: "Kid-friendly pacing, family suites, and guides who keep every generation engaged.",
+  },
+  {
+    name: "Fly in & Fly Out Safaris",
+    slug: "fly-in-out-safari",
+    description: "Save time with scenic bush flights and seamless lodge-to-lodge handoffs.",
+  },
+  {
+    name: "Tanzania Big 5 Safaris",
+    slug: "tanzania-big-5-safari",
+    description: "Focused game drives across Big 5 hotspots with expert tracking.",
+  },
+  {
+    name: "Honeymoon Safaris",
+    slug: "honeymoon-safari",
+    description: "Private sundowners, romantic camps, and beach finales in Zanzibar.",
+  },
+  {
+    name: "Mountain Gorilla Trekking",
+    slug: "mountain-gorilla-trekking",
+    description: "Permits, porters, and guided treks to meet gorilla families up close.",
+  },
+  {
+    name: "Tanzania Walking Safaris",
+    slug: "tanzania-walking-safaris",
+    description: "Foot safaris with armed guides for an immersive, ground-level view.",
+  },
+  {
+    name: "The Great Migration Safari",
+    slug: "the-great-migration-safari",
+    description: "Timed itineraries for river crossings, calving season, and predator action.",
+  },
+  {
+    name: "Birthday & Party Experience",
+    slug: "birthday-party-experience",
+    description: "Celebration-ready camps, private chefs, and special touches for your group.",
+  },
+  {
+    name: "Tanzania Photographic Safaris",
+    slug: "tanzania-photographic-safaris",
+    description: "Pro-guided light, angles, and vehicle setups for serious photographers.",
+  },
+  {
+    name: "Tanzania Bird Watching Safari",
+    slug: "tanzania-bird-watching-safari",
+    description: "Targeted birding routes with specialist guides across lakes and forests.",
+  },
+  {
+    name: "Beach Holiday in Africa",
+    slug: "beach-and-holiday-in-africa",
+    description: "Spice tours, dhow sunsets, and reef-friendly stays along the Swahili coast.",
+  },
+  {
+    name: "Cultural & Eco-Tourism Safaris",
+    slug: "cultural-eco-tourism-safari",
+    description: "Community visits, conservation partners, and low-impact stays with purpose.",
+  },
+];
 
 export const guides = [
   { name: "Safari Planning Guide", slug: "safari-planning-guide" },
@@ -102,34 +159,46 @@ export const guides = [
 
 export const kilimanjaroRoutes = [
   {
-    name: "Kilimanjaro Climb on Marangu Route",
+    name: "7 Days Marangu Route Kilimanjaro Climb",
     slug: "kilimanjaro-marangu-route",
     duration: "7 days | 6 nights",
     summary: "Hut-based Marangu ascent with summit push via Gilman's Point; ideal for climbers who prefer structured overnights.",
   },
   {
-    name: "Kilimanjaro Climb on Machame Route",
+    name: "6 Days Umbwe Route Kilimanjaro Climb",
+    slug: "6-day-umbwe-route-kilimanjaro-trek",
+    duration: "6 days | 5 nights",
+    summary: "Direct, steep ascent via Umbwe ridge to Barafu for summit via Stella Point; best for experienced, fit climbers seeking a short route.",
+  },
+  {
+    name: "8 Days Machame Route Kilimanjaro Climb",
     slug: "kilimanjaro-machame-route",
     duration: "8 days | 7 nights",
     summary: "Scenic 'Whiskey Route' camping ascent via Shira, Barranco, and Barafu with varied terrain and strong acclimatization.",
   },
   {
-    name: "Kilimanjaro Climb on Marangu Route (8 Days)",
-    slug: "kilimanjaro-marangu-route-8-day",
-    duration: "8 days | 7 nights",
-    summary: "Extended hut-based Marangu climb with acclimatization at Mawenzi and summit via Gilman's Point, returning via Kibo and Horombo.",
+    name: "7 Days Rongai Route Kilimanjaro Climb",
+    slug: "7-day-rongai-route-kilimanjaro-trek",
+    duration: "7 days | 6 nights",
+    summary: "Northern approach through quiet forests and saddle to Kibo with descent via Marangu; great for fewer crowds and steady gradients.",
   },
   {
-    name: "Kilimanjaro Climb on Lemosho Route",
+    name: "9 Days Lemosho Route Kilimanjaro Climb",
     slug: "kilimanjaro-lemosho-route",
     duration: "9 days | 8 nights",
     summary: "Secluded western approach via Londorossi with rainforest start, Shira Plateau traverse, Barranco, and Barafu for a well-acclimatized summit.",
   },
   {
-    name: "Kilimanjaro Climb on Machame Route (9 Days)",
+    name: "9 Days Machame Route Kilimanjaro Climb",
     slug: "kilimanjaro-machame-route-9-day",
     duration: "9 days | 8 nights",
     summary: "Extended Whiskey Route adding Karanga camp and extra acclimatization before Barafu, with summit via Stella Point and descent to Mweka.",
+  },
+  {
+    name: "9 Days Northern Circuit Route Kilimanjaro Climb",
+    slug: "9-days-northern-circuit-route-kilimanjaro-trek",
+    duration: "9 days | 8 nights",
+    summary: "Wide western approach circling the northern flank for maximum acclimatization and remote camps before summiting via Gilman's or Stella Point.",
   },
 ];
 

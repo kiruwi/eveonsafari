@@ -42,7 +42,7 @@ const checkoutPackages = safariPackages.map((pkg) => ({
 }));
 
 const stats = [
-  { label: "Itineraries", value: safariPackages.length },
+  { label: "Safaris", value: safariPackages.length },
   { label: "Regions covered", value: destinationGroups.length },
   { label: "Planning guides", value: guides.length },
 ];
@@ -171,8 +171,21 @@ export default function HomePage() {
             >
               <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">{route.title}</p>
               <p className="mt-2 text-sm text-[#231f20]/80">{route.description}</p>
-              <Link href={route.href} className="mt-4 inline-flex text-sm font-semibold text-[#ba7e47]">
-                Explore <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
+              <Link href={route.href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#ba7e47]">
+                Explore{" "}
+                <svg
+                  aria-hidden="true"
+                  className="h-4 w-4 -translate-y-px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17 17 7" />
+                  <path d="M10 7h7v7" />
+                </svg>
               </Link>
             </article>
           ))}
@@ -233,7 +246,20 @@ export default function HomePage() {
                     href={itineraryDetailLinks[trip.slug] ?? `/plan?package=${trip.slug}`}
                     className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/25"
                   >
-                    Details <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
+                    Details{" "}
+                    <svg
+                      aria-hidden="true"
+                      className="h-4 w-4 -translate-y-px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17 17 7" />
+                      <path d="M10 7h7v7" />
+                    </svg>
                   </Link>
                 </article>
               ))}
@@ -248,8 +274,21 @@ export default function HomePage() {
               <article key={route.slug}>
                 <h3 className="text-xl font-semibold text-[#231f20]">{route.name}</h3>
                 <p className="mt-2 text-sm text-[#231f20]/80">{route.duration}</p>
-                <Link href={`/trekking/${route.slug}`} className="mt-3 inline-block text-sm font-semibold text-[#ba7e47]">
-                  Continue reading <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
+                <Link href={`/trekking/${route.slug}`} className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#ba7e47]">
+                  Continue reading{" "}
+                  <svg
+                    aria-hidden="true"
+                    className="h-4 w-4 -translate-y-px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M7 17 17 7" />
+                    <path d="M10 7h7v7" />
+                  </svg>
                 </Link>
               </article>
             ))}
@@ -260,7 +299,7 @@ export default function HomePage() {
               {travelStyles.slice(0, 5).map((style) => (
                 <article key={style.slug} className="border-b border-[#c3c3c3] pb-3 last:border-none">
                   <h3 className="text-xl font-semibold text-[#231f20]">{style.name}</h3>
-                  <p className="mt-1 text-sm text-[#231f20]/70">{style.slug}</p>
+                  {style.description && <p className="mt-1 text-sm text-[#231f20]/70">{style.description}</p>}
                 </article>
               ))}
             </div>

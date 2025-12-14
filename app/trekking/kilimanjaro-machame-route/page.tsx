@@ -5,43 +5,43 @@ const days = [
     title: "Arrive Moshi",
     description: "Arrive at Kilimanjaro airport, transfer to the hotel, and complete briefing and final gear check.",
     highlights: ["Overnight at Sal Salinero Hotel (or equivalent), Bed and Breakfast"],
-    image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain Routes/machame/machame 2.webp",
   },
   {
     title: "Moshi - Machame hut (9,840ft | 3000m)",
     description: "Enter the rainforest at Machame gate and climb toward Machame hut with a picnic lunch on the trail.",
     highlights: ["Packed trail lunch", "Dinner and overnight at Machame hut"],
-    image: "https://images.unsplash.com/photo-1516386204654-85c52d4d6970?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain Routes/machame/machame 3.webp",
   },
   {
-    title: "Machame hut – Shira hut (12,470ft | 3800m)",
+    title: "Machame hut - Shira hut (12,470ft | 3800m)",
     description: "Ascend past Shira ridges into open moorland, camping on the Shira Plateau under vast skies.",
     highlights: ["Packed lunch en route", "Dinner and overnight at Shira hut"],
-    image: "https://images.unsplash.com/photo-1520357456838-1e06818653f1?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain Routes/machame/machame 4.webp",
   },
   {
-    title: "Shira hut – Barranco camp (12,960ft | 3950m)",
+    title: "Shira hut - Barranco camp (12,960ft | 3950m)",
     description: "Climb toward Lava Tower for high-altitude exposure, then descend to Barranco camp to aid acclimatization.",
     highlights: ["Packed lunch on trail", "Dinner and overnight at Barranco camp"],
-    image: "https://images.unsplash.com/photo-1518831959410-6f5c2b6fa9d5?auto=format&fit=crop&w=900&q=80",
+    image: undefined,
   },
   {
-    title: "Barranco camp – Barafu camp (15,090ft | 4600m)",
+    title: "Barranco camp - Barafu camp (15,090ft | 4600m)",
     description: "Tackle the Barranco Wall, cross Karanga Valley, then push on to Barafu for summit staging.",
     highlights: ["Hot lunch at Karanga", "Dinner and rest at Barafu", "Extra acclimatization day at Karanga available"],
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+    image: undefined,
   },
   {
     title: "Barafu camp - Summit - Mweka hut",
     description: "Midnight summit via Stella Point to Uhuru Peak, descend to Barafu for brunch, then continue to Mweka hut.",
     highlights: ["Summit via Stella Point", "Brunch at Barafu", "Overnight at Mweka hut"],
-    image: "https://images.unsplash.com/photo-1527772831180-79e8cdf2de5d?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain Routes/machame/machame 8.webp",
   },
   {
     title: "Mweka camp - Moshi",
     description: "Final descent to the park gate, farewell to crew, and return to Moshi for a hot shower and rest.",
     highlights: ["Packed lunch en route", "Overnight at Sal Salinero Hotel (or equivalent), Bed and Breakfast"],
-    image: "https://images.unsplash.com/photo-1496567903454-4ccac194beff?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain Routes/machame/machame 5.webp",
   },
   {
     title: "Depart Moshi | Kilimanjaro airport",
@@ -79,10 +79,10 @@ const exclusions = [
 ];
 
 const cancellation = [
-  "Itinerary is flexible and can be modified to suit preferences.",
+  "Safari plan is flexible and can be modified to suit preferences.",
   "Quotation only until confirmed; prices may change with park fee or supplier adjustments.",
   "30% deposit at confirmation; balance due at least 35 days before departure.",
-  "35 days prior: 30% fee; 34–15 days: 50%; 14 days to no-show: 100%.",
+  "35 days prior: 30% fee; 34-15 days: 50%; 14 days to no-show: 100%.",
   "All wire transfers payable to Eve On Safari; personal bills payable in USD, EUR, or GBP.",
   "Children below 16 years charged 80% of the adult rate.",
 ];
@@ -101,7 +101,7 @@ export default function KilimanjaroMachameRoutePage() {
       title="Kilimanjaro Climb on Machame Route"
       durationLabel="8 days | 7 nights"
       airport="Pick up and drop off Kilimanjaro Airport"
-      heroImage="/mountain%20routes/marangu/marangu%20route%20main.webp"
+      heroImage="/Mountain Routes/machame/machame.webp"
       routeStyle="Whiskey Route (camping)"
       accommodation="Mountain tents"
       difficulty="Challenging"

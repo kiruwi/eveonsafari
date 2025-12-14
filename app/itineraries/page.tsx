@@ -126,7 +126,19 @@ export default function ItinerariesPage() {
             className="inline-flex items-center gap-2 rounded-full border border-[#231f20] px-5 py-2 text-xs font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white"
           >
             View detailed packages
-            <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
+            <svg
+              aria-hidden="true"
+              className="h-4 w-4 -translate-y-px"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M7 17 17 7" />
+              <path d="M10 7h7v7" />
+            </svg>
           </Link>
         </header>
 
@@ -155,7 +167,20 @@ export default function ItinerariesPage() {
                     </p>
                     <p className="text-sm text-[#231f20]/80">{card.description}</p>
                     <span className="inline-flex items-center text-sm font-semibold text-[#ba7e47]">
-                      Explore <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
+                      Explore{" "}
+                      <svg
+                        aria-hidden="true"
+                        className="h-4 w-4 -translate-y-px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M7 17 17 7" />
+                        <path d="M10 7h7v7" />
+                      </svg>
                     </span>
                   </div>
                 </Link>
@@ -238,7 +263,20 @@ export default function ItinerariesPage() {
                     </h3>
                     <p className="text-sm text-white/85 line-clamp-2">{trip.highlights}</p>
                     <span className="inline-flex items-center text-sm font-semibold text-white">
-                      Details <span aria-hidden className="inline-block" style={{ transform: "rotate(-45deg)" }}>→</span>
+                      Details{" "}
+                      <svg
+                        aria-hidden="true"
+                        className="h-4 w-4 -translate-y-px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M7 17 17 7" />
+                        <path d="M10 7h7v7" />
+                      </svg>
                     </span>
                   </div>
                 </Link>
