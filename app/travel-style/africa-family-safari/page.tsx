@@ -158,7 +158,7 @@ export default function AfricaFamilySafariPage() {
         <div className="grid gap-8 md:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-4">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Overview</p>
-            <div className="space-y-3 rounded-[24px] border border-[#c3c3c3] bg-white p-6 shadow-sm text-sm text-[#231f20]/85">
+            <div className="space-y-3 rounded-[24px] border border-[#c3c3c3] bg-white p-6 shadow-sm text-base text-[#231f20]/85">
               {content.intro.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
@@ -167,7 +167,7 @@ export default function AfricaFamilySafariPage() {
           <div className="space-y-4">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Why choose this safari</p>
             <div className="rounded-[24px] border border-[#c3c3c3] bg-[#f8f5f2] p-6 shadow-sm">
-              <ul className="space-y-3 text-sm text-[#231f20]/85">
+              <ul className="space-y-3 text-base text-[#231f20]/85">
                 {content.reasons.map((reason) => (
                   <li key={reason.title} className="flex gap-3">
                     <span aria-hidden className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[#ba7e47]" />
@@ -187,7 +187,7 @@ export default function AfricaFamilySafariPage() {
           <div className="space-y-2 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Top family destinations</p>
             <h2
-              className="text-3xl font-semibold text-[#231f20]"
+              className="text-4xl font-semibold text-[#231f20] sm:text-5xl"
               style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
             >
               Tanzania routes kids and parents love
@@ -215,8 +215,8 @@ export default function AfricaFamilySafariPage() {
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" aria-hidden="true" />
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#231f20]">{spot.title}</p>
-                  <p className="mt-2 text-sm text-[#231f20]/80">{spot.detail}</p>
+                  <p className="text-base font-semibold uppercase tracking-[0.08em] text-[#231f20]">{spot.title}</p>
+                  <p className="mt-2 text-base text-[#231f20]/80">{spot.detail}</p>
                 </div>
               </article>
             ))}
@@ -239,7 +239,7 @@ export default function AfricaFamilySafariPage() {
             </div>
             <div className="p-6">
               <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Optional family add-ons</p>
-              <ul className="mt-3 space-y-3 text-sm text-[#231f20]/85">
+              <ul className="mt-3 space-y-3 text-base text-[#231f20]/85">
                 {content.addOns.map((addon) => (
                   <li key={addon.title}>
                     <span className="font-semibold text-[#231f20]">{addon.title}.</span> {addon.detail}
@@ -261,7 +261,7 @@ export default function AfricaFamilySafariPage() {
             </div>
             <div className="p-6">
               <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Family safari tips</p>
-              <ul className="mt-3 space-y-2 text-sm text-[#231f20]/85">
+              <ul className="mt-3 space-y-2 text-base text-[#231f20]/85">
                 {content.tips.map((tip) => (
                   <li key={tip} className="flex gap-2">
                     <span aria-hidden className="mt-1 inline-block h-1 w-1 rounded-full bg-[#ba7e47]" />
@@ -278,7 +278,7 @@ export default function AfricaFamilySafariPage() {
         <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-14 text-center md:px-6 lg:px-0">
           <p className="text-xs uppercase tracking-[0.35em] text-[#f5d9b0]">Ready to begin?</p>
           <h2
-            className="text-3xl font-semibold sm:text-4xl"
+            className="text-4xl font-semibold sm:text-5xl"
             style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
           >
             Plan your family safari adventure
@@ -298,7 +298,7 @@ export default function AfricaFamilySafariPage() {
               Explore experiences
             </Link>
           </div>
-          <div className="mt-3 text-sm text-white/80">
+          <div className="mt-3 text-base text-white/80">
             <p className="font-semibold text-white">WhatsApp: +255 768 611 005</p>
             <p className="font-semibold text-white">Email: info@eveonsafari.com</p>
           </div>

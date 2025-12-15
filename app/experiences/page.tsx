@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   travelStyles,
@@ -7,6 +6,9 @@ import {
   zanzibarTours,
   trekkingPackages,
 } from "@/lib/siteContent";
+
+const DEFAULT_TRAVEL_STYLE_IMAGE_SRC = travelStyles[0]?.imageSrc ?? "/itenerary photos/safaris.webp";
+const DEFAULT_TRAVEL_STYLE_IMAGE_ALT = travelStyles[0]?.imageAlt ?? "Travel style";
 
 export default function ExperiencesPage() {
   return (
@@ -20,7 +22,7 @@ export default function ExperiencesPage() {
           >
             Choose by travel style or region
           </h1>
-          <p className="text-sm text-[#231f20]/80">
+          <p className="text-base text-[#231f20]/80">
             Every option below comes directly from the Eve On Safari catalog. Pick a style, then pair it with trekking, day trips, or Zanzibar breaks.
           </p>
         </header>
@@ -29,12 +31,12 @@ export default function ExperiencesPage() {
           <div className="space-y-3 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Travel styles</p>
             <h2
-              className="text-3xl font-semibold text-[#231f20] tracking-[0.04em]"
+              className="text-4xl font-semibold text-[#231f20] tracking-[0.04em] sm:text-5xl"
               style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
             >
               Find your perfect fit
             </h2>
-            <p className="mx-auto max-w-3xl text-sm text-[#231f20]/80">
+            <p className="mx-auto max-w-3xl text-base text-[#231f20]/80">
               Pick a vibe, then we’ll tailor the parks, lodges, and pacing around it.
             </p>
           </div>
@@ -48,8 +50,9 @@ export default function ExperiencesPage() {
               {travelStyles.map((style, index) => {
                 const styleHref = `/travel-style/${style.slug}`;
                 const showTextLeft = index % 2 === 1;
-                const imageSrc = style.imageSrc ?? "/itenerary photos/safaris.webp";
-                const imageAlt = style.imageAlt ?? style.name;
+                const imageSrc = DEFAULT_TRAVEL_STYLE_IMAGE_SRC;
+                const imageAlt = DEFAULT_TRAVEL_STYLE_IMAGE_ALT;
+                const imageUrl = encodeURI(imageSrc);
 
                 const textCard = (
                   <Link
@@ -63,7 +66,7 @@ export default function ExperiencesPage() {
                       {style.name}
                     </h3>
                     {style.description && (
-                      <p className="mt-2 text-sm leading-relaxed text-[#231f20]/75">{style.description}</p>
+                      <p className="mt-2 text-base leading-relaxed text-[#231f20]/75">{style.description}</p>
                     )}
                     <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#ba7e47]">
                       Explore this style
@@ -87,21 +90,31 @@ export default function ExperiencesPage() {
                 const imageCard = (
                   <Link
                     href={styleHref}
-                    className="block w-full max-w-xl overflow-hidden rounded-[24px] border border-[#c3c3c3]/70 bg-[#f8f5f2] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(460px,100%)]"
+                    className="group block w-full max-w-xl overflow-hidden rounded-[24px] border border-[#c3c3c3]/70 bg-[#0f0f0f] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(520px,100%)]"
                     aria-label={`Open ${style.name}`}
                   >
                     <div className="relative h-52 w-full sm:h-60">
-                      <Image
-                        src={imageSrc}
+                      <img
+                        src={imageUrl}
                         alt={imageAlt}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 460px"
+                        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                        loading="lazy"
+                        decoding="async"
                       />
+                      <div className="pointer-events-none absolute inset-0 bg-black/15" aria-hidden="true" />
                       <div
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"
+                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"
                         aria-hidden="true"
                       />
+                      <div className="absolute inset-x-0 bottom-0 p-5">
+                        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/75">Travel style</p>
+                        <p
+                          className="mt-2 text-2xl font-semibold text-white"
+                          style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+                        >
+                          {style.name}
+                        </p>
+                      </div>
                     </div>
                   </Link>
                 );

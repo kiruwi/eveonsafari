@@ -192,7 +192,7 @@ export default function FlyInOutSafariPage() {
           <div className="space-y-2 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Top fly-in destinations</p>
             <h2
-              className="text-3xl font-semibold text-[#231f20]"
+              className="text-4xl font-semibold text-[#231f20] sm:text-5xl"
               style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
             >
               Remote parks made effortless
@@ -212,8 +212,8 @@ export default function FlyInOutSafariPage() {
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" aria-hidden="true" />
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#231f20]">{spot.title}</p>
-                  <p className="mt-2 text-sm text-[#231f20]/80">{spot.detail}</p>
+                  <p className="text-base font-semibold uppercase tracking-[0.08em] text-[#231f20]">{spot.title}</p>
+                  <p className="mt-2 text-base text-[#231f20]/80">{spot.detail}</p>
                 </div>
               </article>
             ))}
@@ -275,7 +275,7 @@ export default function FlyInOutSafariPage() {
         <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-14 text-center md:px-6 lg:px-0">
           <p className="text-xs uppercase tracking-[0.35em] text-[#f5d9b0]">Ready to fly?</p>
           <h2
-            className="text-3xl font-semibold sm:text-4xl"
+            className="text-4xl font-semibold sm:text-5xl"
             style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
           >
             Plan your fly-in/out safari

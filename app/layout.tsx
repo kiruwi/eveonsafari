@@ -67,7 +67,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${titleFont.variable} ${americanGrungeFont.variable} ${rockybillyFont.variable} ${gatheniaFont.variable} antialiased bg-white text-[#231f20]`}
       >
         <SiteHeader />
-        <main className="min-h-screen bg-white">{children}</main>
+        <main className="eos-content min-h-screen bg-white">{children}</main>
         <SiteFooter />
       </body>
     </html>

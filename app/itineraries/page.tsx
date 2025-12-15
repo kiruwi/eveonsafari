@@ -118,7 +118,7 @@ export default function ItinerariesPage() {
           >
             These are our Safari Packages
           </h1>
-          <p className="text-sm text-[#231f20]/80">
+          <p className="text-base text-[#231f20]/80">
             Pick a style below which include, safaris, coast, trekking, or luxury trips and we’ll tailor the exact routing to your travel dates.
           </p>
           <Link
@@ -165,7 +165,7 @@ export default function ItinerariesPage() {
                     <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">
                       {card.title}
                     </p>
-                    <p className="text-sm text-[#231f20]/80">{card.description}</p>
+                    <p className="text-base text-[#231f20]/80">{card.description}</p>
                     <span className="inline-flex items-center text-sm font-semibold text-[#ba7e47]">
                       Explore{" "}
                       <svg
@@ -190,7 +190,7 @@ export default function ItinerariesPage() {
           <aside className="rounded-[28px] border border-[#c3c3c3] bg-[#231f20] p-6 text-white">
             <p className="text-xs uppercase tracking-[0.3em]">Start the adventure</p>
             <p className="mt-3 text-2xl font-semibold">Tell us your dream trip.</p>
-            <p className="mt-4 text-sm text-white/80">
+            <p className="mt-4 text-base text-white/80">
               Every sample is 100% customisable. Once you pick a style, your designer schedules a call to refine lodges, flights, and conservation add-ons.
             </p>
             <Link
@@ -261,7 +261,7 @@ export default function ItinerariesPage() {
                     >
                       {trip.name}
                     </h3>
-                    <p className="text-sm text-white/85 line-clamp-2">{trip.highlights}</p>
+                    <p className="text-base text-white/85 line-clamp-2">{trip.highlights}</p>
                     <span className="inline-flex items-center text-sm font-semibold text-white">
                       Details{" "}
                       <svg
@@ -295,7 +295,7 @@ export default function ItinerariesPage() {
               >
                 Secure your itinerary with live pricing.
               </h2>
-              <p className="text-sm text-[#231f20]/80">
+              <p className="text-base text-[#231f20]/80">
                 Pick a package, choose midrange or luxury (USD), set your guest count, or enter a custom group price. We&apos;ll forward the
                 selection into the Pesapal payment link.
               </p>

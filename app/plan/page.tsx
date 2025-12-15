@@ -9,7 +9,7 @@ export default function PlanPage() {
           <h1 className="mt-3 text-4xl font-semibold text-[#231f20]">
             Tell us about your dream journey
           </h1>
-          <p className="mt-3 text-sm text-[#231f20]/80">
+          <p className="mt-3 text-base text-[#231f20]/80">
             Complete the form and a designer will respond within 24 hours. Already working with us?
             Sign in below to access your proposal.
           </p>

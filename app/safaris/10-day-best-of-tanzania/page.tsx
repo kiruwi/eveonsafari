@@ -187,7 +187,7 @@ export default function BestOfTanzaniaTenDayPage() {
               10-Day Best of Tanzania Safari
               <span className="mt-1 block font-normal">Wildlife, lakes, and culture</span>
             </h1>
-            <p className="text-sm text-white/85">
+            <p className="text-base text-white/85">
               Extra time for Serengeti big cats, crater wildlife, elephants, and culture with a private guide and flexible pace.
             </p>
             <div className="flex flex-wrap justify-center gap-3 sm:justify-start">
@@ -249,7 +249,7 @@ export default function BestOfTanzaniaTenDayPage() {
             >
               Lock in this itinerary
             </h2>
-            <p className="text-sm text-[#231f20]/80">
+            <p className="text-base text-[#231f20]/80">
               {formatPrice()} · small party checkout below, larger groups via our planning form.
             </p>
             <div className="space-y-2 text-sm text-[#231f20]/80">
@@ -278,7 +278,7 @@ export default function BestOfTanzaniaTenDayPage() {
         <main className="space-y-12">
           <section className="space-y-4 rounded-[24px] border border-[#c3c3c3] bg-white p-6 shadow-sm">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Overview</p>
-            <p className="text-sm text-[#231f20]/80">{overview}</p>
+            <p className="text-base text-[#231f20]/80">{overview}</p>
           </section>
 
           <section className="space-y-4 rounded-[24px] border border-[#c3c3c3] bg-white p-6 shadow-sm">
@@ -383,7 +383,7 @@ export default function BestOfTanzaniaTenDayPage() {
                     {faq.question}
                     <span className="text-[#ba7e47] transition group-open:rotate-90">→</span>
                   </summary>
-                  <p className="mt-2 text-sm text-[#231f20]/80">{faq.answer}</p>
+                  <p className="mt-2 text-base text-[#231f20]/80">{faq.answer}</p>
                 </details>
               ))}
             </div>

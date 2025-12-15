@@ -8,7 +8,7 @@ export default function Page() {
       <div className="mx-auto max-w-4xl px-4 py-16">
         <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Travel style</p>
         <h1
-          className="mt-2 text-3xl font-semibold text-[#231f20]"
+          className="mt-2 text-4xl font-semibold text-[#231f20] sm:text-5xl"
           style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
         >
           {name}

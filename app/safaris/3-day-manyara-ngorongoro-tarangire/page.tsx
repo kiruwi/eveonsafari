@@ -143,7 +143,7 @@ export default function ManyaraNgorongoroTarangirePage() {
               3-Day Tanzania Safari:
               <span className="mt-1 block font-normal">Lake Manyara · Ngorongoro · Tarangire</span>
             </h1>
-            <p className="text-sm text-white/85">
+            <p className="text-base text-white/85">
               Rift escarpment views, crater wildlife, and Tarangire elephants in one focused loop from Arusha.
             </p>
             <div className="flex flex-wrap justify-center gap-3 sm:justify-start">
@@ -205,7 +205,7 @@ export default function ManyaraNgorongoroTarangirePage() {
             >
               Lock in this itinerary
             </h2>
-            <p className="text-sm text-[#231f20]/80">
+            <p className="text-base text-[#231f20]/80">
               {formatPrice()} · small party checkout below, larger groups via our planning form.
             </p>
             <div className="space-y-2 text-sm text-[#231f20]/80">
@@ -234,7 +234,7 @@ export default function ManyaraNgorongoroTarangirePage() {
         <main className="space-y-12">
           <section className="space-y-4 rounded-[24px] border border-[#c3c3c3] bg-white p-6 shadow-sm">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Overview</p>
-            <p className="text-sm text-[#231f20]/80">{overview}</p>
+            <p className="text-base text-[#231f20]/80">{overview}</p>
           </section>
 
           <section className="space-y-4 rounded-[24px] border border-[#c3c3c3] bg-white p-6 shadow-sm">
@@ -339,7 +339,7 @@ export default function ManyaraNgorongoroTarangirePage() {
                     {faq.question}
                     <span className="text-[#ba7e47] transition group-open:rotate-90">→</span>
                   </summary>
-                  <p className="mt-2 text-sm text-[#231f20]/80">{faq.answer}</p>
+                  <p className="mt-2 text-base text-[#231f20]/80">{faq.answer}</p>
                 </details>
               ))}
             </div>
