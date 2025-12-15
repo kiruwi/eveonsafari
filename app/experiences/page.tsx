@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   travelStyles,
@@ -24,26 +25,112 @@ export default function ExperiencesPage() {
           </p>
         </header>
 
-        <section className="rounded-[32px] bg-white p-8 shadow-md">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Travel styles</p>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {travelStyles.map((style) => (
-              <Link
-                key={style.slug}
-                href={`/travel-style/${style.slug}`}
-                className="rounded-[24px] bg-white p-5 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <h3
-                  className="text-xl font-semibold text-[#231f20] tracking-[0.04em]"
-                  style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
-                >
-                  {style.name}
-                </h3>
-                {style.description && (
-                  <p className="mt-2 text-sm text-[#231f20]/70">{style.description}</p>
-                )}
-              </Link>
-            ))}
+        <section id="TravelStyles" className="rounded-[32px] bg-white p-8 shadow-md">
+          <div className="space-y-3 text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Travel styles</p>
+            <h2
+              className="text-3xl font-semibold text-[#231f20] tracking-[0.04em]"
+              style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+            >
+              Find your perfect fit
+            </h2>
+            <p className="mx-auto max-w-3xl text-sm text-[#231f20]/80">
+              Pick a vibe, then we’ll tailor the parks, lodges, and pacing around it.
+            </p>
+          </div>
+
+          <div className="relative mt-10">
+            <div
+              className="pointer-events-none absolute bottom-0 left-1/2 top-0 hidden w-px -translate-x-1/2 bg-[#c3c3c3]/70 md:block"
+              aria-hidden="true"
+            />
+            <div className="space-y-10 md:space-y-12">
+              {travelStyles.map((style, index) => {
+                const styleHref = `/travel-style/${style.slug}`;
+                const showTextLeft = index % 2 === 1;
+                const imageSrc = style.imageSrc ?? "/itenerary photos/safaris.webp";
+                const imageAlt = style.imageAlt ?? style.name;
+
+                const textCard = (
+                  <Link
+                    href={styleHref}
+                    className="block w-full max-w-xl rounded-[24px] border border-[#c3c3c3]/70 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(460px,100%)]"
+                  >
+                    <h3
+                      className="text-2xl font-semibold text-[#231f20] tracking-[0.04em]"
+                      style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+                    >
+                      {style.name}
+                    </h3>
+                    {style.description && (
+                      <p className="mt-2 text-sm leading-relaxed text-[#231f20]/75">{style.description}</p>
+                    )}
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#ba7e47]">
+                      Explore this style
+                      <svg
+                        aria-hidden="true"
+                        className="h-4 w-4"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M7 17 17 7" />
+                        <path d="M10 7h7v7" />
+                      </svg>
+                    </span>
+                  </Link>
+                );
+
+                const imageCard = (
+                  <Link
+                    href={styleHref}
+                    className="block w-full max-w-xl overflow-hidden rounded-[24px] border border-[#c3c3c3]/70 bg-[#f8f5f2] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(460px,100%)]"
+                    aria-label={`Open ${style.name}`}
+                  >
+                    <div className="relative h-52 w-full sm:h-60">
+                      <Image
+                        src={imageSrc}
+                        alt={imageAlt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 460px"
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </Link>
+                );
+
+                return (
+                  <div
+                    key={style.slug}
+                    className="relative grid items-center gap-5 md:grid-cols-2 md:gap-x-24 md:gap-y-10"
+                  >
+                    <span
+                      className="pointer-events-none absolute left-1/2 top-1/2 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ba7e47] ring-4 ring-white md:block"
+                      aria-hidden="true"
+                    />
+
+                    {showTextLeft ? (
+                      <>
+                        <div className="md:justify-self-end">{textCard}</div>
+                        <div className="md:justify-self-start">{imageCard}</div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="md:justify-self-end">{imageCard}</div>
+                        <div className="md:justify-self-start">{textCard}</div>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </section>
 
