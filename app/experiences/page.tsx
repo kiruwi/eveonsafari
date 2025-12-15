@@ -129,17 +129,22 @@ export default function ExperiencesPage() {
                       aria-hidden="true"
                     />
 
-                    {showTextLeft ? (
-                      <>
-                        <div className="md:justify-self-end">{textCard}</div>
-                        <div className="md:justify-self-start">{imageCard}</div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="md:justify-self-end">{imageCard}</div>
-                        <div className="md:justify-self-start">{textCard}</div>
-                      </>
-                    )}
+                    <div
+                      className={[
+                        "order-1",
+                        showTextLeft ? "md:order-2 md:justify-self-start" : "md:order-1 md:justify-self-end",
+                      ].join(" ")}
+                    >
+                      {imageCard}
+                    </div>
+                    <div
+                      className={[
+                        "order-2",
+                        showTextLeft ? "md:order-1 md:justify-self-end" : "md:order-2 md:justify-self-start",
+                      ].join(" ")}
+                    >
+                      {textCard}
+                    </div>
                   </div>
                 );
               })}
