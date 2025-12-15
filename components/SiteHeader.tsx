@@ -106,6 +106,14 @@ export function SiteHeader() {
   const navRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const lockedScrollYRef = useRef(0);
+  const bodyLockStylesRef = useRef<{
+    overflow: string;
+    position: string;
+    top: string;
+    width: string;
+    paddingRight: string;
+  } | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -173,13 +181,14 @@ export function SiteHeader() {
     (scrolled: boolean) => {
       setNavHidden(false);
       clearInactivity();
+      if (isMobileMenuOpen || isExpanded) return;
       if (scrolled) {
         inactivityTimeoutRef.current = setTimeout(() => {
           setNavHidden(true);
         }, 2000);
       }
     },
-    [clearInactivity],
+    [clearInactivity, isExpanded, isMobileMenuOpen],
   );
 
   const openMenu = useCallback(() => {
@@ -187,9 +196,11 @@ export function SiteHeader() {
     const tl = timelineRef.current;
     if (!tl) return;
     tl.eventCallback("onReverseComplete", null);
+    setNavHidden(false);
+    clearInactivity();
     setIsExpanded(true);
     tl.play(0);
-  }, [isExpanded]);
+  }, [clearInactivity, isExpanded]);
 
   const closeMenu = useCallback(() => {
     if (!isExpanded) return;
@@ -218,6 +229,7 @@ export function SiteHeader() {
       setIsMobile(window.matchMedia("(max-width: 768px)").matches);
     };
     const handleScroll = () => {
+      if (isMobileMenuOpen) return;
       const scrolled = window.scrollY > 8;
       setIsScrolled(scrolled);
       if (!scrolled) {
@@ -239,7 +251,7 @@ export function SiteHeader() {
       window.removeEventListener("mousemove", handleMouseMove);
       clearInactivity();
     };
-  }, [clearInactivity, handleUserActivity]);
+  }, [clearInactivity, handleUserActivity, isMobileMenuOpen]);
 
   useEffect(() => {
     if (isMobile) {
@@ -251,6 +263,43 @@ export function SiteHeader() {
     }
     setMobileMenuOpen(false);
   }, [closeMenu, isMobile, isMobileMenuOpen]);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const body = document.body;
+    const docEl = document.documentElement;
+
+    lockedScrollYRef.current = window.scrollY;
+    bodyLockStylesRef.current = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      paddingRight: body.style.paddingRight,
+    };
+
+    const scrollbarCompensation = window.innerWidth - docEl.clientWidth;
+    if (scrollbarCompensation > 0) {
+      body.style.paddingRight = `${scrollbarCompensation}px`;
+    }
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${lockedScrollYRef.current}px`;
+    body.style.width = "100%";
+
+    return () => {
+      const prev = bodyLockStylesRef.current;
+      if (prev) {
+        body.style.overflow = prev.overflow;
+        body.style.position = prev.position;
+        body.style.top = prev.top;
+        body.style.width = prev.width;
+        body.style.paddingRight = prev.paddingRight;
+      }
+      bodyLockStylesRef.current = null;
+      window.scrollTo(0, lockedScrollYRef.current);
+    };
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     if (isMobile) {
@@ -308,6 +357,8 @@ export function SiteHeader() {
     if (isMobileMenuOpen) {
       closeMenu();
     } else {
+      setNavHidden(false);
+      clearInactivity();
       setMobileMenuOpen(true);
     }
   };
@@ -323,7 +374,7 @@ export function SiteHeader() {
     >
       {showMobileBackdrop && (
         <div
-          className="fixed inset-0 z-0 pointer-events-none bg-black/20 backdrop-blur-md transition"
+          className="fixed inset-0 z-0 bg-black/20 backdrop-blur-md transition"
           aria-hidden="true"
         />
       )}
