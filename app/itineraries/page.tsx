@@ -20,7 +20,7 @@ const sampleRoutes = [
   {
     title: "Zanzibar",
     description: "Zanzibar 2–6 Days: spice tours, dhow sundowners, and reef-friendly lodges.",
-    href: "/zanzibar/5-days/zanzibar-5-days",
+    href: "/travel-style/beach-and-holiday-in-africa",
     image: "/itenerary%20photos/zanzibar.webp",
   },
   {

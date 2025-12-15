@@ -80,7 +80,11 @@ const NAV_ITEMS: CardNavItem[] = [
     textColor: "#ffffff",
     links: [
       { label: "All Safaris", href: "/itineraries", ariaLabel: "Browse safari journeys" },
-      { label: "Migration Focus", href: "/itineraries#migration", ariaLabel: "View migration trips" },
+      {
+        label: "Migration Focus",
+        href: "/travel-style/the-great-migration-safari",
+        ariaLabel: "View the Great Migration safari travel style",
+      },
       { label: "Bush & Beach", href: "/itineraries#coast", ariaLabel: "View bush and beach trips" },
     ],
   },

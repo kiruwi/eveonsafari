@@ -317,8 +317,7 @@ export default function HomePage() {
             ))}
           </div>
           <p className="mt-8 text-sm text-[#231f20]/80">
-            Ready to dream up your route? Share your dates and bucket-list moments—we’ll reply with a
-            proposal within 24 hours.
+            Ready to dream up your route? Share your dates and bucket-list moments. We’ll reply with a proposal within 24 hours.
           </p>
           <Link
             href="/plan"

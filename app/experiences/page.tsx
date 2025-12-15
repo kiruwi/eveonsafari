@@ -20,7 +20,7 @@ export default function ExperiencesPage() {
             Choose by travel style or region
           </h1>
           <p className="text-sm text-[#231f20]/80">
-            Every option below comes directly from the Eve On Safari catalog—pick a style, then pair it with trekking, day trips, or Zanzibar breaks.
+            Every option below comes directly from the Eve On Safari catalog. Pick a style, then pair it with trekking, day trips, or Zanzibar breaks.
           </p>
         </header>
 

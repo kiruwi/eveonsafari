@@ -80,7 +80,7 @@ const faqs = [
   },
   {
     question: "Can you handle dietary needs?",
-    answer: "Absolutely—tell us in advance and we’ll customize your meals.",
+    answer: "Absolutely. Tell us in advance and we’ll customize your meals.",
   },
   {
     question: "What happens if I lose something on trip?",

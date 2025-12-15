@@ -28,11 +28,11 @@ export async function POST(request: Request) {
         : undefined;
 
     const descriptionBase = packageName || 'Eve On Safari checkout';
-    const suffix =
-      tier || pax
-        ? `${tier ? ` ${tier}` : ''}${pax ? ` — ${pax} pax` : ''}`
-        : '';
-    const description = `${descriptionBase}${suffix}`.trim();
+	    const suffix =
+	      tier || pax
+	        ? `${tier ? ` ${tier}` : ''}${pax ? ` - ${pax} pax` : ''}`
+	        : '';
+	    const description = `${descriptionBase}${suffix}`.trim();
 
     if (!amount || amount <= 0) {
       return NextResponse.json({ error: 'Amount must be greater than zero.' }, { status: 400 });
