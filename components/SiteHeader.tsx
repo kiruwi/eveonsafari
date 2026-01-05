@@ -65,13 +65,12 @@ const NAV_ITEMS: CardNavItem[] = [
     bgColor: "#ba7e47",
     textColor: "#ffffff",
     links: [
-      { label: "All Experiences", href: "/experiences", ariaLabel: "Explore experiences" },
       {
         label: "Travel Styles",
         href: "/experiences#TravelStyles",
         ariaLabel: "View family-friendly experiences",
       },
-      { label: "Destination By Circuite", href: "/experiences#active", ariaLabel: "View active trips" },
+      { label: "Destination By Circuite", href: "/experiences#destinations-by-circuit", ariaLabel: "View destinations by circuit" },
     ],
   },
   {

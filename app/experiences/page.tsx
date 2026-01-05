@@ -25,20 +25,7 @@ export default function ExperiencesPage() {
         </header>
 
         <section id="TravelStyles" className="rounded-[32px] bg-white p-8 shadow-md">
-          <div className="space-y-3 text-center">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Travel styles</p>
-            <h2
-              className="text-4xl font-semibold text-[#231f20] tracking-[0.04em] sm:text-5xl"
-              style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
-            >
-              Find your perfect fit
-            </h2>
-            <p className="mx-auto max-w-3xl text-base text-[#231f20]/80">
-              Pick a vibe, then we’ll tailor the parks, lodges, and pacing around it.
-            </p>
-          </div>
-
-          <div className="relative mt-10">
+          <div className="relative">
             <div
               className="pointer-events-none absolute bottom-0 left-1/2 top-0 hidden w-px -translate-x-1/2 bg-[#c3c3c3]/70 md:block"
               aria-hidden="true"
@@ -155,7 +142,7 @@ export default function ExperiencesPage() {
           </div>
         </section>
 
-        <section className="rounded-[32px] bg-[#c3c3c3]/10 p-8 shadow-md">
+        <section id="destinations-by-circuit" className="rounded-[32px] bg-[#c3c3c3]/10 p-8 shadow-md">
           <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Destinations by circuit</p>
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             {destinationGroups.map((group) => (
