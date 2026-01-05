@@ -7,9 +7,6 @@ import {
   trekkingPackages,
 } from "@/lib/siteContent";
 
-const DEFAULT_TRAVEL_STYLE_IMAGE_SRC = travelStyles[0]?.imageSrc ?? "/itenerary photos/safaris.webp";
-const DEFAULT_TRAVEL_STYLE_IMAGE_ALT = travelStyles[0]?.imageAlt ?? "Travel style";
-
 export default function ExperiencesPage() {
   return (
     <div className="bg-white">
@@ -50,8 +47,8 @@ export default function ExperiencesPage() {
               {travelStyles.map((style, index) => {
                 const styleHref = `/travel-style/${style.slug}`;
                 const showTextLeft = index % 2 === 1;
-                const imageSrc = DEFAULT_TRAVEL_STYLE_IMAGE_SRC;
-                const imageAlt = DEFAULT_TRAVEL_STYLE_IMAGE_ALT;
+                const imageSrc = style.imageSrc ?? "/itenerary photos/safaris.webp";
+                const imageAlt = style.imageAlt ?? style.name;
                 const imageUrl = encodeURI(imageSrc);
 
                 const textCard = (
@@ -90,22 +87,37 @@ export default function ExperiencesPage() {
                 const imageCard = (
                   <Link
                     href={styleHref}
-                    className="group block w-full max-w-xl overflow-hidden rounded-[24px] border border-[#c3c3c3]/70 bg-[#0f0f0f] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(520px,100%)]"
+                    className="group block w-full max-w-xl overflow-hidden rounded-[24px] border border-[#c3c3c3]/70 bg-[#f8f5f2] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(520px,100%)]"
                     aria-label={`Open ${style.name}`}
                   >
                     <div className="relative h-52 w-full sm:h-60">
-                      <img
-                        src={imageUrl}
-                        alt={imageAlt}
-                        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                        loading="lazy"
-                        decoding="async"
+                      <div
+                        className="absolute inset-0 bg-cover bg-center transition duration-500 group-hover:scale-[1.03]"
+                        style={{
+                          backgroundImage: `url('${imageUrl}')`,
+                        }}
+                        aria-hidden="true"
                       />
-                      <div className="pointer-events-none absolute inset-0 bg-black/15" aria-hidden="true" />
+                      <div
+                        className="pointer-events-none absolute inset-0"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, rgba(229,224,200,0.65), rgba(186,126,71,0.18))",
+                        }}
+                        aria-hidden="true"
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-black/10" aria-hidden="true" />
                       <div
                         className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"
                         aria-hidden="true"
                       />
+                      <div className="absolute inset-0 flex items-center justify-center p-6">
+                        <div className="w-full max-w-[320px] rounded-[20px] border border-white/30 bg-white/75 px-5 py-4 text-center shadow-[0_20px_60px_rgba(0,0,0,0.22)] backdrop-blur-sm">
+                          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#231f20]/70">Coming soon</p>
+                          <p className="mt-2 text-base font-semibold text-[#231f20]">Photos for this style are on the way.</p>
+                          <p className="mt-1 text-sm text-[#231f20]/70">We&apos;ll add real imagery and sample stays shortly.</p>
+                        </div>
+                      </div>
                       <div className="absolute inset-x-0 bottom-0 p-5">
                         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/75">Travel style</p>
                         <p
@@ -116,33 +128,24 @@ export default function ExperiencesPage() {
                         </p>
                       </div>
                     </div>
+                    <span className="sr-only">{imageAlt}</span>
                   </Link>
                 );
 
                 return (
                   <div
                     key={style.slug}
-                    className="relative grid items-center gap-5 md:grid-cols-2 md:gap-x-24 md:gap-y-10"
+                    className="relative grid grid-cols-1 items-center gap-5 md:grid-cols-2 md:gap-x-24 md:gap-y-10"
                   >
                     <span
                       className="pointer-events-none absolute left-1/2 top-1/2 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ba7e47] ring-4 ring-white md:block"
                       aria-hidden="true"
                     />
 
-                    <div
-                      className={[
-                        "order-1",
-                        showTextLeft ? "md:order-2 md:justify-self-start" : "md:order-1 md:justify-self-end",
-                      ].join(" ")}
-                    >
+                    <div className={showTextLeft ? "md:col-start-2 md:justify-self-start" : "md:col-start-1 md:justify-self-end"}>
                       {imageCard}
                     </div>
-                    <div
-                      className={[
-                        "order-2",
-                        showTextLeft ? "md:order-1 md:justify-self-end" : "md:order-2 md:justify-self-start",
-                      ].join(" ")}
-                    >
+                    <div className={showTextLeft ? "md:col-start-1 md:justify-self-end" : "md:col-start-2 md:justify-self-start"}>
                       {textCard}
                     </div>
                   </div>

@@ -134,7 +134,7 @@ export function SiteFooter() {
           <p>© {new Date().getFullYear()} Eve On Safari. All rights reserved.</p>
           <div className="flex gap-4">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/eve_on_safari/"
               target="_blank"
               rel="noreferrer"
               className="uppercase tracking-wide transition hover:text-[#f2d3b0]"
@@ -143,13 +143,13 @@ export function SiteFooter() {
               Instagram
             </a>
             <a
-              href="https://pinterest.com"
+              href="https://www.tiktok.com/@eveonsafari"
               target="_blank"
               rel="noreferrer"
               className="uppercase tracking-wide transition hover:text-[#f2d3b0]"
               suppressHydrationWarning
             >
-              Pinterest
+              Tiktok
             </a>
             <a
               href="https://linkedin.com"
