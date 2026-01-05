@@ -45,7 +45,7 @@ export const safariPackages = [
   { name: "2 Days Ngorongoro Crater Adventure", slug: "2-day-ngorongoro-crater-adventure", subcategory: "2-3 Days", highlights: "Crater floor game drives, crater rim sundowners" },
   { name: "3 Days Manyara-Ngorongoro-Tarangire", slug: "3-day-manyara-ngorongoro-tarangire", subcategory: "3 Days", highlights: "Tree-climbing lions, crater wildlife, baobab plains" },
   { name: "3 Days Quick Serengeti Escape", slug: "3-day-serengeti-escape", subcategory: "3 Days", highlights: "Central Serengeti drives, Maasai sundowner" },
-  { name: "4 Days Nyerere Safari", slug: "4-day-nyerere-safari", subcategory: "4 Days", highlights: "Boat safari on Rufiji, Selous walking safari" },
+  // { name: "4 Days Nyerere Safari", slug: "4-day-nyerere-safari", subcategory: "4 Days", highlights: "Boat safari on Rufiji, Selous walking safari" },
   { name: "5 Days Iconic Wildlife Adventure", slug: "5-day-iconic-wildlife-adventure", subcategory: "5 Days", highlights: "Mara River-style crossings, Ngorongoro overnight" },
   { name: "6 Days Best of Northern Parks", slug: "6-day-best-northern-parks", subcategory: "6 Days", highlights: "Tarangire, Manyara, Serengeti combo" },
   { name: "7 Days Northern Highlights", slug: "7-day-northern-highlights", subcategory: "7 Days", highlights: "Cultural immersion, classic game viewing" },

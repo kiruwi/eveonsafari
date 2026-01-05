@@ -93,7 +93,7 @@ const safariImages: Record<string, string | undefined> = {
   "2-day-ngorongoro-crater-adventure": "/photos/landing-page/elephants.webp",
   "3-day-manyara-ngorongoro-tarangire": "/photos/landing-page/ngorongoro.webp",
   "3-day-serengeti-escape": "/photos/landing-page/serengeti.webp",
-  "4-day-nyerere-safari": "/photos/landing-page/nyerere.webp",
+  // "4-day-nyerere-safari": "/photos/landing-page/nyerere.webp",
   "5-day-iconic-wildlife-adventure": "/itenerary photos/route/Iconic Wildlife.webp",
   "6-day-best-northern-parks": "/itenerary photos/route/Best of Northern Park.webp",
   "7-day-northern-highlights": "/itenerary photos/route/Northern Highights.webp",

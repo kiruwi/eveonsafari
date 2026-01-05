@@ -14,14 +14,15 @@ const customItineraryImages: Record<string, string> = {
   "2-day-ngorongoro-crater-adventure": "/photos/landing-page/elephants.webp",
   "3-day-manyara-ngorongoro-tarangire": "/photos/landing-page/ngorongoro.webp",
   "3-day-serengeti-escape": "/photos/landing-page/serengeti.webp",
-  "4-day-nyerere-safari": "/photos/landing-page/nyerere.webp",
+  // "4-day-nyerere-safari": "/photos/landing-page/nyerere.webp",
+  "5-day-iconic-wildlife-adventure": "/itenerary%20photos/route/Iconic%20Wildlife.webp",
 };
 
 const itineraryDetailLinks: Record<string, string> = {
   "2-day-ngorongoro-crater-adventure": "/safaris/2-day-ngorongoro-crater-adventure",
   "3-day-manyara-ngorongoro-tarangire": "/safaris/3-day-manyara-ngorongoro-tarangire",
   "3-day-serengeti-escape": "/safaris/3-day-serengeti-escape",
-  "4-day-nyerere-safari": "/safaris/4-day-nyerere-safari",
+  // "4-day-nyerere-safari": "/safaris/4-day-nyerere-safari",
   "5-day-iconic-wildlife-adventure": "/safaris/5-day-iconic-wildlife-adventure",
   "6-day-best-northern-parks": "/safaris/6-day-best-northern-parks",
   "7-day-northern-highlights": "/safaris/7-day-northern-highlights",

@@ -39,7 +39,7 @@ destination,Southern,,Udzungwa Mountains,udzungwa-mountains
 destination,Southern,,Rubondo Island,rubondo-island
 destination,Southern,,Mikumi National Park,mikumi-national-park
 destination,Southern,,Ruaha National Park,ruaha-national-park
-destination,Southern,,Nyerere National Park,nyerere-national-park
+<!-- destination,Southern,,Nyerere National Park,nyerere-national-park -->
 
 destination,Western,,Mahale Mountains,mahale-mountains
 destination,Western,,Gombe Stream,gombe-stream
@@ -53,7 +53,7 @@ type,category,subcategory,name,slug
 package,Safari,2-3 Days,2 Days Ngorongoro Crater Adventure,2-day-ngorongoro-crater-adventure
 package,Safari,3 Days,3 Days Manyara-Ngorongoro-Tarangire,3-day-manyara-ngorongoro-tarangire
 package,Safari,3 Days,3 Days Quick Serengeti Escape,3-day-serengeti-escape
-package,Safari,4 Days,4 Days Nyerere Safari,4-day-nyerere-safari
+<!-- package,Safari,4 Days,4 Days Nyerere Safari,4-day-nyerere-safari -->
 package,Safari,5 Days,5 Days Iconic Wildlife Adventure,5-day-iconic-wildlife-adventure
 package,Safari,6 Days,6 Days Best of Northern Parks,6-day-best-northern-parks
 package,Safari,7 Days,7 Days Northern Highlights,7-day-northern-highlights

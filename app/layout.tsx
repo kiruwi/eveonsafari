@@ -47,10 +47,16 @@ const gatheniaFont = localFont({
   display: "swap",
 });
 
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://eveonsafari.com").replace(/\/$/, "");
+
 export const metadata: Metadata = {
   title: "Eve On Safari | Bespoke Tanzania Journeys",
   description:
     "Plan immersive, conservation-led safaris across Tanzania with Eve On Safari’s expert travel designers.",
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "./",
+  },
   icons: {
     icon: "/favicon.ico",
   },

@@ -1,18 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import { safariPackages } from "@/lib/siteContent";
 const contactInfo = {
   address: "Mateves Street; Arusha – Tanzania",
   phone: "+255 768 611 005",
   email: "info@eveonsafari.com",
 };
 
-const safariLinks = [
-  { label: "2 Days Ngorongoro", href: "/safaris/2-day-ngorongoro-crater-adventure" },
-  { label: "3 Days Manyara–Ngorongoro–Tarangire", href: "/safaris/3-day-manyara-ngorongoro-tarangire" },
-  { label: "3 Days Serengeti Escape", href: "/safaris/3-day-serengeti-escape" },
-  { label: "4 Days Nyerere", href: "/safaris/4-day-nyerere-safari" },
-  { label: "5-10 Day Safaris", href: "/itineraries#safari-grid" },
-];
+const safariLinks = safariPackages.map((pkg) => ({
+  label: pkg.name,
+  href: `/safaris/${pkg.slug}`,
+}));
 
 const trekLinks = [
   { label: "Kilimanjaro Lemosho", href: "/trekking/kilimanjaro-lemosho-route" },
