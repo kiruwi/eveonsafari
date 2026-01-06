@@ -100,6 +100,17 @@ const usdFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
+const travelStyleBadges: Record<
+  string,
+  { label: string; iconPath: string }
+> = {
+  "africa-family-safari": { label: "Family", iconPath: "M12 7a2.5 2.5 0 1 0-2.5-2.5A2.5 2.5 0 0 0 12 7Zm-6.5 5a2 2 0 1 0-2-2A2 2 0 0 0 5.5 12Zm13 0a2 2 0 1 0-2-2A2 2 0 0 0 18.5 12Zm-8.5 1a4 4 0 0 0-4 4v2h2v-2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h2v-2a4 4 0 0 0-4-4Zm-7 2a3 3 0 0 0-3 3v1h2v-1a1 1 0 0 1 1-1h2v-2Zm17 0h-2v2h2a1 1 0 0 1 1 1v1h2v-1a3 3 0 0 0-3-3Z" },
+  "fly-in-out-safari": { label: "Fly-in", iconPath: "M2 12l20-6-8 7 6 8-20-9 9-2z" },
+  "tanzania-big-5-safari": { label: "Wildlife", iconPath: "M6 15.5c0 1.4 1.1 2.5 2.5 2.5h7c1.4 0 2.5-1.1 2.5-2.5S17.9 13 16.5 13h-7C7.1 13 6 14.1 6 15.5Zm-1.5-4a1.5 1.5 0 1 0-1.5-1.5A1.5 1.5 0 0 0 4.5 11.5Zm5-2.5a1.5 1.5 0 1 0-1.5-1.5A1.5 1.5 0 0 0 9.5 9Zm5 0a1.5 1.5 0 1 0-1.5-1.5A1.5 1.5 0 0 0 14.5 9Zm5 2.5a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5Z" },
+  "honeymoon-safari": { label: "Honeymoon", iconPath: "M12 21s-7-4.5-9.5-8.2C.7 9.3 2.2 6 5.5 6c2 0 3.2 1.1 3.9 2.2C10.3 7.1 11.5 6 13.5 6c3.3 0 4.8 3.3 3 6.8C19 16.5 12 21 12 21z" },
+  "mountain-gorilla-trekking": { label: "Trekking", iconPath: "M5 20l4-9 3 3 4-8 3 4v10H5Z" },
+};
+
 const getFromPrice = (pricing?: PackagePricing) => {
   if (!pricing) return "Price on request";
   const prices = [pricing.midrange, pricing.luxury].filter((p): p is number => typeof p === "number" && Number.isFinite(p) && p > 0);
@@ -312,38 +323,64 @@ export default function HomePage() {
         </section>
 
         <section className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-6 rounded-[32px] bg-white p-8 shadow-md">
+          <div className="space-y-5 rounded-[32px] bg-white p-8 shadow-md">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Kilimanjaro trek</p>
             {kilimanjaroRoutes.slice(0, 3).map((route) => (
-              <article key={route.slug}>
-                <h3 className="text-xl font-semibold text-[#231f20]">{route.name}</h3>
-                <p className="mt-2 text-sm text-[#231f20]/80">{route.duration}</p>
-                <Link href={`/trekking/${route.slug}`} className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#ba7e47]">
-                  Continue reading{" "}
-                  <svg
-                    aria-hidden="true"
-                    className="h-4 w-4 -translate-y-px"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M7 17 17 7" />
-                    <path d="M10 7h7v7" />
-                  </svg>
-                </Link>
-              </article>
+              <Link
+                key={route.slug}
+                href={`/trekking/${route.slug}`}
+                className="block rounded-[20px] border border-[#c3c3c3]/40 bg-[#f8f5f2]/60 p-4 transition hover:-translate-y-0.5 hover:shadow-sm"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-[#231f20]">{route.name}</h3>
+                    <p className="mt-1 text-sm text-[#231f20]/75">{route.duration}</p>
+                  </div>
+                  <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#ba7e47]/40 text-[#ba7e47]">
+                    <svg
+                      aria-hidden="true"
+                      className="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17 17 7" />
+                      <path d="M10 7h7v7" />
+                    </svg>
+                  </span>
+                </div>
+              </Link>
             ))}
+            <Link
+              href="/trekking"
+              className="inline-flex w-full items-center justify-center rounded-full bg-[#ba7e47] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-[#8a592e]"
+            >
+              View all Kilimanjaro routes
+            </Link>
           </div>
           <div className="rounded-[32px] bg-white p-8 shadow-md">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Popular travel styles</p>
             <div className="mt-6 space-y-4">
               {travelStyles.slice(0, 5).map((style) => (
-                <article key={style.slug} className="border-b border-[#c3c3c3] pb-3 last:border-none">
+                <article key={style.slug} className="border-b border-[#c3c3c3]/40 pb-3 last:border-none">
                   <h3 className="text-xl font-semibold text-[#231f20]">{style.name}</h3>
-                  {style.description && <p className="mt-1 text-sm text-[#231f20]/70">{style.description}</p>}
+                  <div className="mt-1 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-[#ba7e47]">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#ba7e47]/40">
+                      <svg
+                        aria-hidden="true"
+                        className="h-3.5 w-3.5"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d={travelStyleBadges[style.slug]?.iconPath ?? "M12 2l3 7h7l-5.5 4 2 7-6.5-4.3L5.5 20l2-7L2 9h7z"} />
+                      </svg>
+                    </span>
+                    <span>{travelStyleBadges[style.slug]?.label ?? "Style"}</span>
+                  </div>
+                  {style.description && <p className="mt-2 text-[13px] text-[#231f20]/70">{style.description}</p>}
                 </article>
               ))}
             </div>
