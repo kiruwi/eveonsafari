@@ -47,10 +47,7 @@ export default function ExperiencesPage() {
                     href={styleHref}
                     className="block w-full max-w-xl rounded-[24px] border border-[#c3c3c3]/70 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(460px,100%)]"
                   >
-                    <h3
-                      className="text-2xl font-semibold text-[#231f20] tracking-[0.04em]"
-                      style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
-                    >
+                    <h3 className="text-2xl font-semibold text-[#231f20] tracking-[0.04em]">
                       {style.name}
                     </h3>
                     {style.description && (
@@ -174,10 +171,7 @@ export default function ExperiencesPage() {
             {trekkingPackages.map((trek) => (
               <div key={trek.slug} className="rounded-[20px] p-4 shadow-md">
                 <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">{trek.route}</p>
-                <h4
-                  className="text-lg font-semibold text-[#231f20] tracking-[0.03em]"
-                  style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
-                >
+                <h4 className="text-lg font-semibold text-[#231f20] tracking-[0.03em]">
                   {trek.name}
                 </h4>
                 <p className="text-sm text-[#231f20]/70">{trek.slug}</p>

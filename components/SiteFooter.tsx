@@ -26,7 +26,7 @@ const planningLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-[#6b3b1f] text-white">
+    <footer className="relative z-10 border-t border-white/10 bg-[#6b3b1f] text-white">
       <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10 md:px-6 lg:px-0">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="text-center">
