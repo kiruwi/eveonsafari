@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PackageCheckoutSelector } from "@/components/PackageCheckoutSelector";
+import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { PackagePricing, safariPackagePricingUSD } from "@/lib/pricing";
 import {
   destinationGroups,
@@ -42,10 +43,52 @@ const checkoutPackages = safariPackages.map((pkg) => ({
   slug: pkg.slug,
 }));
 
-const stats = [
-  { label: "Safaris", value: safariPackages.length },
-  { label: "Regions covered", value: destinationGroups.length },
-  { label: "Planning guides", value: guides.length },
+const clientReviews = [
+  {
+    name: "Herbert",
+    visited: "October 2025",
+    rating: 5,
+    countryName: "Tanzania",
+    countryCode: "tz",
+    quote:
+      "I had an amazing experience on this tour. Our guide was friendly(Eve), knowledgeable, and made every stop enjoyable. The itinerary was well-planned, the transportation was comfortable, and we never felt rushed.",
+  },
+  {
+    name: "JACKLINE",
+    visited: "September 2025",
+    rating: 5,
+    countryName: "India",
+    countryCode: "in",
+    quote:
+      "September was quite the month for me and my family mostly because we got to have a trip of a lifetime when we visited the Serengeti national park and The Ngorongoro crater. And all this would have been possible without Evaline and Kazee our tour guide.",
+  },
+  {
+    name: "Ian",
+    visited: "October 2025",
+    rating: 5,
+    countryName: "Kenya",
+    countryCode: "ke",
+    quote:
+      "Our safari with Eve was an unforgettable experience. From the moment we arrived, she made us feel welcome and comfortable. Eve is knowledgeable about the wildlife and environment, and her passion for nature made every part of the trip engaging.",
+  },
+  {
+    name: "Cedric",
+    visited: "July 2025",
+    rating: 5,
+    countryName: "Kenya",
+    countryCode: "ke",
+    quote:
+      "Being a tour operator and a tour leader as well, I was hoping to find the perfect company for me and my clients. Eve on Safari delivered beyond every aspect that my clients and I had expected.",
+  },
+  {
+    name: "Bantu",
+    visited: "June 2025",
+    rating: 5,
+    countryName: "United States",
+    countryCode: "us",
+    quote:
+      "This tour exceeded my expectations in every aspect. The communication before and during the trip was efficient and informative, ensuring a wonderful experience. The service provided by the Eve and her team was exceptional — courteous, organized, and genuinely attentive to every my needs.",
+  },
 ];
 
 const heroCardWaveClip =
@@ -307,25 +350,47 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="rounded-[32px] bg-white p-10 text-center shadow-md">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">By the numbers</p>
-          <div className="mt-6 grid gap-6 text-[#231f20] md:grid-cols-3">
-            {stats.map((stat) => (
-              <div key={stat.label} className="rounded-[24px] bg-[#c3c3c3]/30 p-6">
-                <p className="text-4xl font-semibold">{stat.value}</p>
-                <p className="mt-2 text-sm uppercase tracking-[0.2em]">{stat.label}</p>
-              </div>
-            ))}
+        <section className="rounded-[32px] bg-[#e5e0c8]/60 p-10 shadow-md">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">What our clients say</p>
+            <h2
+              className="mt-3 text-3xl font-semibold text-[#231f20] sm:text-4xl"
+              style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
+            >
+              Guest reviews from{" "}
+              <a
+                href="https://www.safaribookings.com/reviews/p7642"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center underline-offset-4 transition hover:underline"
+                aria-label="SafariBookings.com"
+              >
+                <span className="rounded-full bg-[#a50a08] px-3 py-1">
+                  <Image
+                    src="/safaribookings-logo.png"
+                    alt="SafariBookings.com logo"
+                    width={173}
+                    height={22}
+                    className="h-5 w-auto"
+                  />
+                </span>
+              </a>
+            </h2>
           </div>
-          <p className="mt-8 text-sm text-[#231f20]/80">
-            Ready to dream up your route? Share your dates and bucket-list moments. We’ll reply with a proposal within 24 hours.
-          </p>
-          <Link
-            href="/plan"
-            className="mt-6 inline-flex rounded-full bg-[#ba7e47] px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-[#8a592e]"
-          >
-            Plan with Eve
-          </Link>
+          <div className="mt-8">
+            <ReviewCarousel reviews={clientReviews} />
+          </div>
+          <div className="mt-8 text-center">
+            <p className="text-sm text-[#231f20]/80">
+              Ready to dream up your route? Share your dates and bucket-list moments. We’ll reply with a proposal within 24 hours.
+            </p>
+            <Link
+              href="/plan"
+              className="mt-6 inline-flex rounded-full bg-[#8a592e] px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-[#6b3b1f] hover:shadow-md"
+            >
+              Plan with Eve
+            </Link>
+          </div>
         </section>
       </div>
     </div>

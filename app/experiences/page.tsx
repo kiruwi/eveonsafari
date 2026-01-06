@@ -24,7 +24,10 @@ export default function ExperiencesPage() {
           </p>
         </header>
 
-        <section id="TravelStyles" className="rounded-[32px] bg-white p-8 shadow-md">
+        <section id="TravelStyles" className="scroll-mt-[180px] rounded-[32px] bg-white p-8 shadow-md">
+          <div className="mb-6 text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Travel styles</p>
+          </div>
           <div className="relative">
             <div
               className="pointer-events-none absolute bottom-0 left-1/2 top-0 hidden w-px -translate-x-1/2 bg-[#c3c3c3]/70 md:block"
@@ -142,7 +145,7 @@ export default function ExperiencesPage() {
           </div>
         </section>
 
-        <section id="destinations-by-circuit" className="rounded-[32px] bg-[#c3c3c3]/10 p-8 shadow-md">
+        <section id="destinations-by-circuit" className="scroll-mt-[180px] rounded-[32px] bg-[#c3c3c3]/10 p-8 shadow-md">
           <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Destinations by circuit</p>
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             {destinationGroups.map((group) => (
