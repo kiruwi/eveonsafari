@@ -323,7 +323,7 @@ export default function HomePage() {
         </section>
 
         <section className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-5 rounded-[32px] bg-white p-8 shadow-md">
+          <div className="space-y-5 rounded-[32px] bg-white p-8">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Kilimanjaro trek</p>
             {kilimanjaroRoutes.slice(0, 3).map((route) => (
               <Link
@@ -361,11 +361,15 @@ export default function HomePage() {
               View all Kilimanjaro routes
             </Link>
           </div>
-          <div className="rounded-[32px] bg-white p-8 shadow-md">
+          <div className="rounded-[32px] bg-[#e5e0c8]/60 p-8">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Popular travel styles</p>
             <div className="mt-6 space-y-4">
-              {travelStyles.slice(0, 5).map((style) => (
-                <article key={style.slug} className="border-b border-[#c3c3c3]/40 pb-3 last:border-none">
+              {travelStyles.slice(0, 3).map((style) => (
+                <Link
+                  key={style.slug}
+                  href={`/travel-style/${style.slug}`}
+                  className="block border-b border-[#c3c3c3]/40 pb-3 transition hover:text-[#ba7e47] last:border-none"
+                >
                   <h3 className="text-xl font-semibold text-[#231f20]">{style.name}</h3>
                   <div className="mt-1 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-[#ba7e47]">
                     <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#ba7e47]/40">
@@ -381,52 +385,70 @@ export default function HomePage() {
                     <span>{travelStyleBadges[style.slug]?.label ?? "Style"}</span>
                   </div>
                   {style.description && <p className="mt-2 text-[13px] text-[#231f20]/70">{style.description}</p>}
-                </article>
+                </Link>
               ))}
             </div>
+            <Link
+              href="/experiences#TravelStyles"
+              className="mt-6 inline-flex w-fit items-center justify-center rounded-full border border-[#ba7e47] px-6 py-2 text-sm font-semibold uppercase tracking-wide text-[#ba7e47] transition hover:bg-[#ba7e47] hover:text-white"
+            >
+              View travel styles
+            </Link>
           </div>
         </section>
 
-        <section className="rounded-[32px] bg-[#e5e0c8]/60 p-10 shadow-md">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">What our clients say</p>
-            <h2
-              className="mt-3 text-3xl font-semibold text-[#231f20] sm:text-4xl"
-              style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
-            >
-              Guest reviews from{" "}
-              <a
-                href="https://www.safaribookings.com/reviews/p7642"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center underline-offset-4 transition hover:underline"
-                aria-label="SafariBookings.com"
+        <section className="relative rounded-[32px] bg-[#e5e0c8]/60 p-10 shadow-md">
+          <div
+            className="pointer-events-none absolute inset-x-0 top-[-8px] h-8"
+            style={{
+              backgroundColor: "rgba(229, 224, 200, 0.6)",
+              clipPath: heroCardWaveClip,
+              transform: "scaleY(-1)",
+              transformOrigin: "center",
+            }}
+            aria-hidden="true"
+          />
+          <div className="relative z-10">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">What our clients say</p>
+              <h2
+                className="mt-3 text-3xl font-semibold text-[#231f20] sm:text-4xl"
+                style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
               >
-                <span className="rounded-full bg-[#a50a08] px-3 py-1">
-                  <Image
-                    src="/safaribookings-logo.png"
-                    alt="SafariBookings.com logo"
-                    width={173}
-                    height={22}
-                    className="h-5 w-auto"
-                  />
-                </span>
-              </a>
-            </h2>
-          </div>
-          <div className="mt-8">
-            <ReviewCarousel reviews={clientReviews} />
-          </div>
-          <div className="mt-8 text-center">
-            <p className="text-sm text-[#231f20]/80">
-              Ready to dream up your route? Share your dates and bucket-list moments. We’ll reply with a proposal within 24 hours.
-            </p>
-            <Link
-              href="/plan"
-              className="mt-6 inline-flex rounded-full bg-[#8a592e] px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-[#6b3b1f] hover:shadow-md"
-            >
-              Plan with Eve
-            </Link>
+                Guest reviews from{" "}
+                <a
+                  href="https://www.safaribookings.com/reviews/p7642"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center underline-offset-4 transition hover:underline"
+                  aria-label="SafariBookings.com"
+                >
+                  <span className="rounded-full bg-[#a50a08] px-3 py-1">
+                    <Image
+                      src="/safaribookings-logo.png"
+                      alt="SafariBookings.com logo"
+                      width={173}
+                      height={22}
+                      className="h-5 w-auto"
+                    />
+                  </span>
+                </a>
+              </h2>
+            </div>
+            <div className="mt-8">
+              <ReviewCarousel reviews={clientReviews} />
+            </div>
+            <div className="mt-8 text-center">
+              <p className="text-sm text-[#231f20]/80">
+                Ready to dream up your route? Share your dates and bucket-list moments. We’ll reply with a proposal within 24 hours.
+              </p>
+              <Link
+                href="/plan"
+                className="mt-6 inline-flex rounded-full bg-[#8a592e] px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-[#6b3b1f] hover:shadow-md"
+              >
+                Plan with Eve
+              </Link>
+            </div>
           </div>
         </section>
       </div>
