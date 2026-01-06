@@ -8,15 +8,52 @@ export default function AuthPage() {
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const resolveAuthOrigin = () => {
+    const rawCanonical = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '');
+    if (typeof window === 'undefined') {
+      return rawCanonical ?? null;
+    }
+    if (!rawCanonical) {
+      return window.location.origin;
+    }
+
+    try {
+      const canonicalUrl = new URL(rawCanonical);
+      const canonicalHost = canonicalUrl.hostname;
+      const apexHost = canonicalHost.startsWith('www.')
+        ? canonicalHost.slice(4)
+        : canonicalHost;
+      const wwwHost = `www.${apexHost}`;
+      const currentHost = window.location.hostname;
+
+      if (currentHost === apexHost || currentHost === wwwHost) {
+        if (
+          currentHost !== canonicalHost ||
+          window.location.protocol !== canonicalUrl.protocol
+        ) {
+          window.location.replace(
+            `${canonicalUrl.protocol}//${canonicalHost}${window.location.pathname}${window.location.search}${window.location.hash}`,
+          );
+          return null;
+        }
+        return canonicalUrl.origin;
+      }
+
+      return window.location.origin;
+    } catch {
+      return window.location.origin;
+    }
+  };
+
   const handleGoogle = async () => {
     setLoading(true);
     setMessage(null);
 
-    const baseUrl =
-      typeof window !== 'undefined'
-        ? window.location.origin
-        : process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '');
-    const redirectTo = baseUrl ? `${baseUrl}/auth/callback` : '/auth/callback';
+    const authOrigin = resolveAuthOrigin();
+    if (!authOrigin) {
+      return;
+    }
+    const redirectTo = `${authOrigin}/auth/callback`;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo },
