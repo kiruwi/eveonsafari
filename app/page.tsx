@@ -361,7 +361,7 @@ export default function HomePage() {
               View all Kilimanjaro routes
             </Link>
           </div>
-          <div className="rounded-[32px] bg-[#e5e0c8]/60 p-8">
+          <div className="rounded-[32px] bg-[#e5e0c8]/30 p-8 backdrop-blur-md">
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Popular travel styles</p>
             <div className="mt-6 space-y-4">
               {travelStyles.slice(0, 3).map((style) => (
@@ -390,7 +390,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/experiences#TravelStyles"
-              className="mt-6 inline-flex w-fit items-center justify-center rounded-full border border-[#ba7e47] px-6 py-2 text-sm font-semibold uppercase tracking-wide text-[#ba7e47] transition hover:bg-[#ba7e47] hover:text-white"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#ba7e47] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-[#8a592e]"
             >
               View travel styles
             </Link>
