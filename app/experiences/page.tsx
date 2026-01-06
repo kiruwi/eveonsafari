@@ -29,17 +29,14 @@ export default function ExperiencesPage() {
             <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Travel styles</p>
           </div>
           <div className="relative">
-            <div
-              className="pointer-events-none absolute bottom-0 left-1/2 top-0 hidden w-px -translate-x-1/2 bg-[#c3c3c3]/70 md:block"
-              aria-hidden="true"
-            />
             <div className="space-y-10 md:space-y-12">
               {travelStyles.map((style, index) => {
                 const styleHref = `/travel-style/${style.slug}`;
-                const showTextLeft = index % 2 === 1;
+                const hasImage = Boolean(style.imageSrc);
                 const imageSrc = style.imageSrc ?? "/itenerary photos/safaris.webp";
                 const imageAlt = style.imageAlt ?? style.name;
                 const imageUrl = encodeURI(imageSrc);
+                const isEven = index % 2 === 0;
 
                 const textCard = (
                   <Link
@@ -77,66 +74,47 @@ export default function ExperiencesPage() {
                 const imageCard = (
                   <Link
                     href={styleHref}
-                    className="group block w-full max-w-xl overflow-hidden rounded-[24px] border border-[#c3c3c3]/70 bg-[#f8f5f2] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(520px,100%)]"
+                    className="group block w-full max-w-xl overflow-hidden rounded-[24px] border border-[#c3c3c3]/70 bg-[#f8f5f2] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(460px,100%)]"
                     aria-label={`Open ${style.name}`}
                   >
-                    <div className="relative h-52 w-full sm:h-60">
-                      <div
-                        className="absolute inset-0 bg-cover bg-center transition duration-500 group-hover:scale-[1.03]"
-                        style={{
-                          backgroundImage: `url('${imageUrl}')`,
-                        }}
-                        aria-hidden="true"
-                      />
-                      <div
-                        className="pointer-events-none absolute inset-0"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, rgba(229,224,200,0.65), rgba(186,126,71,0.18))",
-                        }}
-                        aria-hidden="true"
-                      />
-                      <div className="pointer-events-none absolute inset-0 bg-black/10" aria-hidden="true" />
-                      <div
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"
-                        aria-hidden="true"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center p-6">
-                        <div className="w-full max-w-[320px] rounded-[20px] border border-white/30 bg-white/75 px-5 py-4 text-center shadow-[0_20px_60px_rgba(0,0,0,0.22)] backdrop-blur-sm">
-                          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#231f20]/70">Coming soon</p>
-                          <p className="mt-2 text-base font-semibold text-[#231f20]">Photos for this style are on the way.</p>
-                          <p className="mt-1 text-sm text-[#231f20]/70">We&apos;ll add real imagery and sample stays shortly.</p>
+                    <div className="aspect-[8/3] w-full md:aspect-auto md:h-[172px]">
+                      {hasImage ? (
+                        <img
+                          src={imageUrl}
+                          alt={imageAlt}
+                          className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                          loading={index < 2 ? "eager" : "lazy"}
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-[#f8f5f2]">
+                          <div className="w-full max-w-[320px] rounded-[20px] border border-[#c3c3c3]/40 bg-white/80 px-5 py-4 text-center shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
+                            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#231f20]/70">Coming soon</p>
+                            <p className="mt-2 text-base font-semibold text-[#231f20]">Photos for this style are on the way.</p>
+                            <p className="mt-1 text-sm text-[#231f20]/70">We&apos;ll add real imagery and sample stays shortly.</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 p-5">
-                        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/75">Travel style</p>
-                        <p
-                          className="mt-2 text-2xl font-semibold text-white"
-                          style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
-                        >
-                          {style.name}
-                        </p>
-                      </div>
+                      )}
                     </div>
-                    <span className="sr-only">{imageAlt}</span>
                   </Link>
                 );
+
+                const leftCard = isEven ? imageCard : textCard;
+                const rightCard = isEven ? textCard : imageCard;
 
                 return (
                   <div
                     key={style.slug}
-                    className="relative grid grid-cols-1 items-center gap-5 md:grid-cols-2 md:gap-x-24 md:gap-y-10"
+                    className="relative grid grid-cols-1 items-start gap-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-stretch md:gap-10"
                   >
-                    <span
-                      className="pointer-events-none absolute left-1/2 top-1/2 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ba7e47] ring-4 ring-white md:block"
-                      aria-hidden="true"
-                    />
-
-                    <div className={showTextLeft ? "md:col-start-2 md:justify-self-start" : "md:col-start-1 md:justify-self-end"}>
-                      {imageCard}
+                    <div className="md:self-center">
+                      <div className="mx-auto w-full max-w-[520px] md:ml-auto md:mr-0">{leftCard}</div>
                     </div>
-                    <div className={showTextLeft ? "md:col-start-1 md:justify-self-end" : "md:col-start-2 md:justify-self-start"}>
-                      {textCard}
+                    <div className="relative hidden md:flex w-6 justify-center">
+                      <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-[#c3c3c3]/70" aria-hidden="true" />
+                      <span className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ba7e47] ring-4 ring-white" aria-hidden="true" />
+                    </div>
+                    <div className="md:self-center">
+                      <div className="mx-auto w-full max-w-[520px]">{rightCard}</div>
                     </div>
                   </div>
                 );
