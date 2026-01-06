@@ -10,7 +10,7 @@ const canonicalHost = (() => {
   }
 })();
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   if (!canonicalHost) return NextResponse.next();
 
   const hostname = request.nextUrl.hostname;
