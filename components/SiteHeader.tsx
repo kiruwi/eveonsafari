@@ -141,8 +141,8 @@ export function SiteHeader() {
     : "border-white/35 bg-white/10 text-white";
   const userBadgeDetailClasses = showNavBackground ? "text-[#231f20]/70" : "text-white/80";
   const signOutClasses = showNavBackground
-    ? "rounded-full border border-[#231f20] px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white"
-    : "rounded-full border border-white px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#231f20]";
+    ? "rounded-full border border-[#231f20] px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white sm:px-3 sm:py-2 sm:text-[11px]"
+    : "rounded-full border border-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#231f20] sm:px-3 sm:py-2 sm:text-[11px]";
 
   const displayedItems = isMobile
     ? isMobileMenuOpen
@@ -487,13 +487,13 @@ export function SiteHeader() {
           </div>
           <div className="ml-auto flex items-center gap-3">
             {signedInUser && (
-              <div className="hidden items-center gap-2 lg:flex">
+              <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center">
                 <div
-                  className={`flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-wide ${userBadgeClasses}`}
+                  className={`flex items-center gap-2 rounded-full border px-3 py-2 text-[10px] font-semibold uppercase tracking-wide sm:px-4 sm:text-[11px] ${userBadgeClasses}`}
                 >
                   <span className="whitespace-nowrap">Signed in</span>
                   <span
-                    className={`max-w-[160px] truncate font-normal normal-case tracking-normal ${userBadgeDetailClasses}`}
+                    className={`max-w-[120px] truncate font-normal normal-case tracking-normal sm:max-w-[160px] ${userBadgeDetailClasses}`}
                   >
                     {signedInUser}
                   </span>
