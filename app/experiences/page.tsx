@@ -37,6 +37,10 @@ export default function ExperiencesPage() {
                 const imageAlt = style.imageAlt ?? style.name;
                 const imageUrl = encodeURI(imageSrc);
                 const isEven = index % 2 === 0;
+                const imageOrder = isEven ? "md:order-1" : "md:order-3";
+                const textOrder = isEven ? "md:order-3" : "md:order-1";
+                const leftAlign = "md:ml-auto md:mr-0";
+                const rightAlign = "md:mr-auto md:ml-0";
 
                 const textCard = (
                   <Link
@@ -98,23 +102,20 @@ export default function ExperiencesPage() {
                   </Link>
                 );
 
-                const leftCard = isEven ? imageCard : textCard;
-                const rightCard = isEven ? textCard : imageCard;
-
                 return (
                   <div
                     key={style.slug}
                     className="relative grid grid-cols-1 items-start gap-6 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-stretch md:gap-10"
                   >
-                    <div className="md:self-center">
-                      <div className="mx-auto w-full max-w-[520px] md:ml-auto md:mr-0">{leftCard}</div>
+                    <div className={`order-1 md:self-center ${imageOrder}`}>
+                      <div className={`mx-auto w-full max-w-[520px] ${isEven ? leftAlign : rightAlign}`}>{imageCard}</div>
                     </div>
-                    <div className="relative hidden md:flex w-6 justify-center">
+                    <div className="order-2 relative hidden md:flex w-6 justify-center">
                       <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-[#c3c3c3]/70" aria-hidden="true" />
                       <span className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ba7e47] ring-4 ring-white" aria-hidden="true" />
                     </div>
-                    <div className="md:self-center">
-                      <div className="mx-auto w-full max-w-[520px]">{rightCard}</div>
+                    <div className={`order-3 md:self-center ${textOrder}`}>
+                      <div className={`mx-auto w-full max-w-[520px] ${isEven ? rightAlign : leftAlign}`}>{textCard}</div>
                     </div>
                   </div>
                 );
