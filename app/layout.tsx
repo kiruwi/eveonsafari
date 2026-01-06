@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { headers } from "next/headers";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -47,20 +48,30 @@ const gatheniaFont = localFont({
   display: "swap",
 });
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://eveonsafari.com").replace(/\/$/, "");
+const fallbackSiteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://eveonsafari.com").replace(/\/$/, "");
 
-export const metadata: Metadata = {
+const resolveMetadataBase = () => {
+  const headerList = headers();
+  const host = headerList.get("x-forwarded-host") ?? headerList.get("host");
+  if (!host) {
+    return new URL(fallbackSiteUrl);
+  }
+  const proto = headerList.get("x-forwarded-proto") ?? "https";
+  return new URL(`${proto}://${host}`);
+};
+
+export const generateMetadata = (): Metadata => ({
   title: "Eve On Safari | Bespoke Tanzania Journeys",
   description:
     "Plan immersive, conservation-led safaris across Tanzania with Eve On Safari’s expert travel designers.",
-  metadataBase: new URL(siteUrl),
+  metadataBase: resolveMetadataBase(),
   alternates: {
     canonical: "./",
   },
   icons: {
     icon: "/favicon.ico",
   },
-};
+});
 
 export default function RootLayout({
   children,
