@@ -6,6 +6,8 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
+import { supabase } from "@/lib/supabaseClient";
+
 type CardNavLink = {
   label: string;
   href: string;
@@ -120,6 +122,7 @@ export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNavHidden, setNavHidden] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
+  const [signedInUser, setSignedInUser] = useState<string | null>(null);
   const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const usesTransparentHeader = pathname === "/";
   const isLightNavBase = isScrolled || !usesTransparentHeader;
@@ -133,6 +136,10 @@ export function SiteHeader() {
   const menuButtonClasses = showNavBackground
     ? "rounded-full border border-[#231f20] p-3 text-[#231f20] transition hover:bg-[#231f20] hover:text-white"
     : "rounded-full border border-white p-3 text-white transition hover:bg-white hover:text-[#231f20]";
+  const userBadgeClasses = showNavBackground
+    ? "border-[#231f20]/25 bg-white/70 text-[#231f20]"
+    : "border-white/35 bg-white/10 text-white";
+  const userBadgeDetailClasses = showNavBackground ? "text-[#231f20]/70" : "text-white/80";
 
   const displayedItems = isMobile
     ? isMobileMenuOpen
@@ -301,6 +308,40 @@ export function SiteHeader() {
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
+    let active = true;
+
+    const loadSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!active) return;
+      const user = data.session?.user;
+      const label =
+        user?.user_metadata?.full_name ??
+        user?.user_metadata?.name ??
+        user?.email ??
+        null;
+      setSignedInUser(label);
+    };
+
+    loadSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!active) return;
+      const user = session?.user;
+      const label =
+        user?.user_metadata?.full_name ??
+        user?.user_metadata?.name ??
+        user?.email ??
+        null;
+      setSignedInUser(label);
+    });
+
+    return () => {
+      active = false;
+      authListener?.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
     if (isMobile) {
       if (isMobileMenuOpen) {
         openMenu();
@@ -435,6 +476,18 @@ export function SiteHeader() {
             ))}
           </div>
           <div className="ml-auto flex items-center gap-3">
+            {signedInUser && (
+              <div
+                className={`hidden items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-wide lg:flex ${userBadgeClasses}`}
+              >
+                <span className="whitespace-nowrap">Signed in</span>
+                <span
+                  className={`max-w-[160px] truncate font-normal normal-case tracking-normal ${userBadgeDetailClasses}`}
+                >
+                  {signedInUser}
+                </span>
+              </div>
+            )}
             <Link
               href="/plan"
               className={`hidden lg:inline-flex ${ctaClasses}`}
