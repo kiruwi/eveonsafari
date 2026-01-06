@@ -4,6 +4,31 @@ import { useState } from 'react';
 
 import { supabase } from '@/lib/supabaseClient';
 
+const authNextKey = 'auth.next';
+
+const getSafeNextPath = (raw: string | null, origin: string) => {
+  if (!raw) return null;
+  try {
+    const url = new URL(raw, origin);
+    if (url.origin !== origin) return null;
+    return `${url.pathname}${url.search}${url.hash}` || '/';
+  } catch {
+    return null;
+  }
+};
+
+const storeNextPath = (nextPath: string | null) => {
+  try {
+    if (nextPath) {
+      window.sessionStorage.setItem(authNextKey, nextPath);
+    } else {
+      window.sessionStorage.removeItem(authNextKey);
+    }
+  } catch {
+    // Ignore storage access failures.
+  }
+};
+
 export default function AuthPage() {
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -53,6 +78,11 @@ export default function AuthPage() {
     if (!authOrigin) {
       return;
     }
+
+    const nextParam = new URLSearchParams(window.location.search).get('next');
+    const nextPath = getSafeNextPath(nextParam, window.location.origin);
+    storeNextPath(nextPath);
+
     const redirectTo = `${authOrigin}/auth/callback`;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',

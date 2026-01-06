@@ -4,6 +4,35 @@ import { useEffect, useState } from 'react';
 
 import { supabase } from '@/lib/supabaseClient';
 
+const authNextKey = 'auth.next';
+
+const getSafeNextPath = (raw: string | null, origin: string) => {
+  if (!raw) return null;
+  try {
+    const url = new URL(raw, origin);
+    if (url.origin !== origin) return null;
+    return `${url.pathname}${url.search}${url.hash}` || '/';
+  } catch {
+    return null;
+  }
+};
+
+const readStoredNext = () => {
+  try {
+    return window.sessionStorage.getItem(authNextKey);
+  } catch {
+    return null;
+  }
+};
+
+const clearStoredNext = () => {
+  try {
+    window.sessionStorage.removeItem(authNextKey);
+  } catch {
+    // Ignore storage access failures.
+  }
+};
+
 export default function AuthCallbackPage() {
   const [message, setMessage] = useState('Completing sign in...');
 
@@ -11,6 +40,12 @@ export default function AuthCallbackPage() {
     const exchangeCode = async () => {
       const params = new URLSearchParams(window.location.search);
       const code = params.get('code');
+      const nextParam = params.get('next');
+      const storedNext = readStoredNext();
+      const nextPath = getSafeNextPath(
+        nextParam ?? storedNext,
+        window.location.origin,
+      );
 
       if (!code) {
         setMessage('No auth code found in URL.');
@@ -24,8 +59,9 @@ export default function AuthCallbackPage() {
         return;
       }
 
+      clearStoredNext();
       setMessage('Signed in! Redirecting...');
-      window.location.replace('/');
+      window.location.replace(nextPath || '/');
     };
 
     exchangeCode();
