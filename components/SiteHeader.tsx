@@ -138,6 +138,7 @@ export function SiteHeader() {
   const userBadgeClasses = showNavBackground
     ? "border-[#231f20]/25 bg-white/70 text-[#231f20]"
     : "border-white/35 bg-white/10 text-white";
+  const userBadgeDetailClasses = showNavBackground ? "text-[#231f20]/70" : "text-white/80";
   const signOutClasses = showNavBackground
     ? "rounded-full border border-[#231f20] px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white sm:px-3 sm:py-2 sm:text-[11px]"
     : "rounded-full border border-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#231f20] sm:px-3 sm:py-2 sm:text-[11px]";
@@ -432,8 +433,8 @@ export function SiteHeader() {
           <div className="ml-auto flex items-center gap-3">
             <HeaderAuthStatus
               userBadgeClasses={userBadgeClasses}
+              userBadgeDetailClasses={userBadgeDetailClasses}
               signOutClasses={signOutClasses}
-              isLightNav={showNavBackground}
             />
             <Link
               href="/plan"
