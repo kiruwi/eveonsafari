@@ -86,7 +86,8 @@ export default function AuthPage() {
     }
 
     const nextParam = new URLSearchParams(window.location.search).get('next');
-    const nextPath = getSafeNextPath(nextParam, window.location.origin);
+    const referrer = document.referrer || null;
+    const nextPath = getSafeNextPath(nextParam ?? referrer, window.location.origin);
     storeNextPath(nextPath);
 
     const redirectTo = `${authOrigin}/auth/callback`;
