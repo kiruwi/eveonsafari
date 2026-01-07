@@ -15,7 +15,7 @@ export default function ExperiencesPage() {
         <header className="space-y-4 text-center">
           <p className="text-xs uppercase tracking-[0.4em] text-[#ba7e47]">Experiences</p>
           <h1
-            className="text-4xl font-semibold text-[#231f20] tracking-[0.04em]"
+            className="text-4xl font-semibold leading-tight text-[#231f20] tracking-[0.04em] sm:text-5xl"
             style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
           >
             Choose by travel style or region

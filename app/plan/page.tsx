@@ -7,7 +7,7 @@ export default function PlanPage() {
       <div className="mx-auto flex max-w-5xl flex-col gap-10 px-4 py-16 md:px-6 lg:px-0">
         <header className="text-center">
           <p className="text-xs uppercase tracking-[0.4em] text-[#ba7e47]">Plan a Safari</p>
-          <h1 className="mt-3 text-4xl font-semibold text-[#231f20]">
+          <h1 className="mt-3 text-4xl font-semibold leading-tight text-[#231f20] sm:text-5xl">
             Tell us about your dream journey
           </h1>
           <p className="mt-3 text-base text-[#231f20]/80">

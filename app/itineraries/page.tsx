@@ -113,7 +113,7 @@ export default function ItinerariesPage() {
       <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 py-16 md:px-6 lg:px-0">
         <header className="space-y-3 text-center">
           <h1
-            className="text-4xl font-semibold text-[#231f20]"
+            className="text-4xl font-semibold leading-tight text-[#231f20] sm:text-5xl"
             style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
           >
             These are our Safari Packages

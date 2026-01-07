@@ -410,7 +410,7 @@ export default function HomePage() {
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">What our clients say</p>
               <h2
-                className="mt-3 text-3xl font-semibold text-[#231f20] sm:text-4xl"
+                className="mt-3 text-4xl font-semibold leading-tight text-[#231f20] sm:text-5xl"
                 style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
               >
                 Guest reviews from{" "}
