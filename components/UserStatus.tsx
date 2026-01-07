@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { supabase } from '@/lib/supabaseClient';
 
@@ -10,15 +11,15 @@ type AuthState =
   | { status: 'signedIn'; email: string };
 
 export function UserStatus() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [state, setState] = useState<AuthState>({ status: 'loading' });
   const [error, setError] = useState<string | null>(null);
-  const [nextPath, setNextPath] = useState('/');
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setNextPath(`${window.location.pathname}${window.location.search}`);
-    }
-  }, []);
+  const nextPath = useMemo(() => {
+    const query = searchParams?.toString();
+    return query ? `${pathname}?${query}` : pathname;
+  }, [pathname, searchParams]);
 
   useEffect(() => {
     let active = true;
