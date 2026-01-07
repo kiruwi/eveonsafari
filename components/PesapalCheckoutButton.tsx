@@ -116,10 +116,7 @@ export function PesapalCheckoutButton({
   const formattedTotal = formatCurrency(totalAmount, currency);
 
   const handleCheckout = async () => {
-    const nextUrl =
-      typeof window !== 'undefined'
-        ? `${window.location.pathname}${window.location.search}${window.location.hash}`
-        : '/';
+    const nextUrl = typeof window !== 'undefined' ? window.location.href : '/';
     if (!authChecked) {
       setError('Checking sign-in status... please try again.');
       return;

@@ -6,27 +6,11 @@ import { supabase } from '@/lib/supabaseClient';
 
 const authNextKey = 'auth.next';
 
-const normalizeHost = (host: string) =>
-  host.startsWith('www.') ? host.slice(4) : host;
-
-const isSameSiteOrigin = (currentOrigin: string, targetOrigin: string) => {
-  try {
-    const currentUrl = new URL(currentOrigin);
-    const targetUrl = new URL(targetOrigin);
-    return (
-      currentUrl.protocol === targetUrl.protocol &&
-      normalizeHost(currentUrl.hostname) === normalizeHost(targetUrl.hostname)
-    );
-  } catch {
-    return false;
-  }
-};
-
 const getSafeNextPath = (raw: string | null, origin: string) => {
   if (!raw) return null;
   try {
     const url = new URL(raw, origin);
-    if (!isSameSiteOrigin(origin, url.origin)) return null;
+    if (url.origin !== origin) return null;
     return `${url.pathname}${url.search}${url.hash}` || '/';
   } catch {
     return null;
