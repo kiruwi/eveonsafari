@@ -72,7 +72,7 @@ const NAV_ITEMS: CardNavItem[] = [
         href: "/experiences#TravelStyles",
         ariaLabel: "View family-friendly experiences",
       },
-      { label: "Destination By Circuite", href: "/experiences#destinations-by-circuit", ariaLabel: "View destinations by circuit" },
+      { label: "Destinations by Circuit", href: "/experiences#destinations-by-circuit", ariaLabel: "View destinations by circuit" },
     ],
   },
   {
