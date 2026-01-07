@@ -38,6 +38,9 @@ export default function AuthPage() {
     if (typeof window === 'undefined') {
       return rawCanonical ?? null;
     }
+    if (process.env.NODE_ENV !== 'production') {
+      return window.location.origin;
+    }
     const localHosts = new Set(['localhost', '127.0.0.1', '::1']);
     if (localHosts.has(window.location.hostname)) {
       return window.location.origin;
@@ -90,7 +93,8 @@ export default function AuthPage() {
     const nextPath = getSafeNextPath(nextParam ?? referrer, window.location.origin);
     storeNextPath(nextPath);
 
-    const redirectTo = `${authOrigin}/auth/callback`;
+    const nextQuery = nextPath ? `?next=${encodeURIComponent(nextPath)}` : '';
+    const redirectTo = `${authOrigin}/auth/callback${nextQuery}`;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo },
