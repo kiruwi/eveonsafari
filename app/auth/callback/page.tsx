@@ -34,7 +34,7 @@ const clearStoredNext = () => {
 };
 
 export default function AuthCallbackPage() {
-  const [message, setMessage] = useState('Completing sign in...');
+  const [message, setMessage] = useState('Connecting...');
 
   useEffect(() => {
     const exchangeCode = async () => {
