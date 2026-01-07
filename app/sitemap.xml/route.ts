@@ -6,7 +6,6 @@ const staticRoutes = [
   "/experiences",
   "/plan",
   "/auth",
-  "/auth/callback",
   "/trekking",
   "/trekking/kilimanjaro-lemosho-route",
   "/trekking/kilimanjaro-machame-route",

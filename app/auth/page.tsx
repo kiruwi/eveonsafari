@@ -38,6 +38,10 @@ export default function AuthPage() {
     if (typeof window === 'undefined') {
       return rawCanonical ?? null;
     }
+    const localHosts = new Set(['localhost', '127.0.0.1', '::1']);
+    if (localHosts.has(window.location.hostname)) {
+      return window.location.origin;
+    }
     if (!rawCanonical) {
       return window.location.origin;
     }
@@ -76,6 +80,8 @@ export default function AuthPage() {
 
     const authOrigin = resolveAuthOrigin();
     if (!authOrigin) {
+      setMessage('Redirecting to the correct site...');
+      setLoading(false);
       return;
     }
 

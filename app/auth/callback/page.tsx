@@ -39,6 +39,8 @@ export default function AuthCallbackPage() {
   useEffect(() => {
     const exchangeCode = async () => {
       const params = new URLSearchParams(window.location.search);
+      const errorParam = params.get('error');
+      const errorDescription = params.get('error_description');
       const code = params.get('code');
       const nextParam = params.get('next');
       const storedNext = readStoredNext();
@@ -46,6 +48,15 @@ export default function AuthCallbackPage() {
         nextParam ?? storedNext,
         window.location.origin,
       );
+
+      if (errorParam) {
+        clearStoredNext();
+        const description = errorDescription
+          ? errorDescription.replace(/\+/g, ' ')
+          : null;
+        setMessage(description ?? `Auth error: ${errorParam}`);
+        return;
+      }
 
       if (!code) {
         setMessage('No auth code found in URL.');
