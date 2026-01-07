@@ -15,6 +15,7 @@ export function UserStatus() {
   const searchParams = useSearchParams();
   const [state, setState] = useState<AuthState>({ status: 'loading' });
   const [error, setError] = useState<string | null>(null);
+
   const nextPath = useMemo(() => {
     const query = searchParams?.toString();
     return query ? `${pathname}?${query}` : pathname;
