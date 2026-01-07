@@ -89,12 +89,10 @@ export default function AuthPage() {
     }
 
     const nextParam = new URLSearchParams(window.location.search).get('next');
-    const referrer = document.referrer || null;
-    const nextPath = getSafeNextPath(nextParam ?? referrer, window.location.origin);
+    const nextPath = getSafeNextPath(nextParam, window.location.origin);
     storeNextPath(nextPath);
 
-    const nextQuery = nextPath ? `?next=${encodeURIComponent(nextPath)}` : '';
-    const redirectTo = `${authOrigin}/auth/callback${nextQuery}`;
+    const redirectTo = `${authOrigin}/auth/callback`;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo },
