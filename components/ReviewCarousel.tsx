@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 type Review = {
@@ -71,9 +72,11 @@ export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
         <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-[#231f20]">
           <span>{review.name}</span>
           {flagSrc ? (
-            <img
+            <Image
               src={flagSrc}
               alt={`Flag of ${review.countryName}`}
+              width={24}
+              height={18}
               className="h-[18px] w-6 rounded-sm border border-[#231f20]/10"
               loading="lazy"
               decoding="async"

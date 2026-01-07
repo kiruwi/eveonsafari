@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
@@ -147,13 +147,15 @@ export function SiteHeader() {
     ? "rounded-full border border-[#231f20] px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white sm:px-3 sm:py-2 sm:text-[11px]"
     : "rounded-full border border-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#231f20] sm:px-3 sm:py-2 sm:text-[11px]";
 
-  const displayedItems = isMobile
-    ? isMobileMenuOpen
-      ? NAV_ITEMS.slice(1)
-      : []
-    : activeIndex !== null && activeIndex !== 0
-      ? [NAV_ITEMS[activeIndex]]
-      : [];
+  const displayedItems = useMemo(() => {
+    if (isMobile) {
+      return isMobileMenuOpen ? NAV_ITEMS.slice(1) : [];
+    }
+    if (activeIndex !== null && activeIndex !== 0) {
+      return [NAV_ITEMS[activeIndex]];
+    }
+    return [];
+  }, [activeIndex, isMobile, isMobileMenuOpen]);
 
   const createTimeline = () => {
     const navEl = navRef.current;
@@ -238,7 +240,16 @@ export function SiteHeader() {
 
   useEffect(() => {
     const updateMobile = () => {
-      setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+      const nextIsMobile = window.matchMedia("(max-width: 768px)").matches;
+      setIsMobile(nextIsMobile);
+      if (nextIsMobile) {
+        setActiveIndex(null);
+        if (!isMobileMenuOpen) {
+          closeMenu();
+        }
+      } else {
+        setMobileMenuOpen(false);
+      }
     };
     const handleScroll = () => {
       if (isMobileMenuOpen) return;
@@ -263,18 +274,7 @@ export function SiteHeader() {
       window.removeEventListener("mousemove", handleMouseMove);
       clearInactivity();
     };
-  }, [clearInactivity, handleUserActivity, isMobileMenuOpen]);
-
-  useEffect(() => {
-    if (isMobile) {
-      setActiveIndex(null);
-      if (!isMobileMenuOpen) {
-        closeMenu();
-      }
-      return;
-    }
-    setMobileMenuOpen(false);
-  }, [closeMenu, isMobile, isMobileMenuOpen]);
+  }, [clearInactivity, closeMenu, handleUserActivity, isMobileMenuOpen]);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -363,21 +363,6 @@ export function SiteHeader() {
     }
   };
 
-  useEffect(() => {
-    if (isMobile) {
-      if (isMobileMenuOpen) {
-        openMenu();
-      } else {
-        closeMenu();
-      }
-      return;
-    }
-
-    if (activeIndex !== null && activeIndex !== 0) {
-      openMenu();
-    }
-  }, [activeIndex, closeMenu, isMobile, isMobileMenuOpen, openMenu]);
-
   useLayoutEffect(() => {
     const measureHeight = () => {
       const el = contentRef.current;
@@ -400,6 +385,7 @@ export function SiteHeader() {
   const handleDesktopNav = (index: number) => {
     if (isMobile || index === 0) return;
     setActiveIndex(index);
+    openMenu();
   };
 
   const handleNavLinkClick = useCallback(() => {
@@ -422,6 +408,7 @@ export function SiteHeader() {
       setNavHidden(false);
       clearInactivity();
       setMobileMenuOpen(true);
+      openMenu();
     }
   };
 

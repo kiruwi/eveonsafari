@@ -4,10 +4,8 @@ import { PackageCheckoutSelector } from "@/components/PackageCheckoutSelector";
 import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { PackagePricing, safariPackagePricingUSD } from "@/lib/pricing";
 import {
-  destinationGroups,
   safariPackages,
   travelStyles,
-  guides,
   kilimanjaroRoutes,
 } from "@/lib/siteContent";
 
@@ -157,7 +155,7 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="mt-6 text-lg text-white/85">
-              We share clear, practical information to make planning feel straightforward. You'll find carefully built travel packages alongside simple guides to Tanzania's parks, islands, places to stay, and the details that shape the experience. We explain routes, activities, and daily pacing in plain terms, so you know what to expect before you arrive. If this is your first safari, we walk you through each step so you feel ready and comfortable with every choice.
+              We share clear, practical information to make planning feel straightforward. You&apos;ll find carefully built travel packages alongside simple guides to Tanzania&apos;s parks, islands, places to stay, and the details that shape the experience. We explain routes, activities, and daily pacing in plain terms, so you know what to expect before you arrive. If this is your first safari, we walk you through each step so you feel ready and comfortable with every choice.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4 sm:justify-start">
               <Link

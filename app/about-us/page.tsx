@@ -2,12 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const stats = [
-  { label: "Years of expertise", value: "10+", description: "Designing safaris with a decade of on-the-ground experience." },
-  { label: "Trip destinations", value: "60+", description: "Covering Tanzania's celebrated circuits from Serengeti to Zanzibar." },
-  { label: "Travelers hosted", value: "10,000+", description: "Guests who trusted us to craft meaningful journeys in the wild." },
-];
-
 const pillars = [
   {
     title: "Exceptional services",
@@ -28,22 +22,6 @@ export const metadata: Metadata = {
   description:
     "Discover the story behind Eve On Safari - 10+ years designing immersive, conservation-first journeys across Tanzania's parks, peaks, and coasts.",
 };
-
-function PhotoPlaceholder({ label, className = "" }: { label?: string; className?: string }) {
-  return (
-    <div
-      className={`relative flex min-h-[260px] items-center justify-center rounded-[28px] border border-dashed border-[#c3c3c3] bg-[#f8f5f2] text-[#231f20]/60 shadow-sm ${className}`}
-    >
-      <span className="text-xs uppercase tracking-[0.3em]">{label ?? "Coming soon"}</span>
-      <span className="sr-only">Image placeholder</span>
-      <div
-        className="pointer-events-none absolute inset-0 rounded-[28px]"
-        style={{ background: "linear-gradient(135deg, rgba(229,224,200,0.35), rgba(186,126,71,0.25))" }}
-        aria-hidden="true"
-      />
-    </div>
-  );
-}
 
 export default function AboutPage() {
   return (
@@ -211,7 +189,7 @@ export default function AboutPage() {
               <div className="rounded-[20px] border border-[#c3c3c3] bg-white p-4 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Our Vision</p>
                 <p className="mt-2 text-base text-[#231f20]/80">
-                  To be East Africa's most trusted name in sustainable and transformative travel, enriching lives through
+                  To be East Africa&apos;s most trusted name in sustainable and transformative travel, enriching lives through
                   authentic safari experiences.
                 </p>
               </div>

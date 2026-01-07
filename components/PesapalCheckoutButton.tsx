@@ -73,7 +73,7 @@ export function PesapalCheckoutButton({
       setAuthChecked(true);
     };
     syncAuth();
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
       if (!active) return;
       if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
         setIsAuthenticated(true);

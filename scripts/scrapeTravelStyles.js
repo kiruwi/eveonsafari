@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs'); // eslint-disable-line @typescript-eslint/no-require-imports
+const path = require('path'); // eslint-disable-line @typescript-eslint/no-require-imports
 
 const LINKS = Array.from(new Set([
   "https://eveonsafari.com/fly-in-out-safari/",

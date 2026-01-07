@@ -15,7 +15,6 @@ export function UserStatus() {
 
   useEffect(() => {
     let active = true;
-    let errorTimeout: NodeJS.Timeout | null = null;
 
     const loadUser = async () => {
       const { data, error: authError } = await supabase.auth.getUser();
@@ -51,9 +50,6 @@ export function UserStatus() {
 
     return () => {
       active = false;
-      if (errorTimeout) {
-        clearTimeout(errorTimeout);
-      }
       authListener?.subscription.unsubscribe();
     };
   }, []);

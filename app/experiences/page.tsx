@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   travelStyles,
@@ -78,12 +79,15 @@ export default function ExperiencesPage() {
                     className="group block w-full max-w-xl overflow-hidden rounded-[24px] border border-[#c3c3c3]/70 bg-[#f8f5f2] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:w-[min(460px,100%)]"
                     aria-label={`Open ${style.name}`}
                   >
-                    <div className="aspect-[8/3] w-full md:aspect-auto md:h-[172px]">
+                    <div className="relative aspect-[8/3] w-full md:aspect-auto md:h-[172px]">
                       {hasImage ? (
-                        <img
+                        <Image
                           src={imageUrl}
                           alt={imageAlt}
-                          className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                          fill
+                          className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                          sizes="(max-width: 768px) 100vw, 460px"
+                          priority={index < 2}
                           loading={index < 2 ? "eager" : "lazy"}
                         />
                       ) : (
