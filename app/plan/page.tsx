@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { UserStatus } from "@/components/UserStatus";
 
 export default function PlanPage() {
@@ -16,7 +17,15 @@ export default function PlanPage() {
         </header>
 
         <div className="rounded-[28px] border border-[#c3c3c3] bg-[#c3c3c3]/10 p-6">
-          <UserStatus />
+          <Suspense
+            fallback={
+              <div className="rounded-2xl bg-white px-4 py-3 text-sm text-[#231f20]/70 shadow-md">
+                Checking auth status...
+              </div>
+            }
+          >
+            <UserStatus />
+          </Suspense>
         </div>
 
         <form className="space-y-6 rounded-[28px] border border-[#c3c3c3] bg-white p-8 shadow-sm">
