@@ -6,9 +6,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
-import type { User } from "@supabase/supabase-js";
-
-import { supabase } from "@/lib/supabaseClient";
+import { HeaderAuthStatus } from "@/components/HeaderAuthStatus";
 
 type CardNavLink = {
   label: string;
@@ -124,8 +122,6 @@ export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNavHidden, setNavHidden] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
-  const [authStatus, setAuthStatus] = useState<"loading" | "signedOut" | "signedIn">("loading");
-  const [signedInUser, setSignedInUser] = useState<string | null>(null);
   const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const usesTransparentHeader = pathname === "/";
   const isLightNavBase = isScrolled || !usesTransparentHeader;
@@ -313,56 +309,6 @@ export function SiteHeader() {
     };
   }, [isMobileMenuOpen]);
 
-  useEffect(() => {
-    let active = true;
-
-    const applyUser = (user: User | null) => {
-      if (!active) return;
-      if (user) {
-        const label =
-          user.user_metadata?.full_name ??
-          user.user_metadata?.name ??
-          user.email ??
-          null;
-        setSignedInUser(label);
-        setAuthStatus("signedIn");
-      } else {
-        setSignedInUser(null);
-        setAuthStatus("signedOut");
-      }
-    };
-
-    const loadUser = async () => {
-      const { data, error: authError } = await supabase.auth.getUser();
-      if (!active) return;
-      if (authError) {
-        setSignedInUser(null);
-        setAuthStatus("signedOut");
-        return;
-      }
-      applyUser(data.user);
-    };
-
-    loadUser();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!active) return;
-      applyUser(session?.user ?? null);
-    });
-
-    return () => {
-      active = false;
-      authListener?.subscription.unsubscribe();
-    };
-  }, []);
-
-  const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("Sign out failed:", error.message);
-    }
-  };
-
   useLayoutEffect(() => {
     const measureHeight = () => {
       const el = contentRef.current;
@@ -485,25 +431,11 @@ export function SiteHeader() {
             ))}
           </div>
           <div className="ml-auto flex items-center gap-3">
-            {authStatus === "signedIn" && (
-              <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center">
-                <div
-                  className={`flex items-center gap-2 rounded-full border px-3 py-2 text-[10px] font-semibold uppercase tracking-wide sm:px-4 sm:text-[11px] ${userBadgeClasses}`}
-                >
-                  <span className="whitespace-nowrap">Signed in</span>
-                  {signedInUser && (
-                    <span
-                      className={`max-w-[120px] truncate font-normal normal-case tracking-normal sm:max-w-[160px] ${userBadgeDetailClasses}`}
-                    >
-                      {signedInUser}
-                    </span>
-                  )}
-                </div>
-                <button type="button" onClick={handleSignOut} className={signOutClasses}>
-                  Sign out
-                </button>
-              </div>
-            )}
+            <HeaderAuthStatus
+              userBadgeClasses={userBadgeClasses}
+              userBadgeDetailClasses={userBadgeDetailClasses}
+              signOutClasses={signOutClasses}
+            />
             <Link
               href="/plan"
               className={`hidden lg:inline-flex ${ctaClasses}`}
