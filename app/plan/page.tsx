@@ -42,7 +42,7 @@ export default function PlanPage() {
         <section className="rounded-[28px] border border-[#c3c3c3] bg-white p-8 text-sm text-[#231f20]/80">
           <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">Prefer WhatsApp?</p>
           <p className="mt-3">
-            Message <strong>+255 700 555 123</strong> with your travel window and we’ll schedule a video call.
+            Message <strong>+255 768 611 005</strong> with your travel window and we’ll schedule a video call.
           </p>
         </section>
       </div>
