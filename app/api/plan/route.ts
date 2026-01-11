@@ -54,8 +54,9 @@ const buildEmailBody = (payload: {
   email: string;
   travelDates: string | null;
   groupSize: number | null;
-  destinations: string | null;
-  wildlifeMoment: string | null;
+  interests: string | null;
+  budgetRange: string | null;
+  phone: string | null;
   packageSlug: string | null;
 }) => {
   const safe = (value: string | number | null) =>
@@ -68,8 +69,9 @@ const buildEmailBody = (payload: {
     `Email: ${payload.email}`,
     `Ideal travel dates: ${safe(payload.travelDates)}`,
     `Group size: ${safe(payload.groupSize)}`,
-    `Destinations & interests: ${safe(payload.destinations)}`,
-    `Dream wildlife moment: ${safe(payload.wildlifeMoment)}`,
+    `Interests: ${safe(payload.interests)}`,
+    `Budget range: ${safe(payload.budgetRange)}`,
+    `Phone/WhatsApp: ${safe(payload.phone)}`,
     `Package: ${safe(payload.packageSlug)}`,
   ].join("\n");
 };
@@ -95,9 +97,39 @@ export async function POST(request: Request) {
 
   const travelDates = normalizeOptionalText(body?.travelDates);
   const groupSize = normalizeGroupSize(body?.groupSize);
-  const destinations = normalizeOptionalText(body?.destinations);
-  const wildlifeMoment = normalizeOptionalText(body?.wildlifeMoment);
+  const interests = normalizeOptionalText(body?.interests);
+  const budgetRange = normalizeOptionalText(body?.budgetRange);
+  const phone = normalizeOptionalText(body?.phone);
   const packageSlug = normalizeOptionalText(body?.package);
+
+  if (!travelDates) {
+    return NextResponse.json(
+      { ok: false, error: "Please provide your travel dates." },
+      { status: 400 },
+    );
+  }
+
+  if (!groupSize) {
+    return NextResponse.json(
+      { ok: false, error: "Please provide your group size." },
+      { status: 400 },
+    );
+  }
+
+  if (!interests) {
+    return NextResponse.json(
+      { ok: false, error: "Please select your interests." },
+      { status: 400 },
+    );
+  }
+
+  const destinations = [
+    interests ? `Interests: ${interests}` : null,
+    phone ? `Phone/WhatsApp: ${phone}` : null,
+  ]
+    .filter(Boolean)
+    .join(" | ") || null;
+  const wildlifeMoment = budgetRange ? `Budget range: ${budgetRange}` : null;
 
   const { error } = await supabaseAdmin.from("plan_requests").insert({
     full_name: fullName,
@@ -150,8 +182,9 @@ export async function POST(request: Request) {
           email,
           travelDates,
           groupSize,
-          destinations,
-          wildlifeMoment,
+          interests,
+          budgetRange,
+          phone,
           packageSlug,
         }),
       });

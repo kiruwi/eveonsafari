@@ -105,10 +105,10 @@ export default function MountainGorillaTrekkingPage() {
               Plan this trip
             </Link>
             <Link
-              href="/experiences"
+              href="/activities"
               className="rounded-full border border-white px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/15"
             >
-              Explore experiences
+              Explore activities
             </Link>
           </div>
         </div>
@@ -280,10 +280,10 @@ export default function MountainGorillaTrekkingPage() {
               Start planning
             </Link>
             <Link
-              href="/experiences"
+              href="/activities"
               className="rounded-full border border-white px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/15"
             >
-              Explore experiences
+              Explore activities
             </Link>
           </div>
           <div className="mt-3 text-sm text-white/80">

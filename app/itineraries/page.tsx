@@ -13,8 +13,8 @@ const sampleRoutes = [
   },
   {
     title: "Safari + Zanzibar",
-    description: "10 Days Best of Tanzania Safari – Wildlife, Lakes & Culture with a Zanzibar finale.",
-    href: "/safaris/10-days/10-day-best-of-tanzania",
+    description: "8-Days Tanzania Safari & Beach Holiday",
+    href: "/safaris/10-day-best-of-tanzania",
     image: "/itenerary%20photos/safari.webp",
   },
   {
@@ -73,15 +73,23 @@ const formatPriceRange = (pricing?: PackagePricing) => {
   return parts.length ? parts.join(" | ") : "Price on request";
 };
 
-const itineraries = safariPackages.map((pkg) => ({
-  id: pkg.slug,
-  name: pkg.name
+const formatPackageName = (pkg: { name: string; slug: string }) => {
+  const stripped = pkg.name
     .replace(/^[0-9]+\s*Days?\s*/i, "")
-    .replace(/^[0-9]+[-\s]*Day\s*/i, "")
+    .replace(/^[0-9]+[-\s]*Day\s*/i, "");
+  if (pkg.slug === "10-day-best-of-tanzania") {
+    return stripped.trim();
+  }
+  return stripped
     .replace(/^Tanzania\s*/i, "")
     .replace(/^Safari\s*/i, "")
     .replace(/^-/, "")
-    .trim(),
+    .trim();
+};
+
+const itineraries = safariPackages.map((pkg) => ({
+  id: pkg.slug,
+  name: formatPackageName(pkg),
   duration: pkg.subcategory ?? "",
   countries: "Tanzania",
   highlights: pkg.highlights,

@@ -5,60 +5,60 @@ const days = [
     title: "Arrive Moshi",
     description: "Arrive at Kilimanjaro airport, transfer to the hotel, and complete briefing and final gear check.",
     highlights: ["Overnight at Sal Salinero hotel (or equivalent), Bed and Breakfast"],
-    image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/lemosho/Day%201.webp",
   },
   {
     title: "Moshi – Mti Mkubwa camp (9,020ft | 2750m)",
     description:
       "Drive to Londorossi Gate for registration, continue to Lemosho glades, and hike through rainforest to Mti Mkubwa.",
     highlights: ["Trailhead picnic lunch", "Dinner and overnight at Mti Mkubwa campsite"],
-    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/lemosho/Day%202.webp",
   },
   {
     title: "Mti Mkubwa – Shira (1) Plateau Camp (11,480ft | 3500m)",
     description:
       "Cross streams in the heather zone, crest Shira Ridge, and camp on the open Shira Plateau.",
     highlights: ["Packed lunch along the trail", "Dinner at Shira (1) Plateau Camp"],
-    image: "https://images.unsplash.com/photo-1520357456838-1e06818653f1?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/lemosho/Day%203.webp",
   },
   {
     title: "Shira Plateau - Shira hut (12,470ft | 3800m)",
     description:
       "Gentle trek across the plateau to Shira Hut; afternoon acclimatization walks on the moorland meadows.",
     highlights: ["Lunch at Shira hut", "Evening acclimatization strolls"],
-    image: "https://images.unsplash.com/photo-1518831959410-6f5c2b6fa9d5?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/lemosho/Day%204.webp",
   },
   {
     title: "Shira hut – Barranco camp (12,960ft | 3950m)",
     description:
       "Climb toward Lava Tower for altitude exposure, then descend to Barranco camp to sleep lower.",
     highlights: ["Packed lunch on trail", "Dinner and overnight at Barranco camp"],
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/lemosho/Day%205.webp",
   },
   {
     title: "Barranco camp - Barafu camp (15,090ft | 4600m)",
     description:
       "Scale the Barranco Wall, traverse Karanga Valley, then continue to Barafu for summit staging.",
     highlights: ["Picnic lunch en route", "Dinner and rest at Barafu", "Optional extra acclimatization night at Karanga"],
-    image: "https://images.unsplash.com/photo-1527772831180-79e8cdf2de5d?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/lemosho/Day%206.webp",
   },
   {
     title: "Barafu camp - Summit - Mweka camp",
     description:
       "Midnight ascent via Stella Point to Uhuru, descend to Barafu for brunch, and continue to Mweka camp for the night.",
     highlights: ["Summit via Stella Point", "Brunch at Barafu", "Overnight at Mweka camp"],
-    image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/lemosho/day%207.webp",
   },
   {
     title: "Mweka camp - Moshi",
     description: "Descend to Mweka gate, farewell to the team, then return to Moshi for a hot shower and relaxation.",
     highlights: ["Overnight at Sal Salinero hotel (or equivalent), Bed and Breakfast"],
-    image: "https://images.unsplash.com/photo-1496567903454-4ccac194beff?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/lemosho/Day%208.webp",
   },
   {
     title: "Moshi - Kilimanjaro - Depart",
     description: "After breakfast, transfer to Kilimanjaro airport for departure or onward travel.",
-    image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/lemosho/Day%209.webp",
   },
 ];
 
@@ -113,7 +113,7 @@ export default function KilimanjaroLemoshoRoutePage() {
       title="Kilimanjaro Climb on Lemosho Route"
       durationLabel="9 days | 8 nights"
       airport="Pick up and drop off at Kilimanjaro airport"
-      heroImage="/mountain%20routes/marangu/marangu%20route%20main.webp"
+      heroImage="/Mountain%20Routes/lemosho/lemosho%20bg.webp"
       routeStyle="Secluded western approach"
       accommodation="Mountain tents"
       difficulty="Challenging"

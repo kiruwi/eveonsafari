@@ -51,7 +51,7 @@ export const safariPackages = [
   { name: "7 Days Northern Highlights", slug: "7-day-northern-highlights", subcategory: "7 Days", highlights: "Cultural immersion, classic game viewing" },
   { name: "8 Days Migration & Cultural Wonders", slug: "8-day-migration-cultural-wonders", subcategory: "8 Days", highlights: "Great Migration focus, Hadzabe visit" },
   { name: "9 Days Grand Tanzania Safari", slug: "9-day-grand-tanzania", subcategory: "9 Days", highlights: "Fly-in luxury camps across the north" },
-  { name: "10 Days Best of Tanzania", slug: "10-day-best-of-tanzania", subcategory: "10 Days", highlights: "Safari plus beach finale" },
+  { name: "8 Days Tanzania Safari & Beach Holiday", slug: "10-day-best-of-tanzania", subcategory: "8 Days", highlights: "Tarangire, Ngorongoro, Lake Manyara, and Zanzibar's north coast" },
 ];
 
 export const trekkingPackages = [

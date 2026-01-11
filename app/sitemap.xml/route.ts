@@ -3,7 +3,7 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://eveonsafari.com").
 const staticRoutes = [
   "/",
   "/itineraries",
-  "/experiences",
+  "/activities",
   "/plan",
   "/auth",
   "/trekking",

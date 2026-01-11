@@ -302,10 +302,10 @@ export default function AboutPage() {
               Plan with us
             </Link>
             <Link
-              href="/experiences"
+              href="/activities"
               className="rounded-full border border-[#231f20] px-5 py-3 text-xs font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white"
             >
-              Explore experiences
+              Explore activities
             </Link>
           </div>
         </div>

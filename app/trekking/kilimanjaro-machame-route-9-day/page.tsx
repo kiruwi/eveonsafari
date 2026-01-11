@@ -5,7 +5,7 @@ const days = [
     title: "Arrive Moshi",
     description: "Arrive at Kilimanjaro airport, transfer to your hotel, and complete briefing plus final gear check.",
     highlights: ["Overnight at Sal Salinero Hotel (or equivalent), Bed and Breakfast"],
-    image: "/Mountain Routes/machame/machame 2.webp",
+    image: "/Mountain Routes/machame/Day 1.webp",
   },
   {
     title: "Moshi - Machame hut (9,840ft | 3000m)",
@@ -23,13 +23,13 @@ const days = [
     title: "Shira hut - Barranco camp (12,960ft | 3950m)",
     description: "Gain altitude toward Lava Tower (14,760ft | 4500m) then drop to Barranco to sleep lower for acclimatization.",
     highlights: ["Packed lunch on trail", "Dinner and overnight at Barranco camp"],
-    image: undefined,
+    image: "/Mountain Routes/machame/Day 4.webp",
   },
   {
     title: "Barranco camp - Karanga camp (13,450ft | 4100m)",
     description: "Climb the Barranco Wall, traverse Karanga Valley, and camp at Karanga for a shorter acclimatization day.",
     highlights: ["Hot lunch at Karanga", "Dinner and overnight at Karanga camp"],
-    image: undefined,
+    image: "/Mountain Routes/machame/Day 5.webp",
   },
   {
     title: "Karanga camp - Barafu camp (15,090ft | 4600m)",
@@ -41,18 +41,18 @@ const days = [
     title: "Barafu camp - Summit - Mweka",
     description: "Midnight summit via Stella Point to Uhuru Peak, descend to Barafu for brunch, then continue down to Mweka hut.",
     highlights: ["Summit via Stella Point", "Brunch at Barafu", "Overnight at Mweka hut"],
-    image: "/Mountain Routes/machame/machame 5.webp",
+    image: "/Mountain Routes/machame/Day 7.webp",
   },
   {
     title: "Mweka camp | Moshi",
     description: "Final descent to the gate, farewell to the crew, and return to Moshi for a hot shower and poolside rest.",
     highlights: ["Overnight at Sal Salinero Hotel (or equivalent), Bed and Breakfast"],
-    image: "https://images.unsplash.com/photo-1496567903454-4ccac194beff?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain Routes/machame/Day 8.webp",
   },
   {
     title: "Moshi | Kilimanjaro airport | Departure",
     description: "Breakfast at the hotel, then transfer to Kilimanjaro airport for departure or onward travel.",
-    image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain Routes/machame/machame 7.webp",
   },
 ];
 

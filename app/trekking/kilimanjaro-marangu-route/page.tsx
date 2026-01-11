@@ -6,48 +6,48 @@ const days = [
     description:
       "Arrive at Kilimanjaro airport, meet your representative, transfer to the hotel, and complete the briefing plus final gear check.",
     highlights: ["Overnight at Sal Salinero Hotel (or equivalent), Bed and Breakfast"],
-    image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/marangu/arrival.webp",
   },
   {
     title: "Moshi - Mandara hut (9,020ft | 2750m)",
     description:
       "Begin the forest ascent from Marangu gate to Mandara hut through thick rainforest, with lunch on the trail.",
     highlights: ["Packed trail lunch", "Dinner and overnight at Mandara hut"],
-    image: "https://images.unsplash.com/photo-1516386204654-85c52d4d6970?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/marangu/mandara-hut.webp",
   },
   {
     title: "Mandara hut - Horombo hut (12,200ft | 3720m)",
     description:
       "Climb through moorland toward Horombo hut, gaining views toward Mawenzi and the saddle.",
     highlights: ["Packed lunch en route", "Dinner and overnight at Horombo hut"],
-    image: "https://images.unsplash.com/photo-1520357456838-1e06818653f1?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/marangu/horombo.webp",
   },
   {
     title: "Horombo hut - Kibo hut (15,420ft | 4700m)",
     description:
       "Cross the alpine saddle toward Kibo hut, settling in for an early night ahead of summit push.",
     highlights: ["Packed lunch at a picnic site", "Early dinner and rest at Kibo hut"],
-    image: "https://images.unsplash.com/photo-1518831959410-6f5c2b6fa9d5?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/marangu/kibo.webp",
   },
   {
     title: "Kibo hut - Summit - Horombo hut",
     description:
       "Midnight ascent via Gilman's Point to Uhuru Peak for sunrise, then descend to Kibo for brunch before continuing to Horombo hut.",
     highlights: ["Summit via Gilman's Point", "Breakfast/brunch at Kibo", "Overnight at Horombo hut"],
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/marangu/hut%202.webp",
   },
   {
     title: "Horombo hut - Moshi",
     description:
       "Descend to the park gate, then drive back to Moshi for a hot shower and celebratory rest.",
     highlights: ["Overnight at Sal Salinero Hotel (or equivalent), Bed and Breakfast"],
-    image: "https://images.unsplash.com/photo-1496567903454-4ccac194beff?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/marangu/moshi-mandara.webp",
   },
   {
     title: "Moshi | Kilimanjaro | Depart",
     description:
       "Breakfast at the hotel, then transfer to Kilimanjaro airport for departure or onward travel.",
-    image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain%20Routes/marangu/arrival.webp",
   },
 ];
 
@@ -102,7 +102,7 @@ export default function KilimanjaroMaranguRoutePage() {
       title="Kilimanjaro Climb on Marangu Route"
       durationLabel="7 days | 6 nights"
       airport="Pick up and drop off at Kilimanjaro Airport"
-      heroImage="/mountain%20routes/marangu/marangu%20route%20main.webp"
+      heroImage="/Mountain%20Routes/marangu/marangu%20route%20main.webp"
       routeStyle="Hut-based 'Coca-Cola' route"
       accommodation="Mountain huts"
       difficulty="Moderate"

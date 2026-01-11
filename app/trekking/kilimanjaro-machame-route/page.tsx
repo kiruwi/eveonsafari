@@ -5,7 +5,7 @@ const days = [
     title: "Arrive Moshi",
     description: "Arrive at Kilimanjaro airport, transfer to the hotel, and complete briefing and final gear check.",
     highlights: ["Overnight at Sal Salinero Hotel (or equivalent), Bed and Breakfast"],
-    image: "/Mountain Routes/machame/machame 2.webp",
+    image: "/Mountain Routes/machame/Day 1.webp",
   },
   {
     title: "Moshi - Machame hut (9,840ft | 3000m)",
@@ -23,13 +23,13 @@ const days = [
     title: "Shira hut - Barranco camp (12,960ft | 3950m)",
     description: "Climb toward Lava Tower for high-altitude exposure, then descend to Barranco camp to aid acclimatization.",
     highlights: ["Packed lunch on trail", "Dinner and overnight at Barranco camp"],
-    image: undefined,
+    image: "/Mountain Routes/machame/Day 4.webp",
   },
   {
     title: "Barranco camp - Barafu camp (15,090ft | 4600m)",
     description: "Tackle the Barranco Wall, cross Karanga Valley, then push on to Barafu for summit staging.",
     highlights: ["Hot lunch at Karanga", "Dinner and rest at Barafu", "Extra acclimatization day at Karanga available"],
-    image: undefined,
+    image: "/Mountain Routes/machame/Day 5.webp",
   },
   {
     title: "Barafu camp - Summit - Mweka hut",
@@ -41,12 +41,12 @@ const days = [
     title: "Mweka camp - Moshi",
     description: "Final descent to the park gate, farewell to crew, and return to Moshi for a hot shower and rest.",
     highlights: ["Packed lunch en route", "Overnight at Sal Salinero Hotel (or equivalent), Bed and Breakfast"],
-    image: "/Mountain Routes/machame/machame 5.webp",
+    image: "/Mountain Routes/machame/Day 7.webp",
   },
   {
     title: "Depart Moshi | Kilimanjaro airport",
     description: "Breakfast at the hotel, then transfer to Kilimanjaro airport for departure or onward travel.",
-    image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80",
+    image: "/Mountain Routes/machame/Day 8.webp",
   },
 ];
 

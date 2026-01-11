@@ -24,10 +24,10 @@ export default function Page() {
             Start planning
           </Link>
           <Link
-            href="/experiences"
+            href="/activities"
             className="rounded-full border border-[#231f20] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20]/5"
           >
-            Back to experiences
+            Back to activities
           </Link>
         </div>
       </div>

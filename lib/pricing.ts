@@ -14,5 +14,5 @@ export const safariPackagePricingUSD: Record<string, PackagePricing> = {
   "7-day-northern-highlights": { midrange: 3844.06, luxury: 4344.06 },
   "8-day-migration-cultural-wonders": { midrange: 4368.6, luxury: 4914 },
   "9-day-grand-tanzania": { midrange: 0, luxury: 0 },
-  "10-day-best-of-tanzania": { midrange: 0, luxury: 0 },
+  "10-day-best-of-tanzania": { midrange: 2208, luxury: 0 },
 };

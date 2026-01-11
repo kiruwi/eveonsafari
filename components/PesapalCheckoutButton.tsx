@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { PackagePricing } from '@/lib/pricing';
-import { supabase } from '@/lib/supabaseClient';
 
 type TierOption = 'midrange' | 'luxury';
 
@@ -57,37 +56,6 @@ export function PesapalCheckoutButton({
   const [pax, setPax] = useState<number>(defaultPax);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [authChecked, setAuthChecked] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    const syncAuth = async () => {
-      const { data, error: authError } = await supabase.auth.getUser();
-      if (!active) return;
-      if (authError) {
-        setIsAuthenticated(false);
-      } else {
-        setIsAuthenticated(Boolean(data.user));
-      }
-      setAuthChecked(true);
-    };
-    syncAuth();
-    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
-      if (!active) return;
-      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-        setIsAuthenticated(true);
-      }
-      if (event === 'SIGNED_OUT') {
-        setIsAuthenticated(false);
-      }
-    });
-    return () => {
-      active = false;
-      authListener?.subscription.unsubscribe();
-    };
-  }, []);
-
   useEffect(() => {
     // Reset tier when pricing changes so we don't leave an unavailable option selected.
     if (tier === 'midrange' && !availablePrices.midrange && availablePrices.luxury) {
@@ -117,17 +85,6 @@ export function PesapalCheckoutButton({
 
   const handleCheckout = async () => {
     const nextUrl = typeof window !== 'undefined' ? window.location.href : '/';
-    if (!authChecked) {
-      setError('Checking sign-in status... please try again.');
-      return;
-    }
-
-    if (!isAuthenticated) {
-      setError('Please log in to continue. Redirecting to sign in…');
-      window.location.href = `/auth?next=${encodeURIComponent(nextUrl)}`;
-      return;
-    }
-
     if (!totalAmount || !validPerPerson) {
       setError('Add a price to continue.');
       return;
@@ -137,6 +94,14 @@ export function PesapalCheckoutButton({
     setError(null);
 
     try {
+      const { supabase } = await import('@/lib/supabaseClient');
+      const { data: authData, error: authError } = await supabase.auth.getUser();
+      if (authError || !authData.user) {
+        setError('Please log in to continue. Redirecting to sign in…');
+        window.location.href = `/auth?next=${encodeURIComponent(nextUrl)}`;
+        return;
+      }
+
       const res = await fetch('/api/pesapal/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -156,9 +121,9 @@ export function PesapalCheckoutButton({
         throw new Error(data.error || 'Unable to start Pesapal checkout.');
       }
 
-      const data = await res.json();
-      if (data?.redirectUrl) {
-        window.location.href = data.redirectUrl as string;
+      const checkoutData = await res.json();
+      if (checkoutData?.redirectUrl) {
+        window.location.href = checkoutData.redirectUrl as string;
         return;
       }
 

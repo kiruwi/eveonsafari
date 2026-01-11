@@ -16,12 +16,14 @@ const trekLinks = [
   { label: "Kilimanjaro Lemosho", href: "/trekking/kilimanjaro-lemosho-route" },
   { label: "Kilimanjaro Machame", href: "/trekking/kilimanjaro-machame-route" },
   { label: "Kilimanjaro Marangu", href: "/trekking/kilimanjaro-marangu-route" },
+  { label: "Kilimanjaro Rongai", href: "/trekking/7-day-rongai-route-kilimanjaro-trek" },
+  { label: "Kilimanjaro Northern Circuit", href: "/trekking/9-days-northern-circuit-route-kilimanjaro-trek" },
 ];
 
 const planningLinks = [
   { label: "Plan a Safari", href: "/plan" },
   { label: "Safaris", href: "/itineraries" },
-  { label: "Experiences", href: "/experiences" },
+  { label: "Activities", href: "/activities" },
 ];
 
 export function SiteFooter() {

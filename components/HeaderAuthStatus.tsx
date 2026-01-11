@@ -3,8 +3,6 @@
 import { useEffect, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 
-import { supabase } from '@/lib/supabaseClient';
-
 type HeaderAuthStatusProps = {
   userBadgeClasses: string;
   userBadgeDetailClasses: string;
@@ -21,6 +19,17 @@ const buildLabel = (user: User | null) => {
   );
 };
 
+const hasSupabaseSession = () => {
+  if (typeof window === 'undefined') return false;
+  try {
+    return Object.keys(window.localStorage).some(
+      (key) => key.startsWith('sb-') && key.endsWith('-auth-token'),
+    );
+  } catch {
+    return false;
+  }
+};
+
 export function HeaderAuthStatus({
   userBadgeClasses,
   userBadgeDetailClasses,
@@ -33,6 +42,7 @@ export function HeaderAuthStatus({
 
   useEffect(() => {
     let active = true;
+    let authSubscription: { unsubscribe: () => void } | null = null;
 
     const applyUser = (user: User | null) => {
       if (!active) return;
@@ -47,35 +57,49 @@ export function HeaderAuthStatus({
     };
 
     const loadUser = async () => {
-      const { data, error: authError } = await supabase.auth.getUser();
-      if (!active) return;
-      if (authError) {
-        setSignedInUser(null);
-        setStatus('signedOut');
+      if (!hasSupabaseSession()) {
+        applyUser(null);
         return;
       }
-      applyUser(data.user);
+      try {
+        const { supabase } = await import('@/lib/supabaseClient');
+        if (!active) return;
+        const { data, error: authError } = await supabase.auth.getUser();
+        if (!active) return;
+        if (authError) {
+          applyUser(null);
+          return;
+        }
+        applyUser(data.user);
+        const { data: authListener } = supabase.auth.onAuthStateChange(
+          (_event, session) => {
+            if (!active) return;
+            applyUser(session?.user ?? null);
+          },
+        );
+        authSubscription = authListener?.subscription ?? null;
+      } catch {
+        applyUser(null);
+      }
     };
 
     loadUser();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        if (!active) return;
-        applyUser(session?.user ?? null);
-      },
-    );
-
     return () => {
       active = false;
-      authListener?.subscription.unsubscribe();
+      authSubscription?.unsubscribe();
     };
   }, []);
 
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error('Sign out failed:', error.message);
+    try {
+      const { supabase } = await import('@/lib/supabaseClient');
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Sign out failed:', error.message);
+      }
+    } catch (error) {
+      console.error('Sign out failed:', error);
     }
   };
 

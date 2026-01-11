@@ -126,7 +126,7 @@ export default function HomePage() {
           alt="Sunrise over the savannah with acacia trees"
           fill
           priority
-          className="absolute inset-0 -z-10 h-full w-full object-cover"
+          className="absolute inset-0 -z-10 h-full w-full object-cover object-top"
           sizes="100vw"
         />
         <div className="absolute inset-0 -z-10 bg-black/40" />
@@ -387,7 +387,7 @@ export default function HomePage() {
               ))}
             </div>
             <Link
-              href="/experiences#TravelStyles"
+              href="/activities#TravelStyles"
               className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#ba7e47] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-[#8a592e]"
             >
               View travel styles
