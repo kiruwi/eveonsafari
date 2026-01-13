@@ -6,6 +6,7 @@ const days = [
     description:
       "Meet your driver after immigration, transfer to Moshi, and complete trek briefing, gear check, and rentals. Extra rest day recommended if time allows.",
     highlights: ["Trek orientation with your guide", "Gear check and rental support", "Hotel overnight"],
+    image: "/Mountain%20Routes/northern/Day%201.webp",
   },
   {
     title: "Londorossi Gate to Mti Mkubwa Camp",
@@ -16,6 +17,7 @@ const days = [
       "Distance: ~6km | 2-3 hours",
       "Habitat: Montane Forest",
     ],
+    image: "/Mountain%20Routes/northern/Day%202.webp",
   },
   {
     title: "Mti Mkubwa to Shira 1 Camp",
@@ -26,6 +28,7 @@ const days = [
       "Distance: ~8km | 4-5 hours",
       "Habitat: Moorland",
     ],
+    image: "/Mountain%20Routes/northern/Day%203.webp",
   },
   {
     title: "Shira 1 to Shira 2 Camp",
@@ -35,6 +38,7 @@ const days = [
       "Distance: ~8km | 4-5 hours",
       "Habitat: Moorland",
     ],
+    image: "/Mountain%20Routes/northern/Day%204.webp",
   },
   {
     title: "Shira 2 to Moir Hut (via Lava Tower acclimatization)",
@@ -45,6 +49,7 @@ const days = [
       "Distance: ~9km | 5-6 hours",
       "Habitat: Alpine Desert",
     ],
+    image: "/Mountain%20Routes/northern/Day%205.webp",
   },
   {
     title: "Moir Hut to Buffalo Camp",
@@ -55,6 +60,7 @@ const days = [
       "Distance: ~8-9km | 5-6 hours",
       "Habitat: Alpine Desert",
     ],
+    image: "/Mountain%20Routes/northern/Day%206.webp",
   },
   {
     title: "Buffalo Camp to Third Cave",
@@ -65,6 +71,7 @@ const days = [
       "Distance: ~7km | 4-5 hours",
       "Habitat: Alpine Desert",
     ],
+    image: "/Mountain%20Routes/northern/Day%207.webp",
   },
   {
     title: "Third Cave to School Hut",
@@ -75,6 +82,7 @@ const days = [
       "Distance: ~5km | 4-5 hours",
       "Habitat: Alpine Desert",
     ],
+    image: "/Mountain%20Routes/northern/Day%208.webp",
   },
   {
     title: "School Hut to Uhuru Peak, descend to Mweka Camp",
@@ -85,12 +93,14 @@ const days = [
       "Distance: ~5km up / 13km down",
       "Hiking Time: 6-8 hours up, 5-6 hours down",
     ],
+    image: "/Mountain%20Routes/northern/Day%209.webp",
   },
   {
     title: "Mweka Camp to Mweka Gate, depart",
     description:
       "Final descent through forest to Mweka Gate for certificates and farewell, then drive back to town for onward plans.",
     highlights: ["Distance: ~10km | 3-4 hours", "Habitat: Forest"],
+    image: "/Mountain%20Routes/northern/Day%2010.webp",
   },
 ];
 
@@ -142,7 +152,7 @@ export default function NorthernCircuitRoutePage() {
       title="9 Days Northern Circuit Route Kilimanjaro Climb"
       durationLabel="9 days | 8 nights (plus arrival/departure)"
       airport="Pick up and drop off at Kilimanjaro Airport"
-      heroImage="/mountain%20routes/marangu/marangu%20route%20main.webp"
+      heroImage="/Mountain%20Routes/northern/northern%20bg.webp"
       routeStyle="Northern Circuit via Lemosho approach"
       accommodation="Mountain tents"
       difficulty="Challenging"
