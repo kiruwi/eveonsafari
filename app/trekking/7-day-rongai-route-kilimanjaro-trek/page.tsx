@@ -6,6 +6,7 @@ const days = [
     description:
       "Meet your driver after immigration and transfer to your hotel. Trek briefing, gear check, and time to rent missing items. Extra rest day recommended if time allows.",
     highlights: ["Trek orientation with your guide", "Gear check and rentals", "Hotel overnight"],
+    image: "/Mountain%20Routes/rongai/Day%201.webp",
   },
   {
     title: "Rongai Gate (Nale Moru) to Simba Camp",
@@ -16,6 +17,7 @@ const days = [
       "Distance: ~6km | 3-4 hours",
       "Habitat: Montane Forest",
     ],
+    image: "/Mountain%20Routes/rongai/Day%202.webp",
   },
   {
     title: "Simba Camp to Second Cave",
@@ -25,6 +27,7 @@ const days = [
       "Distance: ~6km | 3-4 hours",
       "Habitat: Moorland",
     ],
+    image: "/Mountain%20Routes/rongai/Day%203.webp",
   },
   {
     title: "Second Cave to Kikelewa Camp",
@@ -34,6 +37,7 @@ const days = [
       "Distance: ~9km | 2-3 hours",
       "Habitat: Semi-desert",
     ],
+    image: "/Mountain%20Routes/rongai/Day%204.webp",
   },
   {
     title: "Kikelewa to Mawenzi Tarn (acclimatization)",
@@ -44,6 +48,7 @@ const days = [
       "Distance: ~6km | 3-4 hours",
       "Habitat: Semi-desert",
     ],
+    image: "/Mountain%20Routes/rongai/5.webp",
   },
   {
     title: "Mawenzi Tarn to Kibo Hut",
@@ -53,6 +58,7 @@ const days = [
       "Distance: ~9km | 4-5 hours",
       "Habitat: Alpine Desert",
     ],
+    image: "/Mountain%20Routes/rongai/6.webp",
   },
   {
     title: "Kibo Hut to Uhuru Peak, descend to Horombo",
@@ -63,6 +69,7 @@ const days = [
       "Distance: ~6km up / 15km down",
       "Hiking Time: 6-8 hours up, 5-6 hours down",
     ],
+    image: "/Mountain%20Routes/rongai/7.webp",
   },
   {
     title: "Horombo Hut to Marangu Gate, return to town",
@@ -73,6 +80,7 @@ const days = [
       "Distance: ~20km | 4-5 hours",
       "Habitat: Forest",
     ],
+    image: "/Mountain%20Routes/rongai/8.webp",
   },
 ];
 
@@ -124,7 +132,7 @@ export default function RongaiRoutePage() {
       title="7 Days Rongai Route Kilimanjaro Climb"
       durationLabel="7 days | 6 nights (plus arrival/departure)"
       airport="Pick up and drop off at Kilimanjaro Airport"
-      heroImage="/mountain%20routes/marangu/marangu%20route%20main.webp"
+      heroImage="/Mountain%20Routes/rongai/rongai%20bg.webp"
       routeStyle="Northern approach via Rongai, descent via Marangu"
       accommodation="Mountain tents; Horombo hut on descent"
       difficulty="Moderate"
