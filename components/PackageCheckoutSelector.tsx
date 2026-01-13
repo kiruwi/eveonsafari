@@ -15,6 +15,8 @@ type PackageCheckoutSelectorProps = {
   currency?: string;
 };
 
+const formatPackageLabel = (name: string) => name.replace(/\bDays\b/g, "Day");
+
 export function PackageCheckoutSelector({ packages, pricing, currency = "USD" }: PackageCheckoutSelectorProps) {
   const [selectedSlug, setSelectedSlug] = useState<string>(packages[0]?.slug ?? "");
 
@@ -43,7 +45,7 @@ export function PackageCheckoutSelector({ packages, pricing, currency = "USD" }:
         >
           {packages.map((pkg) => (
             <option key={pkg.slug} value={pkg.slug}>
-              {pkg.name}
+              {formatPackageLabel(pkg.name)}
             </option>
           ))}
         </select>
