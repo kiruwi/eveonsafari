@@ -53,7 +53,7 @@ export function PesapalCheckoutButton({
         : (firstAvailableTier as TierOption | null) || 'midrange';
 
   const [tier, setTier] = useState<TierOption>(initialTier);
-  const [pax, setPax] = useState<number>(defaultPax);
+  const [paxInput, setPaxInput] = useState<string>(() => String(defaultPax));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
@@ -76,8 +76,11 @@ export function PesapalCheckoutButton({
       ? perPerson
       : null;
 
+  const parsedPax = Number.parseInt(paxInput, 10);
+  const pax = Number.isFinite(parsedPax) && parsedPax > 0 ? parsedPax : 0;
+
   const totalAmount =
-    validPerPerson && pax && Number.isFinite(pax) && pax > 0
+    validPerPerson && pax > 0
       ? Number.parseFloat((validPerPerson * pax).toFixed(2))
       : null;
 
@@ -179,15 +182,21 @@ export function PesapalCheckoutButton({
           </select>
         </label>
         <label className="text-sm font-semibold text-[#231f20]">
-          Pax
+          Number of people
           <input
             type="number"
             min={1}
-            value={pax}
+            inputMode="numeric"
+            value={paxInput}
             onChange={(e) => {
-              const value = Number.parseInt(e.target.value, 10);
-              const safeValue = Number.isFinite(value) && value > 0 ? value : 1;
-              setPax(safeValue);
+              setPaxInput(e.target.value);
+            }}
+            onBlur={() => {
+              if (pax <= 0) {
+                setPaxInput('1');
+                return;
+              }
+              setPaxInput(String(pax));
             }}
             className="mt-1 w-full rounded-full border border-[#c3c3c3] px-3 py-2 text-sm text-[#231f20] focus:border-[#ba7e47] focus:outline-none"
           />
