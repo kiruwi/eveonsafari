@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -37,6 +38,7 @@ const gatheniaFont = localFont({
 const envSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const vercelPreviewUrl = process.env.VERCEL_URL;
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID;
 const fallbackSiteUrl = "https://eveonsafari.com";
 
 const siteUrl = (envSiteUrl
@@ -65,6 +67,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {gaMeasurementId ? (
+          <>
+            <Script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${gaMeasurementId}');`}
+            </Script>
+          </>
+        ) : null}
+      </head>
       <body
         className={`${geistSans.variable} ${titleFont.variable} ${americanGrungeFont.variable} ${gatheniaFont.variable} antialiased bg-white text-[#231f20]`}
       >
