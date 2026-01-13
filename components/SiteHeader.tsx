@@ -338,22 +338,33 @@ export function SiteHeader() {
     tl.play(0);
   }, [clearInactivity, isExpanded]);
 
-  const closeMenu = useCallback(() => {
-    if (!isExpanded) return;
-    const tl = timelineRef.current;
-    if (!tl) {
-      setIsExpanded(false);
-      setActiveIndex(null);
-      setMobileMenuOpen(false);
-      return;
-    }
-    tl.eventCallback("onReverseComplete", () => {
-      setIsExpanded(false);
-      setActiveIndex(null);
-      setMobileMenuOpen(false);
-    });
-    tl.reverse();
-  }, [isExpanded]);
+  const closeMenu = useCallback(
+    (options?: { immediate?: boolean }) => {
+      if (!isExpanded && !isMobileMenuOpen) return;
+      const shouldCloseImmediately = options?.immediate;
+      if (shouldCloseImmediately) {
+        timelineRef.current?.pause(0);
+        setIsExpanded(false);
+        setActiveIndex(null);
+        setMobileMenuOpen(false);
+        return;
+      }
+      const tl = timelineRef.current;
+      if (!tl) {
+        setIsExpanded(false);
+        setActiveIndex(null);
+        setMobileMenuOpen(false);
+        return;
+      }
+      tl.eventCallback("onReverseComplete", () => {
+        setIsExpanded(false);
+        setActiveIndex(null);
+        setMobileMenuOpen(false);
+      });
+      tl.reverse();
+    },
+    [isExpanded, isMobile, isMobileMenuOpen],
+  );
 
   useLayoutEffect(() => {
     let active = true;
@@ -516,8 +527,7 @@ export function SiteHeader() {
 
   const handleNavLinkClick = useCallback(() => {
     if (isMobile) {
-      setMobileMenuOpen(false);
-      closeMenu();
+      closeMenu({ immediate: true });
     }
   }, [closeMenu, isMobile]);
 
@@ -532,13 +542,13 @@ export function SiteHeader() {
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
-      closeMenu();
-    } else {
-      setNavHidden(false);
-      clearInactivity();
-      setMobileMenuOpen(true);
-      openMenu();
+      closeMenu({ immediate: true });
+      return;
     }
+    setNavHidden(false);
+    clearInactivity();
+    setMobileMenuOpen(true);
+    openMenu();
   };
 
   const showMobileBackdrop = isMobile && isMobileMenuOpen;
@@ -579,6 +589,7 @@ export function SiteHeader() {
         <div className={`mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5 ${navTextColor}`}>
           <Link
             href="/"
+            onClick={() => closeMenu({ immediate: true })}
             className="flex items-center gap-2"
           >
             <Image
