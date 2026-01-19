@@ -67,7 +67,6 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const articleId = toText(body?.article_id);
   const title = toText(body?.title);
-  const title = toText(body?.title);
   const slugInput = toText(body?.slug);
   const slug = normalizeSlug(slugInput || title);
   const category = toText(body?.category);
