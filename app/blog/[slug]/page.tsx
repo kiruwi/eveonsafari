@@ -40,7 +40,7 @@ const fetchEntries = async (articleId: string) => {
     .from("blog_entries")
     .select("*")
     .eq("article_id", articleId)
-    .eq("status", "published")
+    .ilike("status", "published")
     .order("order_index", { ascending: true })
     .order("title", { ascending: true });
 

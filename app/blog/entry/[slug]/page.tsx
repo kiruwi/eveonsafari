@@ -18,7 +18,7 @@ const fetchEntry = async (slug: string) => {
     .from("blog_entries")
     .select("*")
     .eq("slug", slug)
-    .eq("status", "published")
+    .ilike("status", "published")
     .maybeSingle();
 
   if (error) {
