@@ -26,8 +26,8 @@ const fetchArticle = async (slug: string) => {
   const { data, error } = await supabaseAdmin
     .from("blog_articles")
     .select("*")
-    .eq("slug", slug)
-    .eq("status", "published")
+    .eq("slug", normalizedSlug)
+    .ilike("status", "published")
     .maybeSingle();
 
   if (error) {
@@ -41,7 +41,7 @@ const fetchArticle = async (slug: string) => {
   const { data: fallbackData, error: fallbackError } = await supabaseAdmin
     .from("blog_articles")
     .select("*")
-    .eq("status", "published");
+    .ilike("status", "published");
 
   if (fallbackError) {
     console.error("Blog article fallback fetch failed:", fallbackError);

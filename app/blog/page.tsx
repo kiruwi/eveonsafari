@@ -32,7 +32,7 @@ export default async function BlogIndexPage() {
     .select(
       "id, title, slug, excerpt, intro, cover_image_url, published_at, updated_at, author_name",
     )
-    .eq("status", "published")
+    .ilike("status", "published")
     .order("published_at", { ascending: false, nullsFirst: false });
 
   if (error) {
