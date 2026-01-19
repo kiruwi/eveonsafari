@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
+const allowedAdminEmail = "iankcheruiyot@gmail.com";
+
 const getBearerToken = (request: Request) => {
   const header = request.headers.get("authorization") ?? "";
   if (!header.toLowerCase().startsWith("bearer ")) {
@@ -19,6 +21,10 @@ const requireAuth = async (request: Request) => {
   const { data, error } = await supabaseAdmin.auth.getUser(token);
   if (error || !data?.user) {
     return { error: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) };
+  }
+  const userEmail = (data.user.email ?? "").toLowerCase();
+  if (userEmail !== allowedAdminEmail) {
+    return { error: NextResponse.json({ error: "Forbidden" }, { status: 403 }) };
   }
 
   return { user: data.user };

@@ -48,12 +48,17 @@ type EntryPayload = {
 };
 
 const authRedirectPath = "/admin/blog";
+const allowedAdminEmail = "iankcheruiyot@gmail.com";
+
+const isAllowedEmail = (email: string | null | undefined) =>
+  (email ?? "").toLowerCase() === allowedAdminEmail;
 
 export default function AdminBlogPage() {
   const router = useRouter();
   const [authStatus, setAuthStatus] = useState<
-    "loading" | "signedIn" | "signedOut"
+    "loading" | "signedIn" | "signedOut" | "unauthorized"
   >("loading");
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [articles, setArticles] = useState<BlogArticle[]>([]);
   const [entries, setEntries] = useState<BlogEntry[]>([]);
@@ -70,6 +75,14 @@ export default function AdminBlogPage() {
       const { data, error } = await supabase.auth.getSession();
       if (error || !data.session) {
         setAuthStatus("signedOut");
+        setUserEmail(null);
+        setAccessToken(null);
+        return;
+      }
+      const email = data.session.user.email ?? null;
+      setUserEmail(email);
+      if (!isAllowedEmail(email)) {
+        setAuthStatus("unauthorized");
         setAccessToken(null);
         return;
       }
@@ -82,6 +95,14 @@ export default function AdminBlogPage() {
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) {
         setAuthStatus("signedOut");
+        setUserEmail(null);
+        setAccessToken(null);
+        return;
+      }
+      const email = session.user.email ?? null;
+      setUserEmail(email);
+      if (!isAllowedEmail(email)) {
+        setAuthStatus("unauthorized");
         setAccessToken(null);
         return;
       }
@@ -99,6 +120,14 @@ export default function AdminBlogPage() {
       router.replace(authHref);
     }
   }, [authStatus, authHref, router]);
+
+  const handleSignOut = useCallback(async () => {
+    await supabase.auth.signOut();
+    setAuthStatus("signedOut");
+    setUserEmail(null);
+    setAccessToken(null);
+    router.replace(authHref);
+  }, [authHref, router]);
 
   const fetchAdmin = useCallback(
     async <T,>(path: string, options?: RequestInit): Promise<T> => {
@@ -276,6 +305,33 @@ export default function AdminBlogPage() {
       <div className="bg-white">
         <section className="mx-auto max-w-3xl px-4 py-16 md:px-6 lg:px-0">
           <p className="text-sm text-[#231f20]/70">Checking access...</p>
+        </section>
+      </div>
+    );
+  }
+
+  if (authStatus === "unauthorized") {
+    return (
+      <div className="bg-white">
+        <section className="mx-auto max-w-3xl px-4 py-16 md:px-6 lg:px-0">
+          <h1 className="text-2xl font-semibold text-[#231f20]">
+            Access restricted
+          </h1>
+          <p className="mt-3 text-base text-[#231f20]/70">
+            Only {allowedAdminEmail} can manage blog content.
+          </p>
+          {userEmail ? (
+            <p className="mt-2 text-sm text-[#231f20]/70">
+              Signed in as {userEmail}.
+            </p>
+          ) : null}
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="mt-6 inline-flex rounded-full bg-[#231f20] px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white"
+          >
+            Sign out
+          </button>
         </section>
       </div>
     );
