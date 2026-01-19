@@ -38,12 +38,14 @@ export type MarkdownSection = {
   content: string;
 };
 
-export const normalizeSlug = (value: string) =>
-  value
+export const normalizeSlug = (value: string | null | undefined) => {
+  const raw = typeof value === "string" ? value : "";
+  return raw
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+};
 
 const cleanHeading = (value: string) =>
   value.replace(/\s*#+\s*$/, "").trim();
@@ -109,8 +111,8 @@ export const formatBlogDate = (value: string | null) => {
   }).format(date);
 };
 
-export const inferCategoryFromHeading = (heading: string | null) => {
-  if (!heading) return null;
+export const inferCategoryFromHeading = (heading: string | null | undefined) => {
+  if (typeof heading !== "string" || !heading.trim()) return null;
   const lowered = heading.toLowerCase();
   if (lowered.includes("park")) return "park";
   if (lowered.includes("island")) return "island";
@@ -119,8 +121,11 @@ export const inferCategoryFromHeading = (heading: string | null) => {
   return null;
 };
 
-export const matchesHeadingCategory = (heading: string | null, category: string) => {
-  if (!heading) return false;
+export const matchesHeadingCategory = (
+  heading: string | null | undefined,
+  category: string | null | undefined,
+) => {
+  if (typeof heading !== "string" || typeof category !== "string") return false;
   const loweredHeading = heading.toLowerCase();
   const loweredCategory = category.toLowerCase();
   return (
