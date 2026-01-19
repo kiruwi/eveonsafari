@@ -157,12 +157,13 @@ export default async function BlogArticlePage({ params }: PageProps) {
               inferCategoryFromHeading(section.heading) ??
               (section.heading ? section.heading.toLowerCase() : null);
             const sectionEntries = entries.filter((entry) => {
+              const entryCategory = (entry.category ?? "").toLowerCase();
               const matchesCategory = sectionCategory
-                ? entry.category.toLowerCase() === sectionCategory
+                ? entryCategory === sectionCategory
                 : false;
               const matchesHeading = matchesHeadingCategory(
                 section.heading,
-                entry.category,
+                entry.category ?? "",
               );
               const isMatch = matchesCategory || matchesHeading;
               if (!isMatch) return false;
