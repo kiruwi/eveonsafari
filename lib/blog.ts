@@ -38,7 +38,7 @@ export type MarkdownSection = {
   content: string;
 };
 
-const slugify = (value: string) =>
+export const normalizeSlug = (value: string) =>
   value
     .toLowerCase()
     .trim()
@@ -49,7 +49,7 @@ const cleanHeading = (value: string) =>
   value.replace(/\s*#+\s*$/, "").trim();
 
 const createHeadingId = (value: string, counts: Map<string, number>) => {
-  const base = slugify(value) || "section";
+  const base = normalizeSlug(value) || "section";
   const currentCount = counts.get(base) ?? 0;
   counts.set(base, currentCount + 1);
   return currentCount ? `${base}-${currentCount + 1}` : base;

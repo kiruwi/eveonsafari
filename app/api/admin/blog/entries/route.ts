@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { normalizeSlug } from "@/lib/blog";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 const allowedAdminEmail = "iankcheruiyot@gmail.com";
@@ -66,7 +67,9 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const articleId = toText(body?.article_id);
   const title = toText(body?.title);
-  const slug = toText(body?.slug);
+  const title = toText(body?.title);
+  const slugInput = toText(body?.slug);
+  const slug = normalizeSlug(slugInput || title);
   const category = toText(body?.category);
   const location = toOptionalText(body?.location);
   const content = toText(body?.content_markdown);
@@ -109,7 +112,8 @@ export async function PATCH(request: Request) {
   const id = toText(body?.id);
   const articleId = toText(body?.article_id);
   const title = toText(body?.title);
-  const slug = toText(body?.slug);
+  const slugInput = toText(body?.slug);
+  const slug = normalizeSlug(slugInput || title);
   const category = toText(body?.category);
   const location = toOptionalText(body?.location);
   const content = toText(body?.content_markdown);

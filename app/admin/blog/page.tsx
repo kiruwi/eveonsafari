@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
-import type { BlogArticle, BlogEntry } from "@/lib/blog";
+import { normalizeSlug, type BlogArticle, type BlogEntry } from "@/lib/blog";
 import { supabase } from "@/lib/supabaseClient";
 
 const inputClass =
@@ -182,9 +182,12 @@ export default function AdminBlogPage() {
   const handleCreateArticle = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const title = getFormText(formData, "title");
+    const slugInput = getFormText(formData, "slug");
+    const slug = normalizeSlug(slugInput || title);
     const payload: AdminPayload = {
-      title: getFormText(formData, "title"),
-      slug: getFormText(formData, "slug"),
+      title,
+      slug,
       excerpt: getOptionalFormText(formData, "excerpt"),
       cover_image_url: getOptionalFormText(formData, "cover_image_url"),
       intro: getOptionalFormText(formData, "intro"),
@@ -210,10 +213,13 @@ export default function AdminBlogPage() {
   const handleUpdateArticle = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const title = getFormText(formData, "title");
+    const slugInput = getFormText(formData, "slug");
+    const slug = normalizeSlug(slugInput || title);
     const payload: AdminPayload & { id: string } = {
       id: getFormText(formData, "id"),
-      title: getFormText(formData, "title"),
-      slug: getFormText(formData, "slug"),
+      title,
+      slug,
       excerpt: getOptionalFormText(formData, "excerpt"),
       cover_image_url: getOptionalFormText(formData, "cover_image_url"),
       intro: getOptionalFormText(formData, "intro"),
@@ -239,10 +245,13 @@ export default function AdminBlogPage() {
   const handleCreateEntry = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const title = getFormText(formData, "title");
+    const slugInput = getFormText(formData, "slug");
+    const slug = normalizeSlug(slugInput || title);
     const payload: EntryPayload = {
       article_id: getFormText(formData, "article_id"),
-      title: getFormText(formData, "title"),
-      slug: getFormText(formData, "slug"),
+      title,
+      slug,
       category: getFormText(formData, "category"),
       location: getOptionalFormText(formData, "location"),
       content_markdown: getFormText(formData, "content_markdown"),
@@ -271,11 +280,14 @@ export default function AdminBlogPage() {
   const handleUpdateEntry = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const title = getFormText(formData, "title");
+    const slugInput = getFormText(formData, "slug");
+    const slug = normalizeSlug(slugInput || title);
     const payload: EntryPayload & { id: string } = {
       id: getFormText(formData, "id"),
       article_id: getFormText(formData, "article_id"),
-      title: getFormText(formData, "title"),
-      slug: getFormText(formData, "slug"),
+      title,
+      slug,
       category: getFormText(formData, "category"),
       location: getOptionalFormText(formData, "location"),
       content_markdown: getFormText(formData, "content_markdown"),
