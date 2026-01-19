@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import type { BlogEntry } from "@/lib/blog";
+import { normalizeSlug, type BlogEntry } from "@/lib/blog";
 
 type BlogEntryCardProps = {
   entry: BlogEntry;
@@ -14,9 +14,10 @@ const categoryLabel = (category: string) =>
 const isLocalImage = (url: string) => url.startsWith("/");
 
 export function BlogEntryCard({ entry }: BlogEntryCardProps) {
+  const entrySlug = normalizeSlug(entry.slug || entry.title);
   return (
     <Link
-      href={`/blog/entry/${entry.slug}`}
+      href={`/blog/entry/${entrySlug}`}
       className="group flex h-full flex-col gap-3 rounded-[22px] border border-[#c3c3c3] bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
     >
       {entry.featured_image_url ? (

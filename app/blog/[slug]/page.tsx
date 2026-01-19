@@ -8,6 +8,7 @@ import {
   formatBlogDate,
   inferCategoryFromHeading,
   matchesHeadingCategory,
+  normalizeSlug,
   parseMarkdownSections,
   type BlogArticle,
   type BlogEntry,
@@ -21,6 +22,7 @@ type PageProps = {
 };
 
 const fetchArticle = async (slug: string) => {
+  const normalizedSlug = normalizeSlug(slug);
   const { data, error } = await supabaseAdmin
     .from("blog_articles")
     .select("*")
@@ -32,7 +34,26 @@ const fetchArticle = async (slug: string) => {
     console.error("Blog article fetch failed:", error);
   }
 
-  return data as BlogArticle | null;
+  if (data) {
+    return data as BlogArticle;
+  }
+
+  const { data: fallbackData, error: fallbackError } = await supabaseAdmin
+    .from("blog_articles")
+    .select("*")
+    .eq("status", "published");
+
+  if (fallbackError) {
+    console.error("Blog article fallback fetch failed:", fallbackError);
+    return null;
+  }
+
+  const fallbackMatch =
+    (fallbackData ?? []).find(
+      (article) => normalizeSlug(article.slug ?? "") === normalizedSlug,
+    ) ?? null;
+
+  return fallbackMatch as BlogArticle | null;
 };
 
 const fetchEntries = async (articleId: string) => {

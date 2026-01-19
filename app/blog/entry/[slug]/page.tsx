@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { MarkdownContent } from "@/components/MarkdownContent";
 import type { BlogArticle, BlogEntry } from "@/lib/blog";
-import { formatBlogDate } from "@/lib/blog";
+import { formatBlogDate, normalizeSlug } from "@/lib/blog";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 export const dynamic = "force-dynamic";
@@ -14,6 +14,7 @@ type PageProps = {
 };
 
 const fetchEntry = async (slug: string) => {
+  const normalizedSlug = normalizeSlug(slug);
   const { data, error } = await supabaseAdmin
     .from("blog_entries")
     .select("*")
@@ -25,7 +26,26 @@ const fetchEntry = async (slug: string) => {
     console.error("Blog entry fetch failed:", error);
   }
 
-  return data as BlogEntry | null;
+  if (data) {
+    return data as BlogEntry;
+  }
+
+  const { data: fallbackData, error: fallbackError } = await supabaseAdmin
+    .from("blog_entries")
+    .select("*")
+    .ilike("status", "published");
+
+  if (fallbackError) {
+    console.error("Blog entry fallback fetch failed:", fallbackError);
+    return null;
+  }
+
+  const fallbackMatch =
+    (fallbackData ?? []).find(
+      (entry) => normalizeSlug(entry.slug ?? "") === normalizedSlug,
+    ) ?? null;
+
+  return fallbackMatch as BlogEntry | null;
 };
 
 const fetchArticle = async (articleId: string) => {

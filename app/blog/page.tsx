@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
-import { formatBlogDate } from "@/lib/blog";
+import { formatBlogDate, normalizeSlug } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog | Eve On Safari",
@@ -63,6 +63,7 @@ export default async function BlogIndexPage() {
         {articles.length ? (
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => {
+              const articleSlug = normalizeSlug(article.slug || article.title);
               const teaser =
                 article.excerpt ??
                 article.intro ??
@@ -74,7 +75,7 @@ export default async function BlogIndexPage() {
               return (
                 <Link
                   key={article.id}
-                  href={`/blog/${article.slug}`}
+                  href={`/blog/${articleSlug}`}
                   className="group flex h-full flex-col overflow-hidden rounded-[26px] border border-[#c3c3c3] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   {article.cover_image_url ? (
