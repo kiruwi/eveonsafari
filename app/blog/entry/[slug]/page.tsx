@@ -18,34 +18,15 @@ const fetchEntry = async (slug: string) => {
   const { data, error } = await supabaseAdmin
     .from("blog_entries")
     .select("*")
-    .eq("slug", slug)
-    .ilike("status", "published")
+    .eq("slug", normalizedSlug)
+    .eq("status", "published")
     .maybeSingle();
 
   if (error) {
     console.error("Blog entry fetch failed:", error);
   }
 
-  if (data) {
-    return data as BlogEntry;
-  }
-
-  const { data: fallbackData, error: fallbackError } = await supabaseAdmin
-    .from("blog_entries")
-    .select("*")
-    .ilike("status", "published");
-
-  if (fallbackError) {
-    console.error("Blog entry fallback fetch failed:", fallbackError);
-    return null;
-  }
-
-  const fallbackMatch =
-    (fallbackData ?? []).find(
-      (entry) => normalizeSlug(entry.slug ?? "") === normalizedSlug,
-    ) ?? null;
-
-  return fallbackMatch as BlogEntry | null;
+  return data as BlogEntry | null;
 };
 
 const fetchArticle = async (articleId: string) => {
@@ -99,7 +80,7 @@ export default async function BlogEntryPage({ params }: PageProps) {
       <section className="mx-auto max-w-4xl px-4 py-16 md:px-6 lg:px-0">
         {article && article.status === "published" ? (
           <Link
-            href={`/blog/${article.slug}`}
+            href={`/blog/${normalizeSlug(article.slug || article.title)}`}
             className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-[#ba7e47]"
           >
             <span aria-hidden="true">&larr;</span>
@@ -140,9 +121,7 @@ export default async function BlogEntryPage({ params }: PageProps) {
               alt={entry.title}
               className="h-full w-full object-cover"
               loading="lazy"
-              referrerPolicy={
-                entry.featured_image_url.startsWith("/") ? undefined : "no-referrer"
-              }
+              referrerPolicy="no-referrer"
             />
           </div>
         ) : null}

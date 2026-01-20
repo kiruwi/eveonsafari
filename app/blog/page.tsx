@@ -24,15 +24,13 @@ type BlogArticleListItem = {
   author_name: string | null;
 };
 
-const isLocalImage = (url: string) => url.startsWith("/");
-
 export default async function BlogIndexPage() {
   const { data, error } = await supabaseAdmin
     .from("blog_articles")
     .select(
       "id, title, slug, excerpt, intro, cover_image_url, published_at, updated_at, author_name",
     )
-    .ilike("status", "published")
+    .eq("status", "published")
     .order("published_at", { ascending: false, nullsFirst: false });
 
   if (error) {
@@ -85,11 +83,7 @@ export default async function BlogIndexPage() {
                         alt={article.title}
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                         loading="lazy"
-                        referrerPolicy={
-                          isLocalImage(article.cover_image_url)
-                            ? undefined
-                            : "no-referrer"
-                        }
+                        referrerPolicy="no-referrer"
                       />
                     </div>
                   ) : (

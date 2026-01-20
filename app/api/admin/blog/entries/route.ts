@@ -37,10 +37,6 @@ const toOptionalText = (value: unknown) => {
   return text.length ? text : null;
 };
 const toStatus = (value: unknown) => (value === "draft" ? "draft" : "published");
-const toOrderIndex = (value: unknown) => {
-  const parsed = Number.parseInt(toText(value), 10);
-  return Number.isNaN(parsed) ? 0 : parsed;
-};
 
 export async function GET(request: Request) {
   const auth = await requireAuth(request);
@@ -49,8 +45,7 @@ export async function GET(request: Request) {
   const { data, error } = await supabaseAdmin
     .from("blog_entries")
     .select("*")
-    .order("created_at", { ascending: false })
-    .order("order_index", { ascending: true });
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Admin blog entries fetch failed:", error);
@@ -73,7 +68,6 @@ export async function POST(request: Request) {
   const location = toOptionalText(body?.location);
   const content = toText(body?.content_markdown);
   const featuredImage = toOptionalText(body?.featured_image_url);
-  const orderIndex = toOrderIndex(body?.order_index);
   const status = toStatus(body?.status);
 
   if (!articleId || !title || !slug || !category || !content) {
@@ -91,7 +85,6 @@ export async function POST(request: Request) {
     location,
     content_markdown: content,
     featured_image_url: featuredImage,
-    order_index: orderIndex,
     status,
   });
 
@@ -117,7 +110,6 @@ export async function PATCH(request: Request) {
   const location = toOptionalText(body?.location);
   const content = toText(body?.content_markdown);
   const featuredImage = toOptionalText(body?.featured_image_url);
-  const orderIndex = toOrderIndex(body?.order_index);
   const status = toStatus(body?.status);
 
   if (!id || !articleId || !title || !slug || !category || !content) {
@@ -137,7 +129,6 @@ export async function PATCH(request: Request) {
       location,
       content_markdown: content,
       featured_image_url: featuredImage,
-      order_index: orderIndex,
       status,
     })
     .eq("id", id);

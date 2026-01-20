@@ -11,32 +11,22 @@ const categoryLabel = (category: string) =>
     .replace(/[_-]+/g, " ")
     .replace(/\b\w/g, (match) => match.toUpperCase());
 
-const isLocalImage = (url: string) => url.startsWith("/");
-
 export function BlogEntryCard({ entry }: BlogEntryCardProps) {
   const entrySlug = normalizeSlug(entry.slug || entry.title);
+
   return (
     <Link
       href={`/blog/entry/${entrySlug}`}
       className="group flex h-full flex-col gap-3 rounded-[22px] border border-[#c3c3c3] bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
     >
       {entry.featured_image_url ? (
-        isLocalImage(entry.featured_image_url) ? (
-          <img
-            src={entry.featured_image_url}
-            alt={entry.title}
-            className="h-36 w-full rounded-[16px] object-cover"
-            loading="lazy"
-          />
-        ) : (
-          <img
-            src={entry.featured_image_url}
-            alt={entry.title}
-            className="h-36 w-full rounded-[16px] object-cover"
-            loading="lazy"
-            referrerPolicy="no-referrer"
-          />
-        )
+        <img
+          src={entry.featured_image_url}
+          alt={entry.title}
+          className="h-36 w-full rounded-[16px] object-cover"
+          loading="lazy"
+          referrerPolicy="no-referrer"
+        />
       ) : null}
       <div className="space-y-2">
         <p className="text-[11px] uppercase tracking-[0.3em] text-[#ba7e47]">

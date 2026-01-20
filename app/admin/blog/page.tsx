@@ -23,7 +23,15 @@ const getOptionalFormText = (formData: FormData, key: string) => {
   return value.length ? value : null;
 };
 
-type AdminPayload = {
+const getFileFromForm = (formData: FormData, key: string) => {
+  const value = formData.get(key);
+  if (value instanceof File && value.size > 0) {
+    return value;
+  }
+  return null;
+};
+
+type ArticlePayload = {
   title: string;
   slug: string;
   excerpt?: string | null;
@@ -43,7 +51,6 @@ type EntryPayload = {
   location?: string | null;
   content_markdown: string;
   featured_image_url?: string | null;
-  order_index?: number | string;
   status?: string;
 };
 
@@ -52,6 +59,13 @@ const allowedAdminEmail = "iankcheruiyot@gmail.com";
 
 const isAllowedEmail = (email: string | null | undefined) =>
   (email ?? "").toLowerCase() === allowedAdminEmail;
+
+const storageBucket = "blog-images";
+
+const getFileExtension = (filename: string) => {
+  const parts = filename.split(".");
+  return parts.length > 1 ? parts.pop() : null;
+};
 
 export default function AdminBlogPage() {
   const router = useRouter();
@@ -64,6 +78,7 @@ export default function AdminBlogPage() {
   const [entries, setEntries] = useState<BlogEntry[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   const authHref = useMemo(
     () => `/auth?next=${encodeURIComponent(authRedirectPath)}`,
@@ -179,17 +194,40 @@ export default function AdminBlogPage() {
     }
   }, [authStatus, accessToken, loadData]);
 
+  const uploadImage = async (file: File, folder: string, slugSeed: string) => {
+    setIsUploading(true);
+    try {
+      const extension = getFileExtension(file.name) ?? "jpg";
+      const filename = `${normalizeSlug(slugSeed || file.name) || "image"}-${Date.now()}.${extension}`;
+      const path = `${folder}/${filename}`;
+      const { error } = await supabase.storage
+        .from(storageBucket)
+        .upload(path, file, { upsert: true });
+      if (error) {
+        throw error;
+      }
+      const { data } = supabase.storage.from(storageBucket).getPublicUrl(path);
+      return data.publicUrl;
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleCreateArticle = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const title = getFormText(formData, "title");
     const slugInput = getFormText(formData, "slug");
     const slug = normalizeSlug(slugInput || title);
-    const payload: AdminPayload = {
+    const coverFile = getFileFromForm(formData, "cover_image_file");
+    const coverImageUrl = coverFile
+      ? await uploadImage(coverFile, "covers", slug)
+      : null;
+    const payload: ArticlePayload = {
       title,
       slug,
       excerpt: getOptionalFormText(formData, "excerpt"),
-      cover_image_url: getOptionalFormText(formData, "cover_image_url"),
+      cover_image_url: coverImageUrl,
       intro: getOptionalFormText(formData, "intro"),
       content_markdown: getFormText(formData, "content_markdown"),
       author_name: getOptionalFormText(formData, "author_name"),
@@ -216,12 +254,17 @@ export default function AdminBlogPage() {
     const title = getFormText(formData, "title");
     const slugInput = getFormText(formData, "slug");
     const slug = normalizeSlug(slugInput || title);
-    const payload: AdminPayload & { id: string } = {
+    const coverFile = getFileFromForm(formData, "cover_image_file");
+    const existingCover = getOptionalFormText(formData, "cover_image_url");
+    const coverImageUrl = coverFile
+      ? await uploadImage(coverFile, "covers", slug)
+      : existingCover;
+    const payload: ArticlePayload & { id: string } = {
       id: getFormText(formData, "id"),
       title,
       slug,
       excerpt: getOptionalFormText(formData, "excerpt"),
-      cover_image_url: getOptionalFormText(formData, "cover_image_url"),
+      cover_image_url: coverImageUrl,
       intro: getOptionalFormText(formData, "intro"),
       content_markdown: getFormText(formData, "content_markdown"),
       author_name: getOptionalFormText(formData, "author_name"),
@@ -248,6 +291,10 @@ export default function AdminBlogPage() {
     const title = getFormText(formData, "title");
     const slugInput = getFormText(formData, "slug");
     const slug = normalizeSlug(slugInput || title);
+    const featuredFile = getFileFromForm(formData, "featured_image_file");
+    const featuredImageUrl = featuredFile
+      ? await uploadImage(featuredFile, "entries", slug)
+      : null;
     const payload: EntryPayload = {
       article_id: getFormText(formData, "article_id"),
       title,
@@ -255,11 +302,7 @@ export default function AdminBlogPage() {
       category: getFormText(formData, "category"),
       location: getOptionalFormText(formData, "location"),
       content_markdown: getFormText(formData, "content_markdown"),
-      featured_image_url: getOptionalFormText(
-        formData,
-        "featured_image_url",
-      ),
-      order_index: getFormText(formData, "order_index"),
+      featured_image_url: featuredImageUrl,
       status: getFormText(formData, "status"),
     };
 
@@ -283,6 +326,11 @@ export default function AdminBlogPage() {
     const title = getFormText(formData, "title");
     const slugInput = getFormText(formData, "slug");
     const slug = normalizeSlug(slugInput || title);
+    const featuredFile = getFileFromForm(formData, "featured_image_file");
+    const existingFeatured = getOptionalFormText(formData, "featured_image_url");
+    const featuredImageUrl = featuredFile
+      ? await uploadImage(featuredFile, "entries", slug)
+      : existingFeatured;
     const payload: EntryPayload & { id: string } = {
       id: getFormText(formData, "id"),
       article_id: getFormText(formData, "article_id"),
@@ -291,11 +339,7 @@ export default function AdminBlogPage() {
       category: getFormText(formData, "category"),
       location: getOptionalFormText(formData, "location"),
       content_markdown: getFormText(formData, "content_markdown"),
-      featured_image_url: getOptionalFormText(
-        formData,
-        "featured_image_url",
-      ),
-      order_index: getFormText(formData, "order_index"),
+      featured_image_url: featuredImageUrl,
       status: getFormText(formData, "status"),
     };
 
@@ -389,6 +433,9 @@ export default function AdminBlogPage() {
           {errorMessage ? (
             <p className="text-sm text-red-600">{errorMessage}</p>
           ) : null}
+          {isUploading ? (
+            <p className="text-sm text-[#231f20]/70">Uploading image...</p>
+          ) : null}
         </header>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-2">
@@ -411,14 +458,13 @@ export default function AdminBlogPage() {
                 </div>
                 <div>
                   <label className={labelClass} htmlFor="article-slug">
-                    Slug
+                    Slug (optional)
                   </label>
                   <input
                     id="article-slug"
                     name="slug"
                     className={inputClass}
                     placeholder="tanzania-safari-guide"
-                    required
                   />
                 </div>
                 <div>
@@ -433,11 +479,13 @@ export default function AdminBlogPage() {
                 </div>
                 <div>
                   <label className={labelClass} htmlFor="article-cover-image">
-                    Cover image URL
+                    Cover image (upload)
                   </label>
                   <input
                     id="article-cover-image"
-                    name="cover_image_url"
+                    name="cover_image_file"
+                    type="file"
+                    accept="image/*"
                     className={inputClass}
                   />
                 </div>
@@ -520,6 +568,11 @@ export default function AdminBlogPage() {
                         name="published_at"
                         value={article.published_at ?? ""}
                       />
+                      <input
+                        type="hidden"
+                        name="cover_image_url"
+                        value={article.cover_image_url ?? ""}
+                      />
                       <div>
                         <label className={labelClass}>Title</label>
                         <input
@@ -535,7 +588,6 @@ export default function AdminBlogPage() {
                           name="slug"
                           className={inputClass}
                           defaultValue={article.slug}
-                          required
                         />
                       </div>
                       <div>
@@ -547,11 +599,21 @@ export default function AdminBlogPage() {
                         />
                       </div>
                       <div>
-                        <label className={labelClass}>Cover image URL</label>
+                        <label className={labelClass}>Cover image (upload)</label>
+                        {article.cover_image_url ? (
+                          <img
+                            src={article.cover_image_url}
+                            alt={article.title}
+                            className="mt-3 h-32 w-full rounded-[18px] object-cover"
+                            loading="lazy"
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : null}
                         <input
-                          name="cover_image_url"
-                          className={inputClass}
-                          defaultValue={article.cover_image_url ?? ""}
+                          name="cover_image_file"
+                          type="file"
+                          accept="image/*"
+                          className={`${inputClass} mt-3`}
                         />
                       </div>
                       <div>
@@ -604,7 +666,7 @@ export default function AdminBlogPage() {
                           Update guide
                         </button>
                         <Link
-                          href={`/blog/${article.slug}`}
+                          href={`/blog/${normalizeSlug(article.slug || article.title)}`}
                           className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]"
                         >
                           View guide
@@ -660,14 +722,13 @@ export default function AdminBlogPage() {
                 </div>
                 <div>
                   <label className={labelClass} htmlFor="entry-slug">
-                    Slug
+                    Slug (optional)
                   </label>
                   <input
                     id="entry-slug"
                     name="slug"
                     className={inputClass}
                     placeholder="serengeti-park-overview"
-                    required
                   />
                 </div>
                 <div>
@@ -698,24 +759,14 @@ export default function AdminBlogPage() {
                 </div>
                 <div>
                   <label className={labelClass} htmlFor="entry-featured-image">
-                    Featured image URL
+                    Featured image (upload)
                   </label>
                   <input
                     id="entry-featured-image"
-                    name="featured_image_url"
+                    name="featured_image_file"
+                    type="file"
+                    accept="image/*"
                     className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="entry-order-index">
-                    Order index
-                  </label>
-                  <input
-                    id="entry-order-index"
-                    name="order_index"
-                    type="number"
-                    className={inputClass}
-                    defaultValue={0}
                   />
                 </div>
                 <div>
@@ -768,6 +819,11 @@ export default function AdminBlogPage() {
                     </summary>
                     <form onSubmit={handleUpdateEntry} className="mt-5 space-y-4">
                       <input type="hidden" name="id" value={entry.id} />
+                      <input
+                        type="hidden"
+                        name="featured_image_url"
+                        value={entry.featured_image_url ?? ""}
+                      />
                       <div>
                         <label className={labelClass}>Guide</label>
                         <select
@@ -798,7 +854,6 @@ export default function AdminBlogPage() {
                           name="slug"
                           className={inputClass}
                           defaultValue={entry.slug}
-                          required
                         />
                       </div>
                       <div>
@@ -823,20 +878,21 @@ export default function AdminBlogPage() {
                         />
                       </div>
                       <div>
-                        <label className={labelClass}>Featured image URL</label>
+                        <label className={labelClass}>Featured image (upload)</label>
+                        {entry.featured_image_url ? (
+                          <img
+                            src={entry.featured_image_url}
+                            alt={entry.title}
+                            className="mt-3 h-32 w-full rounded-[18px] object-cover"
+                            loading="lazy"
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : null}
                         <input
-                          name="featured_image_url"
-                          className={inputClass}
-                          defaultValue={entry.featured_image_url ?? ""}
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Order index</label>
-                        <input
-                          name="order_index"
-                          type="number"
-                          className={inputClass}
-                          defaultValue={entry.order_index ?? 0}
+                          name="featured_image_file"
+                          type="file"
+                          accept="image/*"
+                          className={`${inputClass} mt-3`}
                         />
                       </div>
                       <div>
@@ -867,7 +923,7 @@ export default function AdminBlogPage() {
                           Update entry
                         </button>
                         <Link
-                          href={`/blog/entry/${entry.slug}`}
+                          href={`/blog/entry/${normalizeSlug(entry.slug || entry.title)}`}
                           className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]"
                         >
                           View entry

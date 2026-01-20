@@ -27,33 +27,14 @@ const fetchArticle = async (slug: string) => {
     .from("blog_articles")
     .select("*")
     .eq("slug", normalizedSlug)
-    .ilike("status", "published")
+    .eq("status", "published")
     .maybeSingle();
 
   if (error) {
     console.error("Blog article fetch failed:", error);
   }
 
-  if (data) {
-    return data as BlogArticle;
-  }
-
-  const { data: fallbackData, error: fallbackError } = await supabaseAdmin
-    .from("blog_articles")
-    .select("*")
-    .ilike("status", "published");
-
-  if (fallbackError) {
-    console.error("Blog article fallback fetch failed:", fallbackError);
-    return null;
-  }
-
-  const fallbackMatch =
-    (fallbackData ?? []).find(
-      (article) => normalizeSlug(article.slug ?? "") === normalizedSlug,
-    ) ?? null;
-
-  return fallbackMatch as BlogArticle | null;
+  return data as BlogArticle | null;
 };
 
 const fetchEntries = async (articleId: string) => {
@@ -61,9 +42,8 @@ const fetchEntries = async (articleId: string) => {
     .from("blog_entries")
     .select("*")
     .eq("article_id", articleId)
-    .ilike("status", "published")
-    .order("order_index", { ascending: true })
-    .order("title", { ascending: true });
+    .eq("status", "published")
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Blog entries fetch failed:", error);
@@ -163,7 +143,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
                 : false;
               const matchesHeading = matchesHeadingCategory(
                 section.heading,
-                entry.category ?? "",
+                entry.category,
               );
               const isMatch = matchesCategory || matchesHeading;
               if (!isMatch) return false;

@@ -22,8 +22,7 @@ export type BlogEntry = {
   location: string | null;
   content_markdown: string;
   featured_image_url: string | null;
-  order_index: number | null;
-  status: string;
+  status: "draft" | "published";
   created_at: string | null;
 };
 
@@ -100,7 +99,7 @@ export const parseMarkdownSections = (markdown: string) => {
   return { sections, toc };
 };
 
-export const formatBlogDate = (value: string | null) => {
+export const formatBlogDate = (value: string | null | undefined) => {
   if (!value) return "";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "";
