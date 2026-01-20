@@ -215,7 +215,8 @@ export default function AdminBlogPage() {
 
   const handleCreateArticle = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const title = getFormText(formData, "title");
     const slugInput = getFormText(formData, "slug");
     const slug = normalizeSlug(slugInput || title);
@@ -239,7 +240,7 @@ export default function AdminBlogPage() {
         method: "POST",
         body: JSON.stringify(payload),
       });
-      event.currentTarget.reset();
+      form.reset();
       await loadData();
     } catch (error) {
       setErrorMessage(
@@ -287,7 +288,8 @@ export default function AdminBlogPage() {
 
   const handleCreateEntry = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const title = getFormText(formData, "title");
     const slugInput = getFormText(formData, "slug");
     const slug = normalizeSlug(slugInput || title);
@@ -311,7 +313,7 @@ export default function AdminBlogPage() {
         method: "POST",
         body: JSON.stringify(payload),
       });
-      event.currentTarget.reset();
+      form.reset();
       await loadData();
     } catch (error) {
       setErrorMessage(
