@@ -194,12 +194,6 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     type: "link",
-    label: "Articles",
-    href: "/blog",
-    ariaLabel: "Read travel articles",
-  },
-  {
-    type: "link",
     label: "Plan Your Trip",
     href: "/plan",
     ariaLabel: "Plan your trip",
