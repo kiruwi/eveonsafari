@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function CulturalVisitsRedirect() {
-  redirect("/activities#TravelStyles");
+  redirect("/travel-style/cultural-eco-tourism-safari");
 }

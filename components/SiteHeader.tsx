@@ -86,13 +86,41 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     type: "dropdown",
+    label: "Discover Tanzania",
+    bgColor: "#fdf2e4",
+    textColor: "#231f20",
+    links: [
+      {
+        label: "National Parks",
+        href: "/discover-tanzania/national-parks",
+        ariaLabel: "Explore Tanzania national parks",
+      },
+      {
+        label: "Islands",
+        href: "/discover-tanzania/islands",
+        ariaLabel: "Explore Tanzania islands",
+      },
+      {
+        label: "Accommodations",
+        href: "/discover-tanzania/accommodations",
+        ariaLabel: "Explore Tanzania accommodations",
+      },
+      {
+        label: "Activities",
+        href: "/activities",
+        ariaLabel: "Browse daily activities",
+      },
+    ],
+  },
+  {
+    type: "dropdown",
     label: "Safaris",
     bgColor: "#231f20",
     textColor: "#ffffff",
     sections: [
       {
         label: "Safari Overview",
-        links: [{ label: "Safari Overview", href: "/itineraries", ariaLabel: "Browse safari overview" }],
+        links: [{ label: "All Safaris", href: "/itineraries", ariaLabel: "Browse all safaris" }],
       },
       {
         label: "By Duration",
@@ -163,27 +191,16 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     type: "dropdown",
-    label: "Trekking",
+    label: "Kilimanjaro",
     bgColor: "#fdf2e4",
     textColor: "#231f20",
     links: [
-      { label: "Trekking Overview", href: "/trekking", ariaLabel: "Compare Kilimanjaro routes" },
+      { label: "Kilimanjaro Overview", href: "/trekking", ariaLabel: "Compare Kilimanjaro routes" },
       { label: "Marangu Route", href: "/trekking/kilimanjaro-marangu-route", ariaLabel: "View Marangu Route details" },
       { label: "Machame Route", href: "/trekking/kilimanjaro-machame-route", ariaLabel: "View Machame Route details" },
       { label: "Lemosho Route", href: "/trekking/kilimanjaro-lemosho-route", ariaLabel: "View Lemosho Route details" },
       { label: "Rongai Route", href: "/trekking/7-day-rongai-route-kilimanjaro-trek", ariaLabel: "View Rongai Route details" },
       { label: "Northern Circuit", href: "/trekking/9-days-northern-circuit-route-kilimanjaro-trek", ariaLabel: "View Northern Circuit Route details" },
-    ],
-  },
-  {
-    type: "dropdown",
-    label: "Activities",
-    bgColor: "#ba7e47",
-    textColor: "#ffffff",
-    links: [
-      { label: "Travel Styles", href: "/activities#TravelStyles", ariaLabel: "View travel styles" },
-      { label: "Day Trips", href: "/activities#day-trips", ariaLabel: "View day trips" },
-      { label: "Walking Safaris", href: "/activities/walking-safaris", ariaLabel: "View walking safaris" },
     ],
   },
   {

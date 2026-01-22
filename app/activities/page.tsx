@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
-import { dayTrips, travelStyles } from "@/lib/siteContent";
+import { dayTrips } from "@/lib/siteContent";
 
 export const metadata = {
   title: "Activities | Eve On Safari",
-  description: "Day trips, walking safaris, and cultural visits in Tanzania.",
+  description: "Day trips, walking safaris, and daily activities in Tanzania.",
 };
 
 const dayTripDetails: Record<
@@ -71,63 +70,9 @@ export default function ActivitiesPage() {
             className="text-4xl font-semibold leading-tight text-[#231f20] sm:text-5xl"
             style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
           >
-            Travel Styles &amp; Day Activities
+            Daily Activities
           </h1>
         </header>
-
-        <section id="TravelStyles" className="scroll-mt-[180px] space-y-8">
-          <div className="relative">
-            <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-[#d7d1c5] md:block" />
-            <div className="space-y-10">
-              {travelStyles.map((style, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <div
-                    key={style.slug}
-                    className="relative grid gap-6 md:grid-cols-2 md:items-center"
-                  >
-                    <span className="pointer-events-none absolute left-1/2 top-1/2 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-[#ba7e47] md:block" />
-                    <div className={isEven ? "md:order-1" : "md:order-2"}>
-                      <div className="relative h-44 w-full overflow-hidden rounded-[6px] shadow-sm sm:h-52">
-                        <Image
-                          src={style.imageSrc}
-                          alt={style.imageAlt}
-                          fill
-                          sizes="(min-width: 1024px) 520px, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
-                    <div className={isEven ? "md:order-2" : "md:order-1"}>
-                      <div className="rounded-[6px] border border-[#d7d1c5] bg-white p-6 shadow-sm">
-                        <h3 className="text-2xl font-semibold text-[#231f20]">{style.name}</h3>
-                        <p className="mt-3 text-sm text-[#231f20]/75">{style.description}</p>
-                        <Link
-                          href={`/travel-style/${style.slug}`}
-                          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#ba7e47]"
-                        >
-                          Explore this style
-                          <svg
-                            aria-hidden="true"
-                            className="h-4 w-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M7 17L17 7M10 7h7v7" />
-                          </svg>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
 
         <section id="day-trips" className="scroll-mt-[180px]">
           <div className="mb-6 flex items-center justify-between">

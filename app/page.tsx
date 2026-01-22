@@ -387,7 +387,7 @@ export default function HomePage() {
               ))}
             </div>
             <Link
-              href="/activities#TravelStyles"
+              href="/travel-style"
               className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#ba7e47] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-[#8a592e]"
             >
               View travel styles
