@@ -113,81 +113,10 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    type: "dropdown",
+    type: "link",
     label: "Safaris",
-    bgColor: "#231f20",
-    textColor: "#ffffff",
-    sections: [
-      {
-        label: "Safari Overview",
-        links: [{ label: "All Safaris", href: "/itineraries", ariaLabel: "Browse all safaris" }],
-      },
-      {
-        label: "By Duration",
-        links: [
-          {
-            label: "2 Days",
-            href: "/safaris/duration/2-days",
-            ariaLabel: "View 2-day safaris overview",
-          },
-          {
-            label: "3 Days",
-            href: "/safaris/duration/3-days",
-            ariaLabel: "View 3-day safaris overview",
-          },
-          {
-            label: "4 Days",
-            href: "/safaris/duration/4-days",
-            ariaLabel: "View 4-day safaris overview",
-          },
-          {
-            label: "5 Days",
-            href: "/safaris/duration/5-days",
-            ariaLabel: "View 5-day safaris overview",
-          },
-          {
-            label: "6 Days",
-            href: "/safaris/duration/6-days",
-            ariaLabel: "View 6-day safaris overview",
-          },
-          {
-            label: "7 Days",
-            href: "/safaris/duration/7-days",
-            ariaLabel: "View 7-day safaris overview",
-          },
-          {
-            label: "8+ Days",
-            href: "/safaris/duration/8-plus-days",
-            ariaLabel: "View 8+ day safaris overview",
-          },
-        ],
-      },
-      {
-        label: "By Style",
-        links: [
-          {
-            label: "Classic Wildlife",
-            href: "/safaris/style/classic-wildlife",
-            ariaLabel: "View classic wildlife safaris",
-          },
-          {
-            label: "Migration Safaris",
-            href: "/safaris/style/migration-safaris",
-            ariaLabel: "View migration safaris",
-          },
-          {
-            label: "Cultural Safaris",
-            href: "/safaris/style/cultural-safaris",
-            ariaLabel: "View cultural safaris",
-          },
-          {
-            label: "Family Safaris",
-            href: "/safaris/style/family-safaris",
-            ariaLabel: "View family safaris",
-          },
-        ],
-      },
-    ],
+    href: "/itineraries#safari-grid",
+    ariaLabel: "Browse safari packages",
   },
   {
     type: "dropdown",
