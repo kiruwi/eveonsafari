@@ -92,8 +92,8 @@ const NAV_ITEMS: NavItem[] = [
     links: [
       {
         label: "National Parks",
-        href: "/itineraries#safari-grid",
-        ariaLabel: "Browse safari packages",
+        href: "/discover-tanzania/national-parks",
+        ariaLabel: "Explore Tanzania national parks",
       },
       {
         label: "Islands",
