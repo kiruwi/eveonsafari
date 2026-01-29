@@ -131,7 +131,18 @@ export function SiteFooter() {
           className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-4 text-xs text-white/80"
           suppressHydrationWarning
         >
-          <p>© {new Date().getFullYear()} Eve On Safari. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Eve On Safari. All rights reserved. Designed and Developed by{" "}
+            <a
+              href="https://www.iancheruiyot.work"
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:text-[#f2d3b0]"
+            >
+              Ian K. Cheruiyot
+            </a>
+            .
+          </p>
           <div className="flex gap-4">
             <a
               href="https://www.instagram.com/eve_on_safari/"
