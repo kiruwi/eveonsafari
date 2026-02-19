@@ -1,90 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { parkCards } from "./parksData";
 
 export const metadata = {
   title: "National Parks | Eve On Safari",
   description: "Overview of Tanzania's national parks.",
 };
-
-const parkCards = [
-  {
-    name: "Serengeti National Park",
-    description: "Endless plains and the Great Migration with year-round big-cat sightings.",
-    slug: "serengeti-national-park",
-    image: "/images/discover/parks/serengeti.jpg",
-    tag: "Northern Circuit",
-  },
-  {
-    name: "Ngorongoro Conservation Area",
-    description: "World-famous crater, dense wildlife, and pastoral Maasai landscapes.",
-    slug: "ngorongoro-conservation-area",
-    image: "/images/discover/parks/ngorongoro.jpg",
-    tag: "Northern Circuit",
-  },
-  {
-    name: "Mount Kilimanjaro",
-    description: "Africa's highest peak with rainforest-to-alpine trekking and summit views.",
-    slug: "mount-kilimanjaro",
-    image: "/images/discover/parks/kilimanjaro.jpg",
-    tag: "Highlands",
-  },
-  {
-    name: "Mikumi National Park",
-    description: "Easy access from Dar es Salaam with open plains and abundant wildlife.",
-    slug: "mikumi-national-park",
-    image: "/images/discover/parks/mikumi.jpg",
-    tag: "Southern Circuit",
-  },
-  {
-    name: "Tarangire National Park",
-    description: "Elephant herds, baobabs, and riverfront game drives in the dry season.",
-    slug: "tarangire-national-park",
-    image: "/images/discover/parks/tarangire.jpg",
-    tag: "Northern Circuit",
-  },
-  {
-    name: "Lake Manyara National Park",
-    description: "Rift Valley lake, groundwater forest, and famous tree-climbing lions.",
-    slug: "lake-manyara-national-park",
-    image: "/images/discover/parks/lake-manyara.jpg",
-    tag: "Northern Circuit",
-  },
-  {
-    name: "Makuyuni Wildlife Park",
-    description: "A quieter northern stopover with open landscapes and wildlife viewing.",
-    slug: "makuyuni-wildlife-park",
-    image: "/images/discover/parks/makuyuni.jpg",
-    tag: "Northern Circuit",
-  },
-  {
-    name: "Lake Natron",
-    description: "Flamingo breeding lake, volcanic scenery, and waterfall hikes.",
-    slug: "lake-natron",
-    image: "/images/discover/parks/lake-natron.jpg",
-    tag: "Lakes & Rift Valley",
-  },
-  {
-    name: "Arusha National Park",
-    description: "Lush forests, Momella Lakes, and a convenient day trip from Arusha.",
-    slug: "arusha-national-park",
-    image: "/images/discover/parks/arusha.jpg",
-    tag: "Northern Circuit",
-  },
-  {
-    name: "Ndutu Region",
-    description: "Seasonal migration calving area on the southern Serengeti plains.",
-    slug: "ndutu-region",
-    image: "/images/discover/parks/ndutu.jpg",
-    tag: "Migration Areas",
-  },
-  {
-    name: "Nyerere National Park",
-    description: "Vast southern wilderness shaped by Rufiji River channels and boat safaris.",
-    slug: "nyerere-national-park",
-    image: "/images/discover/parks/nyerere.jpg",
-    tag: "Southern Circuit",
-  },
-];
 
 function Breadcrumbs() {
   return (
@@ -144,15 +65,15 @@ function SecondaryButton({
 
 function ParkCard({
   name,
-  description,
+  shortDescription,
   slug,
-  image,
+  displayImage,
   tag,
 }: {
   name: string;
-  description: string;
+  shortDescription: string;
   slug: string;
-  image: string;
+  displayImage?: string;
   tag?: string;
 }) {
   return (
@@ -161,24 +82,34 @@ function ParkCard({
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#e2d6c7] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#ba7e47]/35"
     >
       <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-[#f5efe7]">
-  <div className="absolute inset-0 bg-gradient-to-br from-[#231f20]/10 to-transparent" />
+        {displayImage ? (
+          <Image
+            src={displayImage}
+            alt={name}
+            fill
+            className="object-cover transition duration-500 group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : null}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#231f20]/25 to-transparent" />
 
-  <span className="relative z-10 rounded-full border border-[#e2d6c7] bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#231f20] backdrop-blur">
-    Coming soon
-  </span>
+        {!displayImage ? (
+          <span className="relative z-10 rounded-full border border-[#e2d6c7] bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#231f20] backdrop-blur">
+            Coming soon
+          </span>
+        ) : null}
 
-  {tag ? (
-    <div className="absolute left-4 top-4 rounded-full bg-[#231f20]/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-      {tag}
-    </div>
-  ) : null}
-</div>
-
+        {tag ? (
+          <div className="absolute left-4 top-4 rounded-full bg-[#231f20]/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+            {tag}
+          </div>
+        ) : null}
+      </div>
 
       <div className="flex flex-1 flex-col p-6">
         <h2 className="text-lg font-semibold text-[#231f20]">{name}</h2>
         <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-[#231f20]/75">
-          {description}
+          {shortDescription}
         </p>
 
         <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-[#ba7e47]">
@@ -197,7 +128,7 @@ export default function NationalParksPage() {
       <section className="relative overflow-hidden">
         <div className="relative h-[360px] sm:h-[420px]">
           <Image
-            src="/images/discover/parks/hero.jpg"
+            src="/images/discover/parks/hero.webp"
             alt="Tanzania landscape"
             fill
             className="object-cover"
