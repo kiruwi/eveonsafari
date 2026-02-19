@@ -139,9 +139,6 @@ export default function NationalParksPage() {
           <div className="absolute inset-0">
             <div className="mx-auto flex h-full max-w-6xl flex-col justify-end px-4 pb-10 sm:pb-12">
               <Breadcrumbs />
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#ffd7b0]">
-                Discover Tanzania
-              </p>
               <h1 className="mt-3 max-w-2xl text-4xl font-semibold text-white sm:text-5xl">
                 Tanzania national parks
               </h1>

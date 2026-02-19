@@ -71,9 +71,6 @@ export default async function ParkDetailPage({
                 </ol>
               </nav>
 
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#ffd7b0]">
-                {park.tag}
-              </p>
               <h1 className="mt-2 max-w-3xl text-4xl font-semibold text-white sm:text-5xl">{park.name}</h1>
             </div>
           </div>

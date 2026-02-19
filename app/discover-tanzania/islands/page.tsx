@@ -34,9 +34,6 @@ export default function IslandsPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
       <div className="max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#ba7e47]">
-          Islands &amp; Marine Areas
-        </p>
         <h1 className="mt-3 text-3xl font-semibold text-[#231f20] sm:text-4xl">
           Tanzania islands
         </h1>
