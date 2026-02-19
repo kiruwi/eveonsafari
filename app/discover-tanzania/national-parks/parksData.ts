@@ -18,6 +18,12 @@ export const parkCards: ParkCardData[] = [
       "Africa's iconic endless plains, famous for the Great Migration and exceptional year-round wildlife.",
     fullDescription:
       "Serengeti National Park is widely recognized as Africa's most renowned wildlife reserve, largely because it hosts the continent's greatest concentration of wild animals and the spectacular migration of millions of wildebeest. Many of the world's most striking wildlife documentaries have been filmed within this remarkable landscape. The name \"Serengeti\" is derived from the Maasai language and translates to \"endless plains,\" an accurate reflection of its vast scenery. Covering nearly 15,000 square kilometers (6,000 square miles), it ranks as the second-largest national park in Tanzania.",
+    displayImage: "/national%20parks%20photos/serengeti/beasts.webp",
+    galleryImages: [
+      "/national%20parks%20photos/serengeti/beasts.webp",
+      "/national%20parks%20photos/serengeti/cheetah.webp",
+      "/national%20parks%20photos/serengeti/lion.webp",
+    ],
   },
   {
     name: "Ngorongoro Conservation Area",
@@ -82,9 +88,6 @@ export const parkCards: ParkCardData[] = [
     galleryImages: [
       "/national%20parks%20photos/tarangire/river.webp",
       "/national%20parks%20photos/tarangire/river2.webp",
-      "/national%20parks%20photos/tarangire/beasts.webp",
-      "/national%20parks%20photos/tarangire/cheetah.webp",
-      "/national%20parks%20photos/tarangire/lion.webp",
       "/national%20parks%20photos/tarangire/lioness.webp",
       "/national%20parks%20photos/tarangire/ostrich.webp",
     ],
@@ -114,6 +117,13 @@ export const parkCards: ParkCardData[] = [
       "An emerging, easily accessible wildlife park near Arusha with strong game viewing and cultural add-ons.",
     fullDescription:
       "Makuyuni Wildlife Park is an emerging conservation destination in Monduli District, managed by the Tanzania Wildlife Management Authority (TAWA). Located about 40 kilometers from Arusha City, it is being developed as a strategic and easily accessible park where visitors can enjoy wildlife viewing even on shorter itineraries. The area supports species such as elephants, lions, giraffes, cheetahs, zebras, buffalo, and antelopes, while nearby Maasai communities provide opportunities for cultural tourism experiences. Recent investment in roads and water infrastructure has improved year-round access and wildlife support. As development continues, Makuyuni is becoming an increasingly practical add-on for northern circuit travelers.",
+    displayImage: "/national%20parks%20photos/makuyuni/giraffe2.webp",
+    galleryImages: [
+      "/national%20parks%20photos/makuyuni/giraffe2.webp",
+      "/national%20parks%20photos/makuyuni/hyena.webp",
+      "/national%20parks%20photos/makuyuni/croc.webp",
+      "/national%20parks%20photos/makuyuni/monkey.webp",
+    ],
   },
   {
     name: "Lake Natron",
@@ -174,12 +184,8 @@ export const parkCards: ParkCardData[] = [
     galleryImages: [
       "/national%20parks%20photos/nyerere/elephant.webp",
       "/national%20parks%20photos/nyerere/giraffe.webp",
-      "/national%20parks%20photos/nyerere/giraffe2.webp",
       "/national%20parks%20photos/nyerere/lion.webp",
       "/national%20parks%20photos/nyerere/lioness.webp",
-      "/national%20parks%20photos/nyerere/hyena.webp",
-      "/national%20parks%20photos/nyerere/croc.webp",
-      "/national%20parks%20photos/nyerere/monkey.webp",
     ],
   },
 ];
