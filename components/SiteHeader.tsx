@@ -162,6 +162,7 @@ export function SiteHeader() {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const gsapRef = useRef<GsapInstance | null>(null);
   const timelineRef = useRef<GsapTimeline | null>(null);
+  const lastScrollYRef = useRef(0);
   const lockedScrollYRef = useRef(0);
   const bodyLockStylesRef = useRef<{
     overflow: string;
@@ -178,7 +179,8 @@ export function SiteHeader() {
   const [isNavHidden, setNavHidden] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const [activeSectionLabel, setActiveSectionLabel] = useState<string | null>(null);
-  const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isExpandedRef = useRef(false);
+  const isMobileMenuOpenRef = useRef(false);
   const usesTransparentHeader = pathname === "/";
   const isHeroTransparent = usesTransparentHeader && !isScrolled;
   const showNavBackground = !isHeroTransparent && !(isMobile && isMobileMenuOpen);
@@ -197,6 +199,10 @@ export function SiteHeader() {
   const signOutClasses = showNavBackground
     ? "rounded-full border border-[#231f20] px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white sm:px-3 sm:py-2 sm:text-[11px]"
     : "rounded-full border border-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#231f20] sm:px-3 sm:py-2 sm:text-[11px]";
+  const navMotionClasses = "sticky top-0 z-50 will-change-transform transition-[transform,opacity] duration-300";
+  const navVisibilityClasses = isNavHidden
+    ? "-translate-y-full opacity-0 pointer-events-none"
+    : "translate-y-0 opacity-100";
 
   const displayedItems = useMemo(() => {
     if (isMobile) {
@@ -223,6 +229,29 @@ export function SiteHeader() {
     const firstSection = current?.sections?.[0]?.label ?? null;
     setActiveSectionLabel(firstSection);
   }, [displayedItems, isMobile]);
+
+  useEffect(() => {
+    isExpandedRef.current = isExpanded;
+  }, [isExpanded]);
+
+  useEffect(() => {
+    isMobileMenuOpenRef.current = isMobileMenuOpen;
+  }, [isMobileMenuOpen]);
+
+  const getCurrentScrollY = useCallback((target?: EventTarget | null) => {
+    const windowScrollY = window.scrollY;
+    if (windowScrollY > 0) return windowScrollY;
+
+    if (
+      target instanceof HTMLElement
+      && target !== document.body
+      && target !== document.documentElement
+    ) {
+      return target.scrollTop;
+    }
+
+    return windowScrollY;
+  }, []);
 
   const createTimeline = () => {
     const gsapInstance = gsapRef.current;
@@ -252,54 +281,34 @@ export function SiteHeader() {
     return tl;
   };
 
-  const clearInactivity = useCallback(() => {
-    if (inactivityTimeoutRef.current) {
-      clearTimeout(inactivityTimeoutRef.current);
-      inactivityTimeoutRef.current = null;
-    }
-  }, []);
-
-  const handleUserActivity = useCallback(
-    (scrolled: boolean) => {
-      setNavHidden(false);
-      clearInactivity();
-      if (isMobileMenuOpen || isExpanded) return;
-      if (scrolled) {
-        inactivityTimeoutRef.current = setTimeout(() => {
-          setNavHidden(true);
-        }, 2000);
-      }
-    },
-    [clearInactivity, isExpanded, isMobileMenuOpen],
-  );
-
   const openMenu = useCallback(() => {
     if (isExpanded) return;
     setNavHidden(false);
-    clearInactivity();
     setIsExpanded(true);
     const tl = timelineRef.current;
     if (!tl) return;
     tl.eventCallback("onReverseComplete", null);
     tl.play(0);
-  }, [clearInactivity, isExpanded]);
+  }, [isExpanded]);
+
+  const closeMenuImmediately = useCallback(() => {
+    timelineRef.current?.pause(0);
+    setIsExpanded(false);
+    setActiveIndex(null);
+    setMobileMenuOpen(false);
+  }, []);
 
   const closeMenu = useCallback(
     (options?: { immediate?: boolean }) => {
       if (!isExpanded && !isMobileMenuOpen) return;
       const shouldCloseImmediately = options?.immediate;
       if (shouldCloseImmediately) {
-        timelineRef.current?.pause(0);
-        setIsExpanded(false);
-        setActiveIndex(null);
-        setMobileMenuOpen(false);
+        closeMenuImmediately();
         return;
       }
       const tl = timelineRef.current;
       if (!tl) {
-        setIsExpanded(false);
-        setActiveIndex(null);
-        setMobileMenuOpen(false);
+        closeMenuImmediately();
         return;
       }
       tl.eventCallback("onReverseComplete", () => {
@@ -309,7 +318,7 @@ export function SiteHeader() {
       });
       tl.reverse();
     },
-    [isExpanded, isMobile, isMobileMenuOpen],
+    [closeMenuImmediately, isExpanded, isMobile, isMobileMenuOpen],
   );
 
   useLayoutEffect(() => {
@@ -336,40 +345,52 @@ export function SiteHeader() {
       setIsMobile(nextIsMobile);
       if (nextIsMobile) {
         setActiveIndex(null);
-        if (!isMobileMenuOpen) {
-          closeMenu();
+        if (!isMobileMenuOpenRef.current) {
+          closeMenuImmediately();
         }
       } else {
         setMobileMenuOpen(false);
       }
     };
-    const handleScroll = () => {
-      if (isMobileMenuOpen) return;
-      const scrolled = window.scrollY > 8;
+
+    const handleScroll = (event?: Event) => {
+      const currentScrollY = getCurrentScrollY(event?.target);
+      const scrolled = currentScrollY > 8;
       setIsScrolled(scrolled);
+
+      if (isMobileMenuOpenRef.current || isExpandedRef.current) {
+        setNavHidden(false);
+        lastScrollYRef.current = currentScrollY;
+        return;
+      }
+
       if (!scrolled) {
         setNavHidden(false);
-        clearInactivity();
         setActiveIndex(null);
         setActiveSectionLabel(null);
-        closeMenu();
-      } else {
-        handleUserActivity(true);
+        closeMenuImmediately();
+        lastScrollYRef.current = currentScrollY;
+        return;
       }
+
+      const delta = currentScrollY - lastScrollYRef.current;
+      if (Math.abs(delta) > 4) {
+        setNavHidden(delta > 0);
+      }
+      lastScrollYRef.current = currentScrollY;
     };
-    const handleMouseMove = () => handleUserActivity(window.scrollY > 8);
+
     updateMobile();
     handleScroll();
     window.addEventListener("resize", updateMobile);
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    document.addEventListener("scroll", handleScroll, true);
     return () => {
       window.removeEventListener("resize", updateMobile);
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("mousemove", handleMouseMove);
-      clearInactivity();
+      document.removeEventListener("scroll", handleScroll, true);
     };
-  }, [clearInactivity, closeMenu, handleUserActivity, isMobileMenuOpen]);
+  }, [closeMenuImmediately, getCurrentScrollY]);
 
   useEffect(() => {
     if (isMobile || !isExpanded) return;
@@ -456,8 +477,21 @@ export function SiteHeader() {
   useEffect(() => {
     setActiveIndex(null);
     setActiveSectionLabel(null);
-    closeMenu();
-  }, [pathname, closeMenu]);
+    setNavHidden(false);
+    closeMenuImmediately();
+    const syncScrollBaseline = () => {
+      const currentScrollY = getCurrentScrollY();
+      lastScrollYRef.current = currentScrollY;
+      setIsScrolled(currentScrollY > 8);
+    };
+    syncScrollBaseline();
+    const frame = window.requestAnimationFrame(syncScrollBaseline);
+    const timeoutId = window.setTimeout(syncScrollBaseline, 180);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timeoutId);
+    };
+  }, [pathname, closeMenuImmediately, getCurrentScrollY]);
 
   const handleDesktopNav = (index: number, item: NavItem) => {
     if (isMobile || item.type !== "dropdown") return;
@@ -492,7 +526,6 @@ export function SiteHeader() {
       return;
     }
     setNavHidden(false);
-    clearInactivity();
     setMobileMenuOpen(true);
     openMenu();
   };
@@ -506,9 +539,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        isNavHidden ? "opacity-0 pointer-events-none" : "opacity-100"
-      }`}
+      className={`${navMotionClasses} ${navVisibilityClasses}`}
     >
       {showMobileBackdrop && (
         <div
