@@ -1,6 +1,8 @@
+import { parkCards } from "@/app/discover-tanzania/national-parks/parksData";
+
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://eveonsafari.com").replace(/\/$/, "");
 
-const staticRoutes = [
+const coreRoutes = [
   "/",
   "/about-us",
   "/activities",
@@ -16,6 +18,7 @@ const staticRoutes = [
   "/discover-tanzania/accommodations",
   "/discover-tanzania/islands",
   "/discover-tanzania/national-parks",
+  "/experiences",
   "/itineraries",
   "/packing",
   "/plan",
@@ -73,8 +76,12 @@ const staticRoutes = [
 
 function buildSitemap() {
   const lastModified = new Date().toISOString();
+  const parkRoutes = parkCards.map(
+    (park) => `/discover-tanzania/national-parks/${park.slug}`,
+  );
+  const routes = [...new Set([...coreRoutes, ...parkRoutes])].sort();
 
-  const urls = staticRoutes
+  const urls = routes
     .map((path) => {
       const loc = `${siteUrl}${path}`;
       return `<url><loc>${loc}</loc><lastmod>${lastModified}</lastmod></url>`;
