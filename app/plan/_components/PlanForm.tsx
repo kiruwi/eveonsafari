@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import { buildAuthenticatedApiHeaders } from "@/lib/security/clientHeaders";
 
 type FeedbackState = { type: "success" | "error"; text: string } | null;
 type AuthStatus = "loading" | "signedOut" | "signedIn";
@@ -146,6 +147,9 @@ export function PlanForm() {
       if (data.user) {
         setAuthStatus("signedIn");
         setAuthEmail(data.user.email ?? null);
+        if (data.user.email) {
+          setFormData((prev) => ({ ...prev, email: prev.email || data.user.email || "" }));
+        }
       } else {
         setAuthStatus("signedOut");
         setAuthEmail(null);
@@ -159,6 +163,9 @@ export function PlanForm() {
       if (session?.user) {
         setAuthStatus("signedIn");
         setAuthEmail(session.user.email ?? null);
+        if (session.user.email) {
+          setFormData((prev) => ({ ...prev, email: prev.email || session.user.email || "" }));
+        }
       } else {
         setAuthStatus("signedOut");
         setAuthEmail(null);
@@ -203,7 +210,8 @@ export function PlanForm() {
       if (!formData.fullName.trim()) {
         nextErrors.fullName = "Please enter your full name.";
       }
-      if (!isValidEmail(formData.email.trim())) {
+      const effectiveEmail = (isSignedIn && authEmail ? authEmail : formData.email).trim();
+      if (!isValidEmail(effectiveEmail)) {
         nextErrors.email = "Enter a valid email address.";
       }
     }
@@ -274,10 +282,10 @@ export function PlanForm() {
     try {
       const response = await fetch("/api/plan", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: await buildAuthenticatedApiHeaders(),
         body: JSON.stringify({
           fullName: formData.fullName.trim(),
-          email: formData.email.trim(),
+          email: (isSignedIn && authEmail ? authEmail : formData.email).trim(),
           phone: formData.phone.trim(),
           travelDates: formData.travelDates.trim(),
           groupSize: Number.isNaN(groupSizeParsed) ? null : groupSizeParsed,
@@ -600,11 +608,12 @@ export function PlanForm() {
               <input
                 type="email"
                 name="email"
-                value={formData.email}
+                value={isSignedIn && authEmail ? authEmail : formData.email}
                 onChange={(event) => updateField("email", event.target.value)}
                 className="mt-2 w-full rounded-2xl border border-[#c3c3c3] px-4 py-3 text-sm text-[#231f20]"
                 placeholder="you@example.com"
                 autoComplete="email"
+                readOnly={Boolean(isSignedIn && authEmail)}
               />
               {errors.email && (
                 <p className="mt-2 text-sm text-red-600">{errors.email}</p>

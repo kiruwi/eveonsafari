@@ -1,5 +1,8 @@
 import { randomUUID } from 'crypto';
 
+import { getPesapalAllowedHosts, isProduction } from '@/lib/security/config';
+import { assertSafeOutboundUrl } from '@/lib/security/ssrf';
+
 type PesapalConfig = {
   baseUrl: string;
   consumerKey: string;
@@ -87,6 +90,31 @@ type CreateOrderOptions = {
   billingAddressOverride?: Partial<PesapalConfig["billingAddress"]>;
 };
 
+const REQUEST_TIMEOUT_MS = 10_000;
+
+async function fetchWithTimeout(url: URL | string, init: RequestInit = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+  try {
+    return await fetch(url, {
+      ...init,
+      signal: controller.signal,
+      cache: 'no-store',
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function assertSafeCallbackUrl(rawUrl: string) {
+  const parsed = new URL(rawUrl);
+  if (isProduction() && parsed.protocol !== 'https:') {
+    throw new Error('PESAPAL_CALLBACK_URL must use HTTPS in production.');
+  }
+  return parsed.toString();
+}
+
 function getPesapalConfig(): PesapalConfig {
   const consumerKey = process.env.PESAPAL_CONSUMER_KEY;
   const consumerSecret = process.env.PESAPAL_CONSUMER_SECRET;
@@ -97,17 +125,29 @@ function getPesapalConfig(): PesapalConfig {
 
   const defaultAmount = Number.parseFloat(process.env.PESAPAL_DEFAULT_AMOUNT ?? '5');
 
-  return {
-    baseUrl:
-      process.env.PESAPAL_BASE_URL?.replace(/\/$/, '') ??
+  const baseUrl = assertSafeOutboundUrl(
+    process.env.PESAPAL_BASE_URL?.replace(/\/$/, '') ??
       'https://cybqa.pesapal.com/pesapalv3',
+    getPesapalAllowedHosts(),
+    'PESAPAL_BASE_URL',
+  );
+
+  const ipnNotificationTypeRaw = (
+    process.env.PESAPAL_IPN_NOTIFICATION_TYPE ?? 'GET'
+  ).toUpperCase();
+  const ipnNotificationType =
+    ipnNotificationTypeRaw === 'POST' ? 'POST' : 'GET';
+
+  return {
+    baseUrl: baseUrl.toString().replace(/\/$/, ''),
     consumerKey,
     consumerSecret,
-    callbackUrl: process.env.PESAPAL_CALLBACK_URL ?? 'http://localhost:3000/success',
+    callbackUrl: assertSafeCallbackUrl(
+      process.env.PESAPAL_CALLBACK_URL ?? 'http://localhost:3000/success',
+    ),
     currency: process.env.PESAPAL_CURRENCY ?? 'KES',
     ipnUrl: process.env.PESAPAL_IPN_URL,
-    ipnNotificationType:
-      (process.env.PESAPAL_IPN_NOTIFICATION_TYPE as 'GET' | 'POST') ?? 'GET',
+    ipnNotificationType,
     ipnNotificationId: process.env.PESAPAL_IPN_ID,
     defaultAmount: Number.isFinite(defaultAmount) ? defaultAmount : 5,
     billingAddress: {
@@ -139,7 +179,7 @@ async function readJson<T>(response: Response): Promise<T> {
 }
 
 async function requestToken(config: PesapalConfig) {
-  const res = await fetch(`${config.baseUrl}/api/Auth/RequestToken`, {
+  const res = await fetchWithTimeout(`${config.baseUrl}/api/Auth/RequestToken`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -160,10 +200,7 @@ async function requestToken(config: PesapalConfig) {
       data.message ||
       data.status ||
       res.statusText;
-    const payloadInfo = JSON.stringify(data);
-    throw new Error(
-      `Unable to get Pesapal token: ${errorDetail}. Response payload: ${payloadInfo}`,
-    );
+    throw new Error(`Unable to get Pesapal token: ${errorDetail}`);
   }
 
   return token;
@@ -178,7 +215,7 @@ async function resolveNotificationId(config: PesapalConfig, token: string) {
     throw new Error('Set PESAPAL_IPN_URL or PESAPAL_IPN_ID to complete Pesapal setup.');
   }
 
-  const res = await fetch(`${config.baseUrl}/api/URLSetup/RegisterIPN`, {
+  const res = await fetchWithTimeout(`${config.baseUrl}/api/URLSetup/RegisterIPN`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -218,7 +255,9 @@ export async function createPesapalOrder(options: CreateOrderOptions = {}) {
     ...options.billingAddressOverride,
   };
 
-  const res = await fetch(`${config.baseUrl}/api/Transactions/SubmitOrderRequest`, {
+  const res = await fetchWithTimeout(
+    `${config.baseUrl}/api/Transactions/SubmitOrderRequest`,
+    {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -233,7 +272,8 @@ export async function createPesapalOrder(options: CreateOrderOptions = {}) {
       notification_id: notificationId,
       billing_address: billingAddress,
     }),
-  });
+  },
+  );
 
   const data = await readJson<PesapalOrderResponse>(res);
 
@@ -244,9 +284,7 @@ export async function createPesapalOrder(options: CreateOrderOptions = {}) {
       data.message ||
       data.status ||
       res.statusText;
-    throw new Error(
-      `Unable to create Pesapal checkout session: ${detail}. Payload: ${JSON.stringify(data)}`,
-    );
+    throw new Error(`Unable to create Pesapal checkout session: ${detail}`);
   }
 
   return {
@@ -278,7 +316,7 @@ export async function getPesapalTransactionStatus({
     url.searchParams.set('merchantReference', merchantReference);
   }
 
-  const res = await fetch(url, {
+  const res = await fetchWithTimeout(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

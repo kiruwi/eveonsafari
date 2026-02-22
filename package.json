@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test:security": "tsc -p tsconfig.security-tests.json && node --test --test-concurrency=1 .tmp-security-tests/tests/security/*.test.js",
+    "security:deps": "npm audit --audit-level=high"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.83.0",

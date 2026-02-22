@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import type { PackagePricing } from '@/lib/pricing';
+import { buildAuthenticatedApiHeaders } from '@/lib/security/clientHeaders';
 
 type TierOption = 'midrange' | 'luxury';
 
@@ -107,7 +108,7 @@ export function PesapalCheckoutButton({
 
       const res = await fetch('/api/pesapal/checkout', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: await buildAuthenticatedApiHeaders(),
         body: JSON.stringify({
           amount: totalAmount,
           currency,

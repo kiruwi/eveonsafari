@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": ".tmp-security-tests",
+    "rootDir": ".",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "ES2022",
+    "types": ["node"],
+    "incremental": false,
+    "paths": {}
+  },
+  "include": [
+    "lib/security/**/*.ts",
+    "tests/security/**/*.ts"
+  ]
+}

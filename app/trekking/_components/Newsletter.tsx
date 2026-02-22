@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 
+import { buildPublicApiHeaders } from "@/lib/security/clientHeaders";
+
 const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 export default function Newsletter() {
@@ -29,9 +31,7 @@ export default function Newsletter() {
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: buildPublicApiHeaders(),
         body: JSON.stringify({ email: nextEmail, source: "trekking" }),
       });
       const data = (await res.json().catch(() => ({}))) as {
