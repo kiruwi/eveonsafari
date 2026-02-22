@@ -38,7 +38,7 @@ const gatheniaFont = localFont({
 const envSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const vercelPreviewUrl = process.env.VERCEL_URL;
-const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID;
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID ?? "G-R60T92DT4E";
 const fallbackSiteUrl = "https://eveonsafari.com";
 
 const siteUrl = (envSiteUrl
