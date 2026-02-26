@@ -1,3 +1,5 @@
+import IslandsGallery from "./IslandsGallery";
+
 export const metadata = {
   title: "Islands | Eve On Safari",
   description: "Guide to Tanzania's islands and coastal escapes.",
@@ -7,52 +9,73 @@ const islandCards = [
   {
     name: "Zanzibar Island",
     description: "White-sand beaches, Stone Town culture, and easy safari beach extensions.",
+    coverImage: "/islands photos/zanzibar/zanzibar1.webp",
+    galleryImages: [
+      "/islands photos/zanzibar/zanzibar2.webp",
+      "/islands photos/zanzibar/zanzibar3.webp",
+      "/islands photos/zanzibar/zanzibar4.webp",
+      "/islands photos/zanzibar/zanzibar5.webp",
+      "/islands photos/zanzibar/zanzibar6.webp",
+      "/islands photos/zanzibar/zanzibar7.webp",
+    ],
   },
   {
     name: "Pemba Island",
     description: "Lush, quiet island known for diving, reefs, and spice farming.",
+    coverImage: "/islands photos/pemba island/pemba1.webp",
+    galleryImages: [
+      "/islands photos/pemba island/pemba2.webp",
+      "/islands photos/pemba island/pemba3.webp",
+      "/islands photos/pemba island/pemba4.webp",
+      "/islands photos/pemba island/pemba5.webp",
+    ],
   },
   {
     name: "Mnemba Island",
     description: "Private island with world-class snorkeling and vibrant marine life.",
+    coverImage: "/islands photos/mnemba island/mnemba1.webp",
+    galleryImages: [
+      "/islands photos/mnemba island/mnemba2.webp",
+      "/islands photos/mnemba island/mnemba3.webp",
+      "/islands photos/mnemba island/mnemba4.webp",
+      "/islands photos/mnemba island/mnemba5.webp",
+    ],
   },
   {
     name: "Mafia Island",
     description: "Marine park with whale sharks, diving, and laid-back coastal villages.",
+    coverImage: "/islands photos/mafia island/mafia1.webp",
+    galleryImages: [
+      "/islands photos/mafia island/mafia2.webp",
+      "/islands photos/mafia island/mafia3.webp",
+      "/islands photos/mafia island/mafia4.webp",
+    ],
   },
   {
     name: "Fanjove Private Island",
     description: "Remote private island with turquoise lagoons and total seclusion.",
+    coverImage: "/islands photos/Fanjove island/fanjove1.webp",
+    galleryImages: [
+      "/islands photos/Fanjove island/fanjove2.webp",
+      "/islands photos/Fanjove island/fanjove3.webp",
+      "/islands photos/Fanjove island/fanjove4.webp",
+      "/islands photos/Fanjove island/fanjove5.webp",
+    ],
   },
   {
     name: "Chumbe Island Coral Park",
     description: "Protected coral sanctuary with eco-lodges and reef conservation.",
+    coverImage: "/islands photos/Chumbe island/chumbe1.webp",
+    galleryImages: [
+      "/islands photos/Chumbe island/chumbe2.webp",
+      "/islands photos/Chumbe island/chumbe3.webp",
+      "/islands photos/Chumbe island/chumbe4.webp",
+      "/islands photos/Chumbe island/chumbe5.webp",
+      "/islands photos/Chumbe island/chumbe6.webp",
+    ],
   },
 ];
 
 export default function IslandsPage() {
-  return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
-      <div className="max-w-2xl">
-        <h1 className="mt-3 text-3xl font-semibold text-[#231f20] sm:text-4xl">
-          Tanzania islands
-        </h1>
-        <p className="mt-4 text-base text-[#231f20]/75">
-          Add a coastal escape after your safari with reef snorkeling, diving, and relaxed beach
-          stays.
-        </p>
-      </div>
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {islandCards.map((island) => (
-          <div
-            key={island.name}
-            className="flex h-full flex-col rounded-2xl border border-[#e2d6c7] bg-white p-6 shadow-sm"
-          >
-            <h2 className="text-lg font-semibold text-[#231f20]">{island.name}</h2>
-            <p className="mt-3 text-sm leading-relaxed text-[#231f20]/75">{island.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <IslandsGallery islands={islandCards} />;
 }
