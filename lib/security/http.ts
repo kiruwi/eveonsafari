@@ -6,6 +6,7 @@ import { getAllowedOrigins, isProduction } from "./config";
 import { securityLog } from "./logger";
 
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
+const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "[::1]"]);
 
 export function getRequestId(request: Request) {
   const incomingId = request.headers.get("x-request-id");
@@ -84,6 +85,17 @@ export function errorResponse(
 }
 
 export function isOriginAllowed(origin: string) {
+  if (!isProduction()) {
+    try {
+      const url = new URL(origin);
+      if (LOOPBACK_HOSTS.has(url.hostname.toLowerCase())) {
+        return true;
+      }
+    } catch {
+      return false;
+    }
+  }
+
   const allowedOrigins = getAllowedOrigins();
   if (allowedOrigins.size === 0) return false;
   return allowedOrigins.has(origin.toLowerCase());

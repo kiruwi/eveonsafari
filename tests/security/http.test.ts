@@ -16,6 +16,21 @@ test("enforceSameOrigin accepts allowed origins", () => {
   assert.equal(enforceSameOrigin(request, "req-1"), null);
 });
 
+test("enforceSameOrigin accepts localhost origins in non-production", () => {
+  process.env.NODE_ENV = "test";
+  process.env.ALLOWED_ORIGINS = "https://eveonsafari.com";
+  process.env.NEXT_PUBLIC_SITE_URL = "https://eveonsafari.com";
+
+  const request = new Request("http://localhost:3001/api/plan", {
+    method: "POST",
+    headers: {
+      Origin: "http://localhost:3001",
+    },
+  });
+
+  assert.equal(enforceSameOrigin(request, "req-local"), null);
+});
+
 test("enforceCsrfToken rejects missing tokens", () => {
   const request = new Request("https://eveonsafari.com/api/plan", {
     method: "POST",
