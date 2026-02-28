@@ -16,6 +16,20 @@ test("enforceSameOrigin accepts allowed origins", () => {
   assert.equal(enforceSameOrigin(request, "req-1"), null);
 });
 
+test("enforceSameOrigin accepts same-host origins even without allowlist", () => {
+  process.env.NODE_ENV = "production";
+  process.env.ALLOWED_ORIGINS = "";
+
+  const request = new Request("https://www.eveonsafari.com/api/plan", {
+    method: "POST",
+    headers: {
+      Origin: "https://www.eveonsafari.com",
+    },
+  });
+
+  assert.equal(enforceSameOrigin(request, "req-same-host"), null);
+});
+
 test("enforceSameOrigin accepts localhost origins in non-production", () => {
   process.env.NODE_ENV = "test";
   process.env.ALLOWED_ORIGINS = "https://eveonsafari.com";

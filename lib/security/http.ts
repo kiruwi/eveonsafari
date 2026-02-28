@@ -8,6 +8,14 @@ import { securityLog } from "./logger";
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "[::1]"]);
 
+function normalizeOrigin(raw: string) {
+  try {
+    return new URL(raw).origin.toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
 export function getRequestId(request: Request) {
   const incomingId = request.headers.get("x-request-id");
   return incomingId?.trim() || randomUUID();
@@ -85,9 +93,12 @@ export function errorResponse(
 }
 
 export function isOriginAllowed(origin: string) {
+  const normalized = normalizeOrigin(origin);
+  if (!normalized) return false;
+
   if (!isProduction()) {
     try {
-      const url = new URL(origin);
+      const url = new URL(normalized);
       if (LOOPBACK_HOSTS.has(url.hostname.toLowerCase())) {
         return true;
       }
@@ -98,7 +109,7 @@ export function isOriginAllowed(origin: string) {
 
   const allowedOrigins = getAllowedOrigins();
   if (allowedOrigins.size === 0) return false;
-  return allowedOrigins.has(origin.toLowerCase());
+  return allowedOrigins.has(normalized);
 }
 
 export function enforceSameOrigin(request: Request, requestId: string) {
@@ -107,7 +118,13 @@ export function enforceSameOrigin(request: Request, requestId: string) {
   }
 
   const origin = request.headers.get("origin");
-  if (!origin || !isOriginAllowed(origin)) {
+  const normalizedOrigin = origin ? normalizeOrigin(origin) : null;
+  const requestOrigin = normalizeOrigin(request.url);
+  const sameHostRequest = Boolean(
+    normalizedOrigin && requestOrigin && normalizedOrigin === requestOrigin,
+  );
+
+  if (!origin || (!sameHostRequest && !isOriginAllowed(origin))) {
     securityLog("warn", "csrf.origin_rejected", {
       requestId,
       method: request.method,
