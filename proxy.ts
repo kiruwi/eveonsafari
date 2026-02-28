@@ -3,16 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { CSRF_COOKIE_NAME } from "@/lib/security/constants";
 import { ensureCsrfCookie } from "@/lib/security/http";
 
-const canonicalHost = (() => {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!raw) return null;
-  try {
-    return new URL(raw).hostname;
-  } catch {
-    return null;
-  }
-})();
-
 const publicApiRoutes = new Set([
   "/api/newsletter",
   "/api/pesapal/ipn",
@@ -77,27 +67,6 @@ export function proxy(request: NextRequest) {
         { status: 401 },
       ),
     );
-  }
-
-  if (!canonicalHost) {
-    const response = withSecurityHeaders(NextResponse.next());
-    if (!path.startsWith("/api/")) {
-      ensureCsrfCookie(response, request.cookies.get(CSRF_COOKIE_NAME)?.value ?? null);
-    }
-    return response;
-  }
-
-  const hostname = request.nextUrl.hostname;
-  const apexHost = canonicalHost.startsWith("www.")
-    ? canonicalHost.slice(4)
-    : canonicalHost;
-  const wwwHost = `www.${apexHost}`;
-
-  if (hostname !== canonicalHost && (hostname === apexHost || hostname === wwwHost)) {
-    const url = request.nextUrl.clone();
-    url.hostname = canonicalHost;
-    url.protocol = "https";
-    return withSecurityHeaders(NextResponse.redirect(url, 308));
   }
 
   const response = withSecurityHeaders(NextResponse.next());
