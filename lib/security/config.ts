@@ -53,7 +53,10 @@ export function getCanonicalOrigin() {
 }
 
 export function getAllowedOrigins() {
-  const configured = parseCsvSet(process.env.ALLOWED_ORIGINS);
+  const configured = new Set<string>();
+  for (const rawOrigin of parseCsvSet(process.env.ALLOWED_ORIGINS)) {
+    addNormalizedOrigin(configured, rawOrigin);
+  }
   const canonical = getCanonicalOrigin();
   addNormalizedOrigin(configured, canonical);
   addCanonicalSiblingOrigin(configured, canonical);

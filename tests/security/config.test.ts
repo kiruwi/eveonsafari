@@ -13,6 +13,15 @@ test("getAllowedOrigins merges configured origins and canonical origin", () => {
   assert.equal(origins.has("https://example.com"), true);
 });
 
+test("getAllowedOrigins normalizes configured origin paths and trailing slashes", () => {
+  process.env.ALLOWED_ORIGINS = "https://eveonsafari.com/,https://www.eveonsafari.com/plan";
+  process.env.NEXT_PUBLIC_SITE_URL = "";
+
+  const origins = getAllowedOrigins();
+  assert.equal(origins.has("https://eveonsafari.com"), true);
+  assert.equal(origins.has("https://www.eveonsafari.com"), true);
+});
+
 test("getAllowedOrigins adds canonical sibling host", () => {
   process.env.ALLOWED_ORIGINS = "";
   process.env.NEXT_PUBLIC_SITE_URL = "https://www.example.com";
