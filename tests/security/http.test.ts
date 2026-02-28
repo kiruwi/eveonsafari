@@ -3,8 +3,14 @@ import test from "node:test";
 
 import { enforceCsrfToken, enforceSameOrigin } from "../../lib/security/http";
 
+const env = process.env as Record<string, string | undefined>;
+
+function setEnv(key: string, value: string) {
+  env[key] = value;
+}
+
 test("enforceSameOrigin accepts allowed origins", () => {
-  process.env.ALLOWED_ORIGINS = "https://eveonsafari.com";
+  setEnv("ALLOWED_ORIGINS", "https://eveonsafari.com");
 
   const request = new Request("https://eveonsafari.com/api/plan", {
     method: "POST",
@@ -17,8 +23,8 @@ test("enforceSameOrigin accepts allowed origins", () => {
 });
 
 test("enforceSameOrigin accepts same-host origins even without allowlist", () => {
-  process.env.NODE_ENV = "production";
-  process.env.ALLOWED_ORIGINS = "";
+  setEnv("NODE_ENV", "production");
+  setEnv("ALLOWED_ORIGINS", "");
 
   const request = new Request("https://www.eveonsafari.com/api/plan", {
     method: "POST",
@@ -31,9 +37,9 @@ test("enforceSameOrigin accepts same-host origins even without allowlist", () =>
 });
 
 test("enforceSameOrigin accepts localhost origins in non-production", () => {
-  process.env.NODE_ENV = "test";
-  process.env.ALLOWED_ORIGINS = "https://eveonsafari.com";
-  process.env.NEXT_PUBLIC_SITE_URL = "https://eveonsafari.com";
+  setEnv("NODE_ENV", "test");
+  setEnv("ALLOWED_ORIGINS", "https://eveonsafari.com");
+  setEnv("NEXT_PUBLIC_SITE_URL", "https://eveonsafari.com");
 
   const request = new Request("http://localhost:3001/api/plan", {
     method: "POST",
