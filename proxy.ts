@@ -54,6 +54,17 @@ function hasBearerAuth(request: NextRequest) {
 
 export function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
+  const hasAuthCode = request.nextUrl.searchParams.has("code");
+  const shouldRouteOauthCode =
+    hasAuthCode && path !== "/auth/callback" && (path === "/" || path === "/auth");
+
+  // Some OAuth providers may fall back to "/" with ?code=... if redirect allowlists are mismatched.
+  // Force those requests through the callback page that exchanges code for a session.
+  if (shouldRouteOauthCode) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/auth/callback";
+    return withSecurityHeaders(NextResponse.redirect(url, 307));
+  }
 
   if (
     path.startsWith("/api/") &&
