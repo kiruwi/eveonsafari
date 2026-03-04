@@ -51,6 +51,21 @@ const nextConfig: NextConfig = {
         destination: "/trekking",
         permanent: true,
       },
+      {
+        source: "/kilimanjaro-national-park",
+        destination: "/discover-tanzania/national-parks/mount-kilimanjaro",
+        permanent: true,
+      },
+      {
+        source: "/trekking/7-day-machame-route-kilimanjaro-trek",
+        destination: "/trekking/kilimanjaro-machame-route",
+        permanent: true,
+      },
+      {
+        source: "/safari_package/3-day-tanzania-safari-quick-serengeti-escape",
+        destination: "/safaris/3-day-serengeti-escape",
+        permanent: true,
+      },
     ];
   },
   images: {
