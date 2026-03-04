@@ -31,6 +31,26 @@ const nextConfig: NextConfig = {
         destination: "/safaris/10-day-best-of-tanzania",
         permanent: true,
       },
+      {
+        source: "/tarangire-national-park-day-trip",
+        destination: "/activities/day-trips/tarangire-day-trip",
+        permanent: true,
+      },
+      {
+        source: "/zanzibar_tours/3-days-zanzibar-beach-escape",
+        destination: "/zanzibar/5-days/zanzibar-5-days",
+        permanent: true,
+      },
+      {
+        source: "/trekking/3-days-mount-meru-trek-a-scenic-challenge",
+        destination: "/trekking",
+        permanent: true,
+      },
+      {
+        source: "/trekking/4-days-mount-meru-the-scenic-climb-before-kilimanjaro",
+        destination: "/trekking",
+        permanent: true,
+      },
     ];
   },
   images: {
