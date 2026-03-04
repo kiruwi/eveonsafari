@@ -66,6 +66,11 @@ const nextConfig: NextConfig = {
         destination: "/safaris/3-day-serengeti-escape",
         permanent: true,
       },
+      {
+        source: "/zanzibar_tours/6-days-complete-zanzibar-experience",
+        destination: "/zanzibar/5-days/zanzibar-5-days",
+        permanent: true,
+      },
     ];
   },
   images: {
