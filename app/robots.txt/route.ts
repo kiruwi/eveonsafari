@@ -1,11 +1,13 @@
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://eveonsafari.com").replace(/\/$/, "");
+import { siteUrl } from "@/lib/seo";
 
 function buildRobots() {
+  const siteHost = new URL(siteUrl).host;
+
   return `User-agent: *
 Allow: /
 
 Sitemap: ${siteUrl}/sitemap.xml
-Host: ${siteUrl}
+Host: ${siteHost}
 `;
 }
 

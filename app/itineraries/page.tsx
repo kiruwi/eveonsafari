@@ -1,14 +1,24 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { PackageCheckoutSelector } from "@/components/PackageCheckoutSelector";
 import { PackagePricing, safariPackagePricingUSD } from "@/lib/pricing";
 import { safariPackages } from "@/lib/siteContent";
 
+export const metadata: Metadata = {
+  title: "Tanzania Safari Itineraries | Eve On Safari",
+  description:
+    "Compare curated Tanzania safari packages from 2 to 10 days, with route highlights and transparent planning support.",
+  alternates: {
+    canonical: "/itineraries",
+  },
+};
+
 const sampleRoutes = [
   {
     title: "Safaris",
     description: "2–7 Day Tanzania safaris across Ngorongoro, Manyara, Tarangire, and Serengeti.",
-    href: "/safaris/3-days/3-day-manyara-ngorongoro-tarangire",
+    href: "/safaris/3-day-manyara-ngorongoro-tarangire",
     image: "/itenerary%20photos/safaris.webp",
   },
   {
@@ -44,13 +54,13 @@ const sampleRoutes = [
   {
     title: "Diamond Luxury",
     description: "9-Day Grand Tanzania Safari – The Ultimate Serengeti Adventure.",
-    href: "/safaris/9-days/9-day-grand-tanzania",
+    href: "/safaris/9-day-grand-tanzania",
     image: "/itenerary%20photos/luxury%20trip%20tanzania.webp",
   },
   {
     title: "Small Group Trip",
     description: "8 Days Migration & Cultural Wonders departures limited to 8 guests.",
-    href: "/safaris/8-days/8-day-migration-cultural-wonders",
+    href: "/safaris/8-day-migration-cultural-wonders",
     image: "/itenerary%20photos/small%20group%20trip.webp",
   },
 ];

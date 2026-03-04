@@ -1,13 +1,30 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import { PackageCheckoutSelector } from "@/components/PackageCheckoutSelector";
 import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { PackagePricing, safariPackagePricingUSD } from "@/lib/pricing";
+import {
+  defaultMetaDescription,
+  organizationId,
+  siteName,
+  siteUrl,
+  websiteId,
+} from "@/lib/seo";
 import {
   safariPackages,
   travelStyles,
   kilimanjaroRoutes,
 } from "@/lib/siteContent";
+
+export const metadata: Metadata = {
+  title: "Bespoke Tanzania Journeys | Eve On Safari",
+  description: defaultMetaDescription,
+  alternates: {
+    canonical: "/",
+  },
+};
 
 const customItineraryImages: Record<string, string> = {
   "2-day-ngorongoro-crater-adventure": "/photos/landing-page/elephants.webp",
@@ -40,6 +57,39 @@ const checkoutPackages = safariPackages.map((pkg) => ({
   name: pkg.name,
   slug: pkg.slug,
 }));
+
+const homepageSitelinkCandidates = [
+  { name: "Itineraries", path: "/itineraries" },
+  { name: "Plan Your Trip", path: "/plan" },
+  { name: "Activities", path: "/activities" },
+  { name: "National Parks", path: "/discover-tanzania/national-parks" },
+  { name: "Kilimanjaro Trekking", path: "/trekking" },
+  { name: "About Us", path: "/about-us" },
+];
+
+const homePageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${siteUrl}/#home`,
+  url: siteUrl,
+  name: `${siteName} Home`,
+  description: defaultMetaDescription,
+  isPartOf: {
+    "@id": websiteId,
+  },
+  about: {
+    "@id": organizationId,
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: homepageSitelinkCandidates.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: `${siteUrl}${item.path}`,
+    })),
+  },
+};
 
 const clientReviews = [
   {
@@ -119,7 +169,11 @@ const getFromPrice = (pricing?: PackagePricing) => {
 
 export default function HomePage() {
   return (
-    <div className="bg-white">
+    <>
+      <Script id="jsonld-homepage" type="application/ld+json" strategy="beforeInteractive">
+        {JSON.stringify(homePageJsonLd)}
+      </Script>
+      <div className="bg-white">
       <section className="relative isolate -mt-[156px] overflow-hidden bg-[#0f0f0f] text-white sm:-mt-[168px]">
         <Image
           src="/photos/landing-page/ngoro.webp"
@@ -450,6 +504,7 @@ export default function HomePage() {
           </div>
         </section>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -17,6 +17,31 @@ function normalizeOrigin(raw: string) {
   }
 }
 
+function addNormalizedOrigin(origins: Set<string>, raw: string | null | undefined) {
+  if (!raw) return;
+  const normalized = normalizeOrigin(raw);
+  if (!normalized) return;
+  origins.add(normalized.toLowerCase());
+}
+
+function addCanonicalSiblingOrigin(origins: Set<string>, canonical: string | null) {
+  if (!canonical) return;
+
+  try {
+    const url = new URL(canonical);
+    const host = url.hostname.toLowerCase();
+    if (host === "localhost" || host === "127.0.0.1" || host === "::1" || host === "[::1]") {
+      return;
+    }
+
+    const siblingHost = host.startsWith("www.") ? host.slice(4) : `www.${host}`;
+    const siblingOrigin = `${url.protocol}//${siblingHost}${url.port ? `:${url.port}` : ""}`;
+    origins.add(siblingOrigin.toLowerCase());
+  } catch {
+    // Ignore malformed values from env.
+  }
+}
+
 export function isProduction() {
   return process.env.NODE_ENV === "production";
 }
@@ -28,12 +53,17 @@ export function getCanonicalOrigin() {
 }
 
 export function getAllowedOrigins() {
-  const configured = parseCsvSet(process.env.ALLOWED_ORIGINS);
+  const configured = new Set<string>();
+  for (const rawOrigin of parseCsvSet(process.env.ALLOWED_ORIGINS)) {
+    addNormalizedOrigin(configured, rawOrigin);
+  }
   const canonical = getCanonicalOrigin();
-  if (canonical) configured.add(canonical.toLowerCase());
+  addNormalizedOrigin(configured, canonical);
+  addCanonicalSiblingOrigin(configured, canonical);
   if (configured.size === 0 && !isProduction()) {
     configured.add("http://localhost:3000");
     configured.add("http://127.0.0.1:3000");
+    configured.add("http://[::1]:3000");
   }
   return configured;
 }

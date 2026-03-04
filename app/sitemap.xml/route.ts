@@ -1,6 +1,5 @@
 import { parkCards } from "@/app/discover-tanzania/national-parks/parksData";
-
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://eveonsafari.com").replace(/\/$/, "");
+import { siteUrl } from "@/lib/seo";
 
 const coreRoutes = [
   "/",
@@ -18,24 +17,19 @@ const coreRoutes = [
   "/discover-tanzania/accommodations",
   "/discover-tanzania/islands",
   "/discover-tanzania/national-parks",
-  "/experiences",
   "/itineraries",
   "/packing",
   "/plan",
   "/safaris/10-day-best-of-tanzania",
-  "/safaris/10-days/10-day-best-of-tanzania",
   "/safaris/2-day-ngorongoro-crater-adventure",
   "/safaris/3-day-manyara-ngorongoro-tarangire",
   "/safaris/3-day-serengeti-escape",
-  "/safaris/3-days/3-day-manyara-ngorongoro-tarangire",
   "/safaris/4-day-nyerere-safari",
   "/safaris/5-day-iconic-wildlife-adventure",
   "/safaris/6-day-best-northern-parks",
   "/safaris/7-day-northern-highlights",
   "/safaris/8-day-migration-cultural-wonders",
-  "/safaris/8-days/8-day-migration-cultural-wonders",
   "/safaris/9-day-grand-tanzania",
-  "/safaris/9-days/9-day-grand-tanzania",
   "/safaris/duration/2-days",
   "/safaris/duration/3-days",
   "/safaris/duration/4-days",

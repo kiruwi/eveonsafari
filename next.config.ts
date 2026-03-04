@@ -4,6 +4,35 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
+  async redirects() {
+    return [
+      {
+        source: "/experiences",
+        destination: "/activities",
+        permanent: true,
+      },
+      {
+        source: "/safaris/3-days/3-day-manyara-ngorongoro-tarangire",
+        destination: "/safaris/3-day-manyara-ngorongoro-tarangire",
+        permanent: true,
+      },
+      {
+        source: "/safaris/8-days/8-day-migration-cultural-wonders",
+        destination: "/safaris/8-day-migration-cultural-wonders",
+        permanent: true,
+      },
+      {
+        source: "/safaris/9-days/9-day-grand-tanzania",
+        destination: "/safaris/9-day-grand-tanzania",
+        permanent: true,
+      },
+      {
+        source: "/safaris/10-days/10-day-best-of-tanzania",
+        destination: "/safaris/10-day-best-of-tanzania",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

@@ -5,6 +5,14 @@ import Script from "next/script";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import {
+  defaultMetaDescription,
+  defaultMetaTitle,
+  organizationJsonLd,
+  siteName,
+  siteUrl,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,26 +43,55 @@ const gatheniaFont = localFont({
   display: "swap",
 });
 
-const envSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-const vercelPreviewUrl = process.env.VERCEL_URL;
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID ?? "G-R60T92DT4E";
-const fallbackSiteUrl = "https://eveonsafari.com";
-
-const siteUrl = (envSiteUrl
-  || (vercelProductionUrl ? `https://${vercelProductionUrl}` : undefined)
-  || (vercelPreviewUrl ? `https://${vercelPreviewUrl}` : undefined)
-  || fallbackSiteUrl
-).replace(/\/$/, "");
 
 export const metadata: Metadata = {
-  title: "Eve On Safari | Bespoke Tanzania Journeys",
-  description:
-    "Plan immersive, conservation-led safaris across Tanzania with Eve On Safari’s expert travel designers.",
+  title: defaultMetaTitle,
+  description: defaultMetaDescription,
+  applicationName: siteName,
   metadataBase: new URL(siteUrl),
   alternates: {
-    canonical: "./",
+    canonical: "/",
   },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    title: defaultMetaTitle,
+    description: defaultMetaDescription,
+    siteName,
+    locale: "en_US",
+    images: [
+      {
+        url: "/evelogo.png",
+        alt: "Eve On Safari logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultMetaTitle,
+    description: defaultMetaDescription,
+    images: ["/evelogo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  keywords: [
+    "Tanzania safari",
+    "Kilimanjaro trekking",
+    "Zanzibar holiday",
+    "Serengeti safari",
+    "Ngorongoro crater tour",
+    "Arusha tour operator",
+  ],
   icons: {
     icon: "/favicon.ico",
   },
@@ -68,6 +105,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <Script id="jsonld-organization" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify(organizationJsonLd)}
+        </Script>
+        <Script id="jsonld-website" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify(websiteJsonLd)}
+        </Script>
         {gaMeasurementId ? (
           <>
             <Script
