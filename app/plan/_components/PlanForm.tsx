@@ -339,7 +339,7 @@ export function PlanForm() {
     return "Select start and end dates";
   }, [rangeStart, rangeEnd]);
 
-  const renderMonth = (monthDate: Date) => {
+  const renderMonth = (monthDate: Date, tone: "primary" | "secondary" = "primary") => {
     const year = monthDate.getFullYear();
     const month = monthDate.getMonth();
     const monthLabel = getMonthLabel(monthDate);
@@ -361,16 +361,16 @@ export function PlanForm() {
           ((isAfter(date, rangeStart) && isBefore(date, hoverDate)) || isSameDay(date, hoverDate)),
       );
 
-      const baseClasses = "flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold transition";
+      const baseClasses = "flex h-9 w-9 items-center justify-center rounded-full text-xs transition";
       const stateClasses = disabled
-        ? "text-[#231f20]/30"
+        ? "text-[#b7b7b7]"
         : isStart || isEnd
-          ? "bg-[#ba7e47] text-white"
+          ? "bg-[#B57A3A] text-white"
           : inRange
-            ? "bg-[#ba7e47]/15 text-[#231f20]"
+            ? "bg-[#B57A3A]/15 text-[#2B2B2B]"
             : inPreview
-              ? "bg-[#ba7e47]/10 text-[#231f20]"
-              : "text-[#231f20] hover:bg-[#ba7e47]/10";
+              ? "bg-[#B57A3A]/10 text-[#2B2B2B]"
+              : "text-[#2B2B2B] hover:bg-[#B57A3A]/10";
 
       return (
         <button
@@ -387,12 +387,16 @@ export function PlanForm() {
       );
     });
 
+    const monthCardClasses = tone === "primary"
+      ? "space-y-3 rounded-lg border border-[#E6D8C6] bg-[#FCF7EF] p-3"
+      : "space-y-3 rounded-lg border border-[#EFE5D7] bg-[#FFFCF7] p-3";
+
     return (
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-[#231f20]">{monthLabel}</p>
+      <div className={monthCardClasses}>
+        <div className="flex items-center justify-between border-b border-[#EFE5D7] pb-2">
+          <p className="text-sm font-semibold text-[#2B2B2B]">{monthLabel}</p>
         </div>
-        <div className="grid grid-cols-7 gap-1 text-[10px] uppercase tracking-[0.2em] text-[#231f20]/60">
+        <div className="grid grid-cols-7 gap-1 text-[10px] uppercase tracking-[0.2em] text-[#6B6B6B]">
           {weekDays.map((day) => (
             <span key={day} className="text-center">{day}</span>
           ))}
@@ -409,17 +413,17 @@ export function PlanForm() {
 
   return (
     <form
-      className="space-y-6 rounded-[28px] border border-[#c3c3c3] bg-white p-8 shadow-sm"
+      className="space-y-6 rounded-xl border border-[#E6D8C6] bg-white p-8"
       onSubmit={handleSubmit}
     >
       <div className="space-y-3">
-        <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-[#231f20]/70">
+        <div className="mb-2 flex items-center justify-between text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">
           <span>Step {step + 1} of {totalSteps}</span>
           <span>{currentStep.label}</span>
         </div>
-        <div className="h-1 w-full overflow-hidden rounded-full bg-[#e7dfd4]">
+        <div className="h-1 w-full overflow-hidden rounded-full bg-[#F0E6D9]">
           <div
-            className="h-full rounded-full bg-[#ba7e47] transition-[width] duration-300"
+            className="h-full rounded-full bg-[#B57A3A] transition-[width] duration-300"
             style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
           />
         </div>
@@ -427,14 +431,14 @@ export function PlanForm() {
 
       <div className="space-y-2">
         <h2
-          className="text-2xl font-semibold text-[#231f20]"
+          className="text-lg font-semibold uppercase tracking-[0.05em] text-[#2B2B2B]"
           style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
         >
           {currentStep.title}
         </h2>
-        <p className="text-sm text-[#231f20]/70">{currentStep.helper}</p>
+        <p className="text-sm leading-[1.6] text-[#3A3A3A]">{currentStep.helper}</p>
         {packageSlug && (
-          <p className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#B28A5A]">
             Package request: {packageSlug.replace(/-/g, " ")}
           </p>
         )}
@@ -442,58 +446,72 @@ export function PlanForm() {
 
       {currentStep.key === "travelDates" && (
         <div className="space-y-4">
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="rounded-[20px] border border-[#c3c3c3] bg-white px-4 py-3">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-[#231f20]/60">Start date</p>
-              <p className="mt-2 text-sm font-semibold text-[#231f20]">
-                {rangeStart ? formatSingleDate(rangeStart) : "Select date"}
-              </p>
-            </div>
-            <div className="rounded-[20px] border border-[#c3c3c3] bg-white px-4 py-3">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-[#231f20]/60">End date</p>
-              <p className="mt-2 text-sm font-semibold text-[#231f20]">
-                {rangeEnd ? formatSingleDate(rangeEnd) : "Select date"}
-              </p>
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">Date range</p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div
+                className={`rounded-lg border p-4 ${
+                  rangeStart ? "border-[#B28A5A] bg-[#FAF0E1]" : "border-[#E6D8C6] bg-[#FCF7EF]"
+                }`}
+              >
+                <p className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">Start date</p>
+                <p className="mt-2 text-sm text-[#2B2B2B]">
+                  {rangeStart ? formatSingleDate(rangeStart) : "Select date"}
+                </p>
+              </div>
+              <div
+                className={`rounded-lg border p-4 ${
+                  rangeEnd ? "border-[#C49B6A] bg-[#FDF6EB]" : "border-[#EFE5D7] bg-[#FFFCF7]"
+                }`}
+              >
+                <p className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">End date</p>
+                <p className="mt-2 text-sm text-[#2B2B2B]">
+                  {rangeEnd ? formatSingleDate(rangeEnd) : "Select date"}
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="rounded-[24px] border border-[#c3c3c3] bg-white p-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-[#231f20]/60">Selected</p>
-                <p className="text-sm font-semibold text-[#231f20]">{selectedRangeLabel}</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setCalendarMonth((prev) => addMonths(prev, -1))}
-                  aria-label="Previous month"
-                  className="rounded-full border border-[#c3c3c3] px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#231f20] transition hover:border-[#231f20]"
-                >
-                  Prev
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCalendarMonth((prev) => addMonths(prev, 1))}
-                  aria-label="Next month"
-                  className="rounded-full border border-[#c3c3c3] px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#231f20] transition hover:border-[#231f20]"
-                >
-                  Next
-                </button>
+          <div className="space-y-2 rounded-xl border border-[#E6D8C6] bg-white p-4">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">Calendar</p>
+            <div className="rounded-lg border border-[#E6D8C6] bg-[#F6F1E8] p-3">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">Selected</p>
+                  <p className="text-sm text-[#2B2B2B]">{selectedRangeLabel}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setCalendarMonth((prev) => addMonths(prev, -1))}
+                    aria-label="Previous month"
+                    className="rounded-lg border border-[#E6D8C6] bg-white px-3 py-2 text-xs uppercase tracking-[0.2em] text-[#2B2B2B] transition hover:border-[#B28A5A]"
+                  >
+                    Prev
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCalendarMonth((prev) => addMonths(prev, 1))}
+                    aria-label="Next month"
+                    className="rounded-lg border border-[#E6D8C6] bg-white px-3 py-2 text-xs uppercase tracking-[0.2em] text-[#2B2B2B] transition hover:border-[#B28A5A]"
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
             </div>
 
             <div className="mt-5 grid gap-6 md:grid-cols-2">
-              {renderMonth(calendarMonth)}
-              {renderMonth(addMonths(calendarMonth, 1))}
+              {renderMonth(calendarMonth, "primary")}
+              {renderMonth(addMonths(calendarMonth, 1), "secondary")}
             </div>
 
-            <div className="mt-4 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-[#231f20]/60">
+            <div className="mt-2 flex items-center justify-between border-t border-[#EFE5D7] pt-2 text-xs text-[#6B6B6B]">
               <span>Tap start date, then end date</span>
               <button
                 type="button"
                 onClick={clearDates}
-                className="text-[#ba7e47] hover:text-[#8a592e]"
+                className="text-xs text-[#B28A5A] hover:text-[#8f6d45]"
               >
                 Clear dates
               </button>
@@ -507,14 +525,14 @@ export function PlanForm() {
 
       {currentStep.key === "groupSize" && (
         <div className="space-y-2">
-          <label className="text-sm text-[#231f20]">
+          <label className="text-sm text-[#2B2B2B]">
             Number of travellers
             <input
               type="number"
               name="groupSize"
               value={formData.groupSize}
               onChange={(event) => updateField("groupSize", event.target.value)}
-              className="mt-2 w-full rounded-2xl border border-[#c3c3c3] px-4 py-3 text-sm text-[#231f20]"
+              className="mt-2 w-full rounded-lg border border-[#E6D8C6] px-4 py-3 text-sm text-[#2B2B2B]"
               placeholder="4"
               min={1}
             />
@@ -536,10 +554,10 @@ export function PlanForm() {
                   type="button"
                   onClick={() => updateField("interests", option)}
                   aria-pressed={isSelected}
-                  className={`rounded-full border px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition ${
+                  className={`rounded-lg border px-4 py-3 text-sm uppercase tracking-[0.2em] transition ${
                     isSelected
-                      ? "border-[#ba7e47] bg-[#ba7e47] text-white"
-                      : "border-[#c3c3c3] text-[#231f20] hover:border-[#ba7e47]"
+                      ? "border-[#B57A3A] bg-[#B57A3A] text-white"
+                      : "border-[#E6D8C6] text-[#2B2B2B] hover:border-[#B28A5A]"
                   }`}
                 >
                   {option}
@@ -564,10 +582,10 @@ export function PlanForm() {
                   type="button"
                   onClick={() => updateField("budgetRange", option)}
                   aria-pressed={isSelected}
-                  className={`rounded-[18px] border px-4 py-3 text-sm font-semibold transition ${
+                  className={`rounded-lg border px-4 py-3 text-sm transition ${
                     isSelected
-                      ? "border-[#ba7e47] bg-[#ba7e47]/10 text-[#231f20]"
-                      : "border-[#c3c3c3] text-[#231f20] hover:border-[#ba7e47]"
+                      ? "border-[#B57A3A] bg-[#B57A3A]/10 text-[#2B2B2B]"
+                      : "border-[#E6D8C6] text-[#2B2B2B] hover:border-[#B28A5A]"
                   }`}
                 >
                   {option}
@@ -578,7 +596,7 @@ export function PlanForm() {
           <button
             type="button"
             onClick={() => updateField("budgetRange", "")}
-            className="text-xs uppercase tracking-[0.3em] text-[#231f20]/60"
+            className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]"
           >
             Skip for now
           </button>
@@ -588,14 +606,14 @@ export function PlanForm() {
       {currentStep.key === "contact" && (
         <div className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
-            <label className="text-sm text-[#231f20]">
+            <label className="text-sm text-[#2B2B2B]">
               Full name
               <input
                 type="text"
                 name="fullName"
                 value={formData.fullName}
                 onChange={(event) => updateField("fullName", event.target.value)}
-                className="mt-2 w-full rounded-2xl border border-[#c3c3c3] px-4 py-3 text-sm text-[#231f20]"
+                className="mt-2 w-full rounded-lg border border-[#E6D8C6] px-4 py-3 text-sm text-[#2B2B2B]"
                 placeholder="Amara K."
                 autoComplete="name"
               />
@@ -603,14 +621,14 @@ export function PlanForm() {
                 <p className="mt-2 text-sm text-red-600">{errors.fullName}</p>
               )}
             </label>
-            <label className="text-sm text-[#231f20]">
+            <label className="text-sm text-[#2B2B2B]">
               Email
               <input
                 type="email"
                 name="email"
                 value={isSignedIn && authEmail ? authEmail : formData.email}
                 onChange={(event) => updateField("email", event.target.value)}
-                className="mt-2 w-full rounded-2xl border border-[#c3c3c3] px-4 py-3 text-sm text-[#231f20]"
+                className="mt-2 w-full rounded-lg border border-[#E6D8C6] px-4 py-3 text-sm text-[#2B2B2B]"
                 placeholder="you@example.com"
                 autoComplete="email"
                 readOnly={Boolean(isSignedIn && authEmail)}
@@ -620,14 +638,14 @@ export function PlanForm() {
               )}
             </label>
           </div>
-          <label className="text-sm text-[#231f20]">
+          <label className="text-sm text-[#2B2B2B]">
             Phone / WhatsApp (optional)
             <input
               type="tel"
               name="phone"
               value={formData.phone}
               onChange={(event) => updateField("phone", event.target.value)}
-              className="mt-2 w-full rounded-2xl border border-[#c3c3c3] px-4 py-3 text-sm text-[#231f20]"
+              className="mt-2 w-full rounded-lg border border-[#E6D8C6] px-4 py-3 text-sm text-[#2B2B2B]"
               placeholder="+255 768 611 005"
               autoComplete="tel"
             />
@@ -640,7 +658,7 @@ export function PlanForm() {
           type="button"
           onClick={handleBack}
           disabled={step === 0}
-          className="rounded-full border border-[#c3c3c3] px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#231f20] transition hover:border-[#231f20] disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-lg border border-[#E6D8C6] px-5 py-3 text-sm text-[#2B2B2B] transition hover:border-[#B28A5A] disabled:cursor-not-allowed disabled:opacity-40"
         >
           Back
         </button>
@@ -648,7 +666,7 @@ export function PlanForm() {
           {showSignInGate && (
             <Link
               href={`/auth?next=${encodeURIComponent(nextPath)}`}
-              className="rounded-full border border-[#231f20] px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#231f20] transition hover:bg-[#231f20] hover:text-white"
+              className="rounded-lg border border-[#E6D8C6] px-5 py-3 text-sm text-[#2B2B2B] transition hover:border-[#B28A5A]"
             >
               Sign in to submit
             </Link>
@@ -656,7 +674,7 @@ export function PlanForm() {
           <button
             type="submit"
             disabled={isSubmitting || (isFinalStep && !isSignedIn)}
-            className="rounded-full bg-[#ba7e47] px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#8a592e] disabled:cursor-not-allowed disabled:opacity-70"
+            className="rounded-lg bg-[#B57A3A] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#96612c] disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isSubmitting ? "Submitting..." : isFinalStep ? "Send request" : "Continue"}
           </button>
@@ -678,15 +696,15 @@ export function PlanForm() {
           aria-modal="true"
           aria-labelledby="plan-success-title"
         >
-          <div className="w-full max-w-md rounded-[28px] bg-white p-6 text-center shadow-xl">
+          <div className="w-full max-w-md rounded-xl bg-white p-6 text-center shadow-xl">
             <p
               id="plan-success-title"
-              className="text-xs uppercase tracking-[0.3em] text-[#ba7e47]"
+              className="text-xs uppercase tracking-[0.2em] text-[#B28A5A]"
             >
               Request received
             </p>
             <h3
-              className="mt-3 text-2xl font-semibold text-[#231f20]"
+              className="mt-3 text-2xl font-semibold text-[#2B2B2B]"
               style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
             >
               Thanks! We received your request and will respond within 24 hours.
@@ -694,7 +712,7 @@ export function PlanForm() {
             <button
               type="button"
               onClick={() => setFeedback(null)}
-              className="mt-6 inline-flex items-center justify-center rounded-full bg-[#ba7e47] px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#8a592e]"
+              className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#B57A3A] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#96612c]"
             >
               Close
             </button>
