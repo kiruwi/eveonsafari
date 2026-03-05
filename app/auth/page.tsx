@@ -38,43 +38,7 @@ export default function AuthPage() {
     if (typeof window === 'undefined') {
       return rawCanonical ?? null;
     }
-    if (process.env.NODE_ENV !== 'production') {
-      return window.location.origin;
-    }
-    const localHosts = new Set(['localhost', '127.0.0.1', '::1']);
-    if (localHosts.has(window.location.hostname)) {
-      return window.location.origin;
-    }
-    if (!rawCanonical) {
-      return window.location.origin;
-    }
-
-    try {
-      const canonicalUrl = new URL(rawCanonical);
-      const canonicalHost = canonicalUrl.hostname;
-      const apexHost = canonicalHost.startsWith('www.')
-        ? canonicalHost.slice(4)
-        : canonicalHost;
-      const wwwHost = `www.${apexHost}`;
-      const currentHost = window.location.hostname;
-
-      if (currentHost === apexHost || currentHost === wwwHost) {
-        if (
-          currentHost !== canonicalHost ||
-          window.location.protocol !== canonicalUrl.protocol
-        ) {
-          window.location.replace(
-            `${canonicalUrl.protocol}//${canonicalHost}${window.location.pathname}${window.location.search}${window.location.hash}`,
-          );
-          return null;
-        }
-        return canonicalUrl.origin;
-      }
-
-      return window.location.origin;
-    } catch {
-      return window.location.origin;
-    }
+    return window.location.origin;
   };
 
   const handleGoogle = async () => {
@@ -95,17 +59,28 @@ export default function AuthPage() {
 
     const nextQuery = nextPath ? `?next=${encodeURIComponent(nextPath)}` : '';
     const redirectTo = `${authOrigin}/auth/callback${nextQuery}`;
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo },
+      options: {
+        redirectTo,
+        skipBrowserRedirect: true,
+      },
     });
 
     if (error) {
       setMessage(error.message);
       setLoading(false);
-    } else {
-      setMessage('Redirecting to Google...');
+      return;
     }
+
+    if (!data?.url) {
+      setMessage('Could not start Google sign-in. Please try again.');
+      setLoading(false);
+      return;
+    }
+
+    setMessage('Redirecting to Google...');
+    window.location.assign(data.url);
   };
 
   return (
