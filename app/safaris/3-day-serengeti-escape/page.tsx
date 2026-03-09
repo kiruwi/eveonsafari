@@ -76,7 +76,7 @@ export default function SerengetiEscapePage() {
     safariStyleHref: "/safaris/style/migration-safaris",
     bestFor: "Short trips focused on Serengeti predators and migration windows",
     bestMonths: "Jun to Oct for dry season; Dec to Mar for Ndutu calving",
-    groupSize: "Private, 2 to 6 guests (custom groups on request)",
+    groupSize: "Private, 1 to 7 guests (larger groups on request)",
     accommodation: "Tented camps or lodges in the Serengeti",
   };
 

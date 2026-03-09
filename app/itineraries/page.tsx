@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { PackageCheckoutSelector } from "@/components/PackageCheckoutSelector";
-import { PackagePricing, safariPackagePricingUSD } from "@/lib/pricing";
+import { safariPackagePricingUSD } from "@/lib/pricing";
+import { getLowestSafariRate, type PackagePricing } from "@/lib/safariPricing";
 import { safariPackages } from "@/lib/siteContent";
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ const sampleRoutes = [
   },
   {
     title: "Safari + Zanzibar",
-    description: "8-Days Tanzania Safari & Beach Holiday",
+    description: "10 Day Tanzania Safari & Beach Holiday",
     href: "/safaris/10-day-best-of-tanzania",
     image: "/itenerary%20photos/safari.webp",
   },
@@ -72,15 +73,8 @@ const usdFormatter = new Intl.NumberFormat("en-US", {
 });
 
 const formatPriceRange = (pricing?: PackagePricing) => {
-  if (!pricing) return "Price on request";
-  const parts: string[] = [];
-  if (pricing.midrange) {
-    parts.push(`Midrange ${usdFormatter.format(pricing.midrange)} pp`);
-  }
-  if (pricing.luxury) {
-    parts.push(`Luxury ${usdFormatter.format(pricing.luxury)} pp`);
-  }
-  return parts.length ? parts.join(" | ") : "Price on request";
+  const lowest = getLowestSafariRate(pricing);
+  return lowest ? `From ${usdFormatter.format(lowest)} per person` : "Price on request";
 };
 
 const formatPackageName = (pkg: { name: string; slug: string }) => {
@@ -311,11 +305,11 @@ export default function ItinerariesPage() {
                 className="text-2xl font-semibold text-[#231f20]"
                 style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
               >
-                Secure your itinerary with live pricing.
+                Secure your safari with live pricing.
               </h2>
               <p className="text-base text-[#231f20]/80">
-                Pick a package, choose midrange or luxury (USD), set your guest count, or enter a custom group price. We&apos;ll forward the
-                selection into the Pesapal payment link.
+                Pick a safari and choose the number of people. We&apos;ll use the matching group-size rate from our pricing sheet and send the
+                calculated total into Pesapal.
               </p>
             </div>
             <PackageCheckoutSelector

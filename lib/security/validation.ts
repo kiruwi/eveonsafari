@@ -1,3 +1,5 @@
+import { MAX_ONLINE_PAX } from "../safariPricing";
+
 type ValidationSuccess<T> = {
   ok: true;
   data: T;
@@ -27,12 +29,10 @@ export type NewsletterPayload = {
 };
 
 export type CheckoutPayload = {
-  amount: number;
   currency: string;
-  tier: "midrange" | "luxury" | null;
   pax: number;
   packageName: string | null;
-  packageSlug: string | null;
+  packageSlug: string;
 };
 
 export type PasswordResetPayload = {
@@ -44,8 +44,6 @@ const SLUG_REGEX = /^[a-z0-9-]{1,100}$/i;
 const PHONE_REGEX = /^[+()\-\s\d]{6,24}$/;
 
 const VALID_INTERESTS = new Set(["Safari", "Trekking", "Both"]);
-const VALID_TIERS = new Set(["midrange", "luxury"]);
-
 function asRecord(input: unknown): Record<string, unknown> | null {
   return typeof input === "object" && input !== null && !Array.isArray(input)
     ? (input as Record<string, unknown>)
@@ -179,38 +177,25 @@ export function validateCheckoutPayload(payload: unknown): ValidationResult<Chec
   const record = asRecord(payload);
   if (!record) return { ok: false, error: "Invalid request payload." };
 
-  const amount = cleanAmount(record.amount);
-  if (!amount) {
-    return { ok: false, error: "Amount must be greater than zero." };
-  }
-
   const currency = cleanCurrency(record.currency);
   if (!currency) return { ok: false, error: "Currency is invalid." };
 
-  const pax = cleanInt(record.pax, 1, 2);
-  if (!pax) return { ok: false, error: "Online checkout supports up to 2 travelers." };
-
-  const tierRaw = cleanOptionalText(record.tier, 20);
-  const tier = tierRaw ? (tierRaw.toLowerCase() as CheckoutPayload["tier"]) : null;
-  if (tier && !VALID_TIERS.has(tier)) {
-    return { ok: false, error: "Pricing tier is invalid." };
-  }
+  const pax = cleanInt(record.pax, 1, MAX_ONLINE_PAX);
+  if (!pax) return { ok: false, error: `Online checkout supports up to ${MAX_ONLINE_PAX} travelers.` };
 
   const packageName = cleanOptionalText(record.packageName, 120);
-  const packageSlug = cleanOptionalText(record.packageSlug, 100);
-  if (packageSlug && !SLUG_REGEX.test(packageSlug)) {
-    return { ok: false, error: "Package identifier is invalid." };
+  const packageSlug = cleanSlug(record.packageSlug, 100);
+  if (!packageSlug) {
+    return { ok: false, error: "Choose a safari to continue." };
   }
 
   return {
     ok: true,
     data: {
-      amount,
       currency,
-      tier,
       pax,
       packageName,
-      packageSlug: packageSlug ? packageSlug.toLowerCase() : null,
+      packageSlug,
     },
   };
 }

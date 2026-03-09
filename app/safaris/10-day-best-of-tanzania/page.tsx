@@ -59,7 +59,23 @@ const itinerary = [
     ],
   },
   {
-    title: "Day 8 · Free morning and departure",
+    title: "Day 8 · Zanzibar at leisure",
+    bullets: [
+      "Slow breakfast and a relaxed beach morning.",
+      "Optional spa time, snorkeling, or sunset cruise planning.",
+      "Overnight at Nungwi Dreams by Mantis.",
+    ],
+  },
+  {
+    title: "Day 9 · Zanzibar coast and Stone Town",
+    bullets: [
+      "Enjoy your final full day in Zanzibar at your own pace.",
+      "Optional Stone Town walk, spice tour, or dhow cruise.",
+      "Overnight at Nungwi Dreams by Mantis or in Stone Town based on departure timing.",
+    ],
+  },
+  {
+    title: "Day 10 · Departure",
     bullets: [
       "Breakfast and a relaxed morning.",
       "Transfer to the airport or seaport.",
@@ -91,30 +107,30 @@ const exclusions = [
 const pricing = safariPackagePricingUSD["10-day-best-of-tanzania"];
 
 export const metadata = {
-  title: "8-Days Tanzania Safari & Beach Holiday | Eve On Safari",
+  title: "10 Day Tanzania Safari & Beach Holiday | Eve On Safari",
   description:
-    "Eight-day itinerary from Arusha through Tarangire, Ngorongoro, and Lake Manyara, ending with a Zanzibar north coast beach stay.",
+    "Ten-day itinerary from Arusha through Tarangire, Ngorongoro, and Lake Manyara, ending with an extended Zanzibar north coast beach stay.",
 };
 
 export default function TanzaniaSafariBeachHolidayPage() {
   const hero = {
-    kicker: "Eight days, safari + beach",
-    title: "8-Days Tanzania Safari & Beach Holiday",
+    kicker: "Ten days, safari + beach",
+    title: "10 Day Tanzania Safari & Beach Holiday",
     subtitle: "Tarangire · Ngorongoro · Manyara · Zanzibar",
-    description: "Elephant herds, crater wildlife, and Lake Manyara before a Nungwi beach finale.",
+    description: "Elephant herds, crater wildlife, and Lake Manyara before an extended Nungwi beach finale.",
     image: "/itenerary%20photos/route/best%20of%20tanzania.webp",
     imageAlt: "Tanzania safari scenery",
     keyParks: ["Tarangire", "Ngorongoro Crater", "Lake Manyara", "Zanzibar"],
   };
 
   const summary = {
-    duration: "8 days / 7 nights",
+    duration: "10 days / 9 nights",
     durationHref: "/safaris/duration/8-plus-days",
     safariStyle: "Classic Wildlife",
     safariStyleHref: "/safaris/style/classic-wildlife",
     bestFor: "Wildlife plus Zanzibar beach time",
     bestMonths: "Jun to Oct for dry safari season; Jan to Feb for warm beach weather",
-    groupSize: "Private, 2 to 6 guests (custom groups on request)",
+    groupSize: "Private, 1 to 7 guests (larger groups on request)",
     accommodation: "Safari lodges plus a Zanzibar beach resort",
   };
 
@@ -141,7 +157,7 @@ export default function TanzaniaSafariBeachHolidayPage() {
       seasonalGuidance={seasonalGuidance}
       trust={trustSignals}
       packageSlug="10-day-best-of-tanzania"
-      packageName="8-Days Tanzania Safari & Beach Holiday"
+      packageName="10 Day Tanzania Safari & Beach Holiday"
       pricing={pricing}
     />
   );

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 
 import { createPesapalOrder } from "@/lib/pesapal";
+import { getSafariPricing } from "@/lib/pricing";
+import { calculateSafariTotal, getPerPersonRate } from "@/lib/safariPricing";
 import { requireAuthenticatedUser } from "@/lib/security/auth";
 import {
   attachRateLimitHeaders,
@@ -79,16 +81,26 @@ export async function POST(request: Request) {
     return errorResponse(request, requestId, 400, payload.error, "validation_failed");
   }
 
+  const pricing = getSafariPricing(payload.data.packageSlug);
+  const perPersonRate = getPerPersonRate(pricing, payload.data.pax);
+  const totalAmount = calculateSafariTotal(pricing, payload.data.pax);
+  if (!perPersonRate || !totalAmount) {
+    return errorResponse(
+      request,
+      requestId,
+      400,
+      "This safari price is not available for the selected group size.",
+      "pricing_unavailable",
+    );
+  }
+
   const descriptionBase = payload.data.packageName || "Eve On Safari checkout";
-  const suffix =
-    payload.data.tier || payload.data.pax
-      ? `${payload.data.tier ? ` ${payload.data.tier}` : ""}${payload.data.pax ? ` - ${payload.data.pax} pax` : ""}`
-      : "";
+  const suffix = ` - ${payload.data.pax} travelers`;
   const description = `${descriptionBase}${suffix}`.trim();
 
   try {
     const { redirectUrl, orderTrackingId, merchantReference } = await createPesapalOrder({
-      amount: payload.data.amount,
+      amount: totalAmount,
       currency: payload.data.currency,
       description,
       billingAddressOverride: {

@@ -106,7 +106,7 @@ export default function NorthernHighlightsPage() {
     safariStyleHref: "/safaris/style/family-safaris",
     bestFor: "Families and multi-generation groups who want a slower pace",
     bestMonths: "Jun to Oct for dry season; Dec to Feb for calving",
-    groupSize: "Private, 2 to 6 guests (custom groups on request)",
+    groupSize: "Private, 1 to 7 guests (larger groups on request)",
     accommodation: "Lodges and tented camps",
   };
 

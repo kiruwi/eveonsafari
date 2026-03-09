@@ -4,7 +4,8 @@ import Link from "next/link";
 import Script from "next/script";
 import { PackageCheckoutSelector } from "@/components/PackageCheckoutSelector";
 import { ReviewCarousel } from "@/components/ReviewCarousel";
-import { PackagePricing, safariPackagePricingUSD } from "@/lib/pricing";
+import { safariPackagePricingUSD } from "@/lib/pricing";
+import { getLowestSafariRate, type PackagePricing } from "@/lib/safariPricing";
 import {
   defaultMetaDescription,
   organizationId,
@@ -160,10 +161,8 @@ const travelStyleBadges: Record<
 };
 
 const getFromPrice = (pricing?: PackagePricing) => {
-  if (!pricing) return "Price on request";
-  const prices = [pricing.midrange, pricing.luxury].filter((p): p is number => typeof p === "number" && Number.isFinite(p) && p > 0);
-  if (!prices.length) return "Price on request";
-  const lowest = Math.min(...prices);
+  const lowest = getLowestSafariRate(pricing);
+  if (!lowest) return "Price on request";
   return `From ${usdFormatter.format(lowest)} per person`;
 };
 
@@ -247,9 +246,6 @@ export default function HomePage() {
             <h3 className="mt-0 text-2xl font-semibold uppercase text-white text-center">
               Let&apos;s get you started.
             </h3>
-            {/* <p className="mt-3 text-sm text-[#231f20]/80">
-              Select a safari itinerary, pick midrange or luxury, and set your guest count. 1–2 guests can pay directly; larger groups click “Plan a safari” for a custom link.
-            </p> */}
             <div className="mt-6">
               <PackageCheckoutSelector packages={checkoutPackages} pricing={safariPackagePricingUSD} currency="USD" />
             </div>

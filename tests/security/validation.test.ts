@@ -50,19 +50,17 @@ test("validateNewsletterPayload normalizes valid input", () => {
   }
 });
 
-test("validateCheckoutPayload enforces max pax and amount boundaries", () => {
+test("validateCheckoutPayload enforces the online checkout pax cap and requires a safari", () => {
   const rejected = validateCheckoutPayload({
-    amount: 10,
     currency: "USD",
-    pax: 3,
+    pax: 8,
+    packageSlug: "9-day-grand-tanzania",
   });
   assert.equal(rejected.ok, false);
 
   const accepted = validateCheckoutPayload({
-    amount: 2500,
     currency: "usd",
-    tier: "midrange",
-    pax: 2,
+    pax: 7,
     packageName: "Grand Tanzania",
     packageSlug: "9-day-grand-tanzania",
   });

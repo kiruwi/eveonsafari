@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PesapalCheckoutButton } from "@/components/PesapalCheckoutButton";
-import { PackagePricing } from "@/lib/pricing";
+import { getLowestSafariRate, type PackagePricing } from "@/lib/safariPricing";
 
 type ItineraryDay = {
   title: string;
@@ -52,11 +52,8 @@ type SafariPackageTemplateProps = {
 };
 
 const formatPrice = (pricing?: PackagePricing) => {
-  const values = [pricing?.midrange, pricing?.luxury].filter(
-    (value): value is number => typeof value === "number" && Number.isFinite(value) && value > 0,
-  );
-  if (!values.length) return "Price on request";
-  const lowest = Math.min(...values);
+  const lowest = getLowestSafariRate(pricing);
+  if (!lowest) return "Price on request";
   return `From ${new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -169,10 +166,10 @@ export default function SafariPackageTemplate({
               className="text-2xl font-semibold text-[#231f20]"
               style={{ fontFamily: "var(--font-american-grunge, var(--font-title, inherit))" }}
             >
-              Lock in this itinerary
+              Lock in this safari
             </h2>
             <p className="text-base text-[#231f20]/80">
-              {formatPrice(pricing)} · small party checkout below, larger groups via our planning form.
+              {formatPrice(pricing)} · online checkout covers 1 to 7 people, and larger groups go through our planning form.
             </p>
             <div className="space-y-2 text-sm text-[#231f20]/80">
               <p>
@@ -198,7 +195,6 @@ export default function SafariPackageTemplate({
             packageSlug={packageSlug}
             pricing={pricing}
             currency="USD"
-            defaultTier="midrange"
             defaultPax={1}
           />
         </aside>

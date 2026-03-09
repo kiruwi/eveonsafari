@@ -122,7 +122,7 @@ export default function GrandTanzaniaSafariPage() {
     safariStyleHref: "/safaris/style/classic-wildlife",
     bestFor: "Travelers who want a relaxed multi-park pace",
     bestMonths: "Jun to Oct for dry season; Dec to Feb for calving",
-    groupSize: "Private, 2 to 6 guests (custom groups on request)",
+    groupSize: "Private, 1 to 7 guests (larger groups on request)",
     accommodation: "Lodges and tented camps",
   };
 

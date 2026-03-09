@@ -1,18 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
-import type { PackagePricing } from '@/lib/pricing';
+import { useState } from 'react';
+import {
+  calculateSafariTotal,
+  getPerPersonRate,
+  MAX_ONLINE_PAX,
+  type PackagePricing,
+} from '@/lib/safariPricing';
 import { buildAuthenticatedApiHeaders } from '@/lib/security/clientHeaders';
-
-type TierOption = 'midrange' | 'luxury';
 
 type PesapalCheckoutButtonProps = {
   packageName?: string;
   packageSlug?: string;
   pricing?: PackagePricing;
   currency?: string;
-  defaultTier?: TierOption;
   defaultPax?: number;
 };
 
@@ -30,66 +32,24 @@ export function PesapalCheckoutButton({
   packageSlug,
   pricing,
   currency = 'USD',
-  defaultTier = 'midrange',
   defaultPax = 1,
 }: PesapalCheckoutButtonProps) {
-  const availablePrices: Record<Exclude<TierOption, 'custom'>, number | null | undefined> =
-    useMemo(
-      () => ({
-        midrange: pricing?.midrange ?? null,
-        luxury: pricing?.luxury ?? null,
-      }),
-      [pricing],
-    );
-
-  const firstAvailableTier: TierOption | null =
-    (availablePrices.midrange ? 'midrange' : null) ||
-    (availablePrices.luxury ? 'luxury' : null);
-
-  const initialTier: TierOption =
-    defaultTier === 'midrange' && availablePrices.midrange
-      ? 'midrange'
-      : defaultTier === 'luxury' && availablePrices.luxury
-        ? 'luxury'
-        : (firstAvailableTier as TierOption | null) || 'midrange';
-
-  const [tier, setTier] = useState<TierOption>(initialTier);
-  const [paxInput, setPaxInput] = useState<string>(() => String(defaultPax));
+  const initialPax = Number.isInteger(defaultPax) && defaultPax > 0 ? defaultPax : 1;
+  const [paxInput, setPaxInput] = useState<string>(() => String(initialPax));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  useEffect(() => {
-    // Reset tier when pricing changes so we don't leave an unavailable option selected.
-    if (tier === 'midrange' && !availablePrices.midrange && availablePrices.luxury) {
-      setTier('luxury');
-    }
-    if (tier === 'luxury' && !availablePrices.luxury && availablePrices.midrange) {
-      setTier('midrange');
-    }
-  }, [availablePrices.midrange, availablePrices.luxury, tier]);
-
-  const perPerson =
-    tier === 'midrange'
-      ? availablePrices.midrange
-      : availablePrices.luxury;
-
-  const validPerPerson =
-    typeof perPerson === 'number' && Number.isFinite(perPerson) && perPerson > 0
-      ? perPerson
-      : null;
 
   const parsedPax = Number.parseInt(paxInput, 10);
   const pax = Number.isFinite(parsedPax) && parsedPax > 0 ? parsedPax : 0;
-
-  const totalAmount =
-    validPerPerson && pax > 0
-      ? Number.parseFloat((validPerPerson * pax).toFixed(2))
-      : null;
+  const validPerPerson = getPerPersonRate(pricing, pax);
+  const totalAmount = calculateSafariTotal(pricing, pax);
 
   const formattedTotal = formatCurrency(totalAmount, currency);
+  const formattedPerPerson = formatCurrency(validPerPerson, currency);
 
   const handleCheckout = async () => {
     const nextUrl = typeof window !== 'undefined' ? window.location.href : '/';
-    if (!totalAmount || !validPerPerson) {
+    if (!packageSlug || !totalAmount || !validPerPerson) {
       setError('Add a price to continue.');
       return;
     }
@@ -110,11 +70,8 @@ export function PesapalCheckoutButton({
         method: 'POST',
         headers: await buildAuthenticatedApiHeaders(),
         body: JSON.stringify({
-          amount: totalAmount,
           currency,
-          tier,
           pax,
-          perPerson: validPerPerson,
           packageName,
           packageSlug,
         }),
@@ -140,48 +97,14 @@ export function PesapalCheckoutButton({
     }
   };
 
-  const options: { value: TierOption; label: string }[] = [];
-  if (availablePrices.midrange) {
-    options.push({
-      value: 'midrange',
-      label: `Midrange: ${formatCurrency(availablePrices.midrange, currency)} pp`,
-    });
-  }
-  if (availablePrices.luxury) {
-    options.push({
-      value: 'luxury',
-      label: `Luxury: ${formatCurrency(availablePrices.luxury, currency)} pp`,
-    });
-  }
-
-  const disablePesapal = loading || !totalAmount || totalAmount <= 0 || pax > 2;
-  const showPlanLink = pax > 2 || !validPerPerson;
+  const disablePesapal = loading || !totalAmount || totalAmount <= 0 || pax > MAX_ONLINE_PAX;
+  const showPlanLink = pax > MAX_ONLINE_PAX || !validPerPerson || !packageSlug;
   const planHref = packageSlug ? `/plan?package=${encodeURIComponent(packageSlug)}` : '/plan';
-  const selectValue = options.length ? tier : '';
+  const showPricing = pax > 0 && pax <= MAX_ONLINE_PAX && !!validPerPerson;
 
   return (
     <div className="space-y-3 rounded-[20px] bg-white/80 p-4 text-[#231f20] shadow-md backdrop-blur">
-      <div className="grid gap-3 sm:grid-cols-2">
-        <label className="text-sm font-semibold text-[#231f20]">
-          Price option
-          <select
-            className="mt-1 w-full rounded-full border border-[#c3c3c3] px-3 py-2 text-sm text-[#231f20] focus:border-[#ba7e47] focus:outline-none"
-            value={selectValue}
-            onChange={(e) => {
-              const newTier = e.target.value as TierOption;
-              setTier(newTier);
-              setError(null);
-            }}
-            disabled={!options.length}
-          >
-            {options.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-            {!options.length && <option value="">Price on request</option>}
-          </select>
-        </label>
+      <div className={`grid gap-3 ${showPricing ? 'md:grid-cols-[minmax(0,1fr)_minmax(220px,0.85fr)] md:items-end' : ''}`}>
         <label className="text-sm font-semibold text-[#231f20]">
           Number of people
           <input
@@ -191,27 +114,35 @@ export function PesapalCheckoutButton({
             value={paxInput}
             onChange={(e) => {
               setPaxInput(e.target.value);
+              setError(null);
             }}
             onBlur={() => {
-              if (pax <= 0) {
+              if (!Number.isFinite(parsedPax) || parsedPax <= 0) {
                 setPaxInput('1');
                 return;
               }
-              setPaxInput(String(pax));
+              setPaxInput(String(parsedPax));
             }}
             className="mt-1 w-full rounded-full border border-[#c3c3c3] px-3 py-2 text-sm text-[#231f20] focus:border-[#ba7e47] focus:outline-none"
           />
         </label>
-      </div>
 
-      {pax <= 2 && (
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-[#231f20]/70">Total ({currency}):</span>
-          <span className="font-semibold text-[#231f20]">
-            {formattedTotal ?? 'Add pricing'}
-          </span>
-        </div>
-      )}
+        {showPricing && (
+          <div className="rounded-[16px] border border-[#c3c3c3] bg-[#c3c3c3]/10 p-3 text-sm md:min-h-[78px]">
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-[#231f20]/70">Total Price ({currency})</span>
+              <span className="font-semibold text-[#231f20]">
+                {formattedTotal ?? 'Add pricing'}
+              </span>
+            </div>
+            {formattedPerPerson && (
+              <p className="mt-1 text-xs text-[#231f20]/65">
+                {formattedPerPerson} per person
+              </p>
+            )}
+          </div>
+        )}
+      </div>
 
       {showPlanLink ? (
         <Link

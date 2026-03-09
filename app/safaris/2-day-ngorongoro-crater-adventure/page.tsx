@@ -68,7 +68,7 @@ export default function NgorongoroCraterPackagePage() {
     safariStyleHref: "/safaris/style/classic-wildlife",
     bestFor: "Short visits and first-time safari add-ons",
     bestMonths: "Jun to Oct for Tarangire; Dec to May for Manyara; year-round for Ngorongoro",
-    groupSize: "Private, 2 to 6 guests (custom groups on request)",
+    groupSize: "Private, 1 to 7 guests (larger groups on request)",
     accommodation: "Lodges or tented camps near Ngorongoro",
   };
 

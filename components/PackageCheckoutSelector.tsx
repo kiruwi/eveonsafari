@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { PesapalCheckoutButton } from "./PesapalCheckoutButton";
-import type { PackagePricing } from "@/lib/pricing";
+import type { PackagePricing } from "@/lib/safariPricing";
 
 type PackageOption = {
   name: string;
@@ -35,7 +35,7 @@ export function PackageCheckoutSelector({ packages, pricing, currency = "USD" }:
     <div className="space-y-4 rounded-[28px] border border-[#c3c3c3] bg-white p-6 shadow-sm">
       <div className="space-y-2">
         <label className="block text-sm font-semibold text-[#231f20]" htmlFor="package-select">
-          Choose an itinerary
+          Safari
         </label>
         <select
           id="package-select"
@@ -56,7 +56,6 @@ export function PackageCheckoutSelector({ packages, pricing, currency = "USD" }:
         packageSlug={selectedPackage?.slug}
         pricing={selectedPricing}
         currency={currency}
-        defaultTier="midrange"
         defaultPax={1}
       />
     </div>

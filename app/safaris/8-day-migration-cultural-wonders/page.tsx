@@ -114,7 +114,7 @@ export default function MigrationCulturalWondersPage() {
     safariStyleHref: "/safaris/style/cultural-safaris",
     bestFor: "Wildlife travelers who want cultural visits and migration timing",
     bestMonths: "Jan to Mar for calving; Jun to Oct for migration movement",
-    groupSize: "Private, 2 to 8 guests (custom groups on request)",
+    groupSize: "Private, 1 to 7 guests (larger groups on request)",
     accommodation: "Lodges and tented camps",
   };
 
