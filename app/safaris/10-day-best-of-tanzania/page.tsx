@@ -1,5 +1,6 @@
 import SafariPackageTemplate from "@/components/SafariPackageTemplate";
 import { safariPackagePricingUSD } from "@/lib/pricing";
+import { withCanonical } from "@/lib/seo";
 
 const itinerary = [
   {
@@ -106,11 +107,11 @@ const exclusions = [
 
 const pricing = safariPackagePricingUSD["10-day-best-of-tanzania"];
 
-export const metadata = {
+export const metadata = withCanonical("/safaris/10-day-best-of-tanzania", {
   title: "10 Day Tanzania Safari & Beach Holiday | Eve On Safari",
   description:
     "Ten-day itinerary from Arusha through Tarangire, Ngorongoro, and Lake Manyara, ending with an extended Zanzibar north coast beach stay.",
-};
+});
 
 export default function TanzaniaSafariBeachHolidayPage() {
   const hero = {

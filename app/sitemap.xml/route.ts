@@ -3,7 +3,7 @@ import { siteUrl } from "@/lib/seo";
 
 const coreRoutes = [
   "/",
-  "/about-us",
+  "/about",
   "/activities",
   "/activities/cultural-visits",
   "/activities/day-trips/arusha-day-trip",

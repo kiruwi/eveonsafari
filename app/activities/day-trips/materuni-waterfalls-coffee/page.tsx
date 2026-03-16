@@ -1,9 +1,10 @@
 import ActivityTemplate from "@/app/activities/_components/ActivityTemplate";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/activities/day-trips/materuni-waterfalls-coffee", {
   title: "Materuni Waterfalls & Coffee Day Trip | Eve On Safari",
   description: "Waterfall hike and coffee experience in Materuni village near Moshi.",
-};
+});
 
 export default function MateruniWaterfallsPage() {
   return (

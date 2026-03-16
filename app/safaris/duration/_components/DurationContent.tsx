@@ -137,8 +137,12 @@ const durationContent: Record<
 
 export const durationKeys = Object.keys(durationContent);
 
+export function getDurationContent(durationKey: string) {
+  return durationContent[durationKey];
+}
+
 export default function SafariDurationContent({ durationKey }: { durationKey: string }) {
-  const content = durationContent[durationKey];
+  const content = getDurationContent(durationKey);
 
   if (!content) {
     notFound();

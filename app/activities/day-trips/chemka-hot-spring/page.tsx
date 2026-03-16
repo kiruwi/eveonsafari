@@ -1,9 +1,10 @@
 import ActivityTemplate from "@/app/activities/_components/ActivityTemplate";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/activities/day-trips/chemka-hot-spring", {
   title: "Chemka Hot Spring Day Trip | Eve On Safari",
   description: "Relaxing day trip to Chemka Hot Spring (Kikuletwa) for swimming and a picnic.",
-};
+});
 
 export default function ChemkaHotSpringPage() {
   return (

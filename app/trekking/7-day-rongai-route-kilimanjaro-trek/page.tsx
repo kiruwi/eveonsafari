@@ -1,4 +1,7 @@
 import { KiliRoutePage } from "@/components/KiliRoutePage";
+import { withCanonical } from "@/lib/seo";
+export const metadata = withCanonical("/trekking/7-day-rongai-route-kilimanjaro-trek");
+
 
 const days = [
   {

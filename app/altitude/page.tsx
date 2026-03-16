@@ -1,7 +1,8 @@
-export const metadata = {
+import { withCanonical } from "@/lib/seo";
+export const metadata = withCanonical("/altitude", {
   title: "Altitude Guide | Eve On Safari",
   description: "Altitude acclimatisation tips for Kilimanjaro treks.",
-};
+});
 
 export default function AltitudePage() {
   return (

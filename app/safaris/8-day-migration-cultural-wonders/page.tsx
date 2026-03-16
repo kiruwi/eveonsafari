@@ -1,5 +1,6 @@
 import SafariPackageTemplate from "@/components/SafariPackageTemplate";
 import { safariPackagePricingUSD } from "@/lib/pricing";
+import { withCanonical } from "@/lib/seo";
 
 const itinerary = [
   {
@@ -90,11 +91,11 @@ const exclusions = [
 
 const pricing = safariPackagePricingUSD["8-day-migration-cultural-wonders"];
 
-export const metadata = {
+export const metadata = withCanonical("/safaris/8-day-migration-cultural-wonders", {
   title: "8-Day Migration and Cultural Wonders | Eve On Safari",
   description:
     "Tarangire or Manyara, Serengeti migration focus, Ngorongoro Crater, plus Lake Eyasi or Natron for culture and desert scenery.",
-};
+});
 
 export default function MigrationCulturalWondersPage() {
   const hero = {

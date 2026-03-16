@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { travelStyles } from "@/lib/siteContent";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/travel-style", {
   title: "Travel Styles | Eve On Safari",
   description: "Browse safari travel styles to match your pace, interests, and comfort level.",
-};
+});
 
 export default function TravelStylesPage() {
   return (

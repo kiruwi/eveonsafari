@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { routes } from "./routes";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/trekking", {
   title: "Kilimanjaro Trek Routes & Preparation Guide | Eve On Safari",
   description:
     "Compare Kilimanjaro routes, understand difficulty, and plan your climb with clear preparation guidance.",
-};
+});
 
 const routeOrder = [
   { slug: "kilimanjaro-marangu-route", label: "Marangu Route" },

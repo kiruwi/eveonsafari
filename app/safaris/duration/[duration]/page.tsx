@@ -1,4 +1,6 @@
-import SafariDurationContent, { durationKeys } from "../_components/DurationContent";
+import type { Metadata } from "next";
+import SafariDurationContent, { durationKeys, getDurationContent } from "../_components/DurationContent";
+import { withCanonical } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -25,6 +27,20 @@ const normalizeDuration = (value?: unknown) => {
   }
   return "";
 };
+
+export function generateMetadata({ params }: { params: { duration?: string | string[] } }): Metadata {
+  const durationKey = normalizeDuration(params?.duration);
+  const content = getDurationContent(durationKey);
+
+  if (!content) {
+    return {};
+  }
+
+  return withCanonical(`/safaris/duration/${durationKey}`, {
+    title: `Tanzania Safaris: ${content.label} | Eve On Safari`,
+    description: content.summary,
+  });
+}
 
 export default function SafariDurationPage({ params }: { params: { duration?: string | string[] } }) {
   const durationKey = normalizeDuration(params?.duration);

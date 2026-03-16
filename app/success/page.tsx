@@ -1,4 +1,12 @@
 import Link from "next/link";
+import { withCanonical } from "@/lib/seo";
+
+export const metadata = withCanonical("/success", {
+  robots: {
+    index: false,
+    follow: false,
+  },
+});
 
 export default function SuccessPage() {
   return (

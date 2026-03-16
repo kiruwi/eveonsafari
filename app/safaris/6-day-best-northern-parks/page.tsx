@@ -1,5 +1,6 @@
 import SafariPackageTemplate from "@/components/SafariPackageTemplate";
 import { safariPackagePricingUSD } from "@/lib/pricing";
+import { withCanonical } from "@/lib/seo";
 
 const itinerary = [
   {
@@ -74,11 +75,11 @@ const exclusions = [
 
 const pricing = safariPackagePricingUSD["6-day-best-northern-parks"];
 
-export const metadata = {
+export const metadata = withCanonical("/safaris/6-day-best-northern-parks", {
   title: "6-Day Best of the Northern Parks | Eve On Safari",
   description:
     "Lake Manyara, Tarangire, Serengeti, and Ngorongoro in six days with flexible time for migration or elephants.",
-};
+});
 
 export default function BestNorthernParksPage() {
   const hero = {

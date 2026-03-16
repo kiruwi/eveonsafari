@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { parkCards } from "./parksData";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/discover-tanzania/national-parks", {
   title: "National Parks | Eve On Safari",
   description: "Overview of Tanzania's national parks.",
-};
+});
 
 function Breadcrumbs() {
   return (

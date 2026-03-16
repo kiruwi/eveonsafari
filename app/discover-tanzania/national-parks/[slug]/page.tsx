@@ -1,11 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getParkBySlug, parkCards } from "../parksData";
+import { withCanonical } from "@/lib/seo";
 
 export const dynamicParams = false;
 
 export const generateStaticParams = () => parkCards.map((park) => ({ slug: park.slug }));
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug?: string | string[] }> | { slug?: string | string[] };
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = typeof resolvedParams.slug === "string" ? resolvedParams.slug : "";
+  const park = getParkBySlug(slug);
+
+  if (!park) {
+    return {};
+  }
+
+  return withCanonical(`/discover-tanzania/national-parks/${park.slug}`, {
+    title: `${park.name} | Tanzania Travel Guide | Eve On Safari`,
+    description: park.shortDescription,
+  });
+}
 
 export default async function ParkDetailPage({
   params,

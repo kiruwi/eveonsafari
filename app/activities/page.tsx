@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { dayTrips } from "@/lib/siteContent";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/activities", {
   title: "Activities | Eve On Safari",
   description: "Day trips, walking safaris, and daily activities in Tanzania.",
-};
+});
 
 const dayTripDetails: Record<
   string,

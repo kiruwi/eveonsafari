@@ -5,15 +5,16 @@ import { PackageCheckoutSelector } from "@/components/PackageCheckoutSelector";
 import { safariPackagePricingUSD } from "@/lib/pricing";
 import { getLowestSafariRate, type PackagePricing } from "@/lib/safariPricing";
 import { safariPackages } from "@/lib/siteContent";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/itineraries", {
   title: "Tanzania Safari Itineraries | Eve On Safari",
   description:
     "Compare curated Tanzania safari packages from 2 to 10 days, with route highlights and transparent planning support.",
   alternates: {
     canonical: "/itineraries",
   },
-};
+});
 
 const sampleRoutes = [
   {

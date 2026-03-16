@@ -1,4 +1,7 @@
 import { KiliRoutePage } from "@/components/KiliRoutePage";
+import { withCanonical } from "@/lib/seo";
+export const metadata = withCanonical("/trekking/kilimanjaro-machame-route");
+
 
 const days = [
   {

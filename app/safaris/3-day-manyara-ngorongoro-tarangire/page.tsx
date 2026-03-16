@@ -1,5 +1,6 @@
 import SafariPackageTemplate from "@/components/SafariPackageTemplate";
 import { safariPackagePricingUSD } from "@/lib/pricing";
+import { withCanonical } from "@/lib/seo";
 
 const itinerary = [
   {
@@ -52,11 +53,11 @@ const exclusions = [
 
 const pricing = safariPackagePricingUSD["3-day-manyara-ngorongoro-tarangire"];
 
-export const metadata = {
+export const metadata = withCanonical("/safaris/3-day-manyara-ngorongoro-tarangire", {
   title: "3-Day Manyara, Ngorongoro and Tarangire Safari | Eve On Safari",
   description:
     "Three-day northern circuit loop with Lake Manyara, Ngorongoro Crater, and Tarangire game drives.",
-};
+});
 
 export default function ManyaraNgorongoroTarangirePage() {
   const hero = {

@@ -1,5 +1,6 @@
 import SafariPackageTemplate from "@/components/SafariPackageTemplate";
 import { safariPackagePricingUSD } from "@/lib/pricing";
+import { withCanonical } from "@/lib/seo";
 
 const itinerary = [
   {
@@ -82,11 +83,11 @@ const exclusions = [
 
 const pricing = safariPackagePricingUSD["7-day-northern-highlights"];
 
-export const metadata = {
+export const metadata = withCanonical("/safaris/7-day-northern-highlights", {
   title: "7 Days Northern Highlights | Eve On Safari",
   description:
     "Week-long northern circuit with Tarangire or Manyara, Serengeti game drives, and a Ngorongoro crater finale.",
-};
+});
 
 export default function NorthernHighlightsPage() {
   const hero = {

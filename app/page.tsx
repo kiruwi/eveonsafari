@@ -11,6 +11,7 @@ import {
   organizationId,
   siteName,
   siteUrl,
+  withCanonical,
   websiteId,
 } from "@/lib/seo";
 import {
@@ -19,13 +20,10 @@ import {
   kilimanjaroRoutes,
 } from "@/lib/siteContent";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/", {
   title: "Bespoke Tanzania Journeys | Eve On Safari",
   description: defaultMetaDescription,
-  alternates: {
-    canonical: "/",
-  },
-};
+});
 
 const customItineraryImages: Record<string, string> = {
   "2-day-ngorongoro-crater-adventure": "/photos/landing-page/elephants.webp",
@@ -65,7 +63,7 @@ const homepageSitelinkCandidates = [
   { name: "Activities", path: "/activities" },
   { name: "National Parks", path: "/discover-tanzania/national-parks" },
   { name: "Kilimanjaro Trekking", path: "/trekking" },
-  { name: "About Us", path: "/about-us" },
+  { name: "About Us", path: "/about" },
 ];
 
 const homePageJsonLd = {

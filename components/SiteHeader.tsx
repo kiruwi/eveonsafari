@@ -135,7 +135,7 @@ const NAV_ITEMS: NavItem[] = [
   {
     type: "link",
     label: "About",
-    href: "/about-us",
+    href: "/about",
     ariaLabel: "Learn about Eve On Safari",
   },
   {

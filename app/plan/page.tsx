@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { PlanForm } from "./_components/PlanForm";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/plan", {
   title: "Plan Your Tanzania Trip | Eve On Safari",
   description:
     "Share your dates and travel goals to get a tailored Tanzania safari or Kilimanjaro itinerary from our local team.",
   alternates: {
     canonical: "/plan",
   },
-};
+});
 
 export default function PlanPage() {
   return (

@@ -1,7 +1,8 @@
-export const metadata = {
+import { withCanonical } from "@/lib/seo";
+export const metadata = withCanonical("/packing", {
   title: "Packing List | Eve On Safari",
   description: "Kilimanjaro packing list and gear checklist.",
-};
+});
 
 export default function PackingPage() {
   return (

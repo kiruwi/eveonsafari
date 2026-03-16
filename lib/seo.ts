@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 const envSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const vercelPreviewUrl = process.env.VERCEL_URL;
@@ -26,6 +28,16 @@ export function toAbsoluteUrl(path: string) {
     return `${siteUrl}${path}`;
   }
   return `${siteUrl}/${path}`;
+}
+
+export function withCanonical(path: string, metadata: Metadata = {}): Metadata {
+  return {
+    ...metadata,
+    alternates: {
+      ...metadata.alternates,
+      canonical: path,
+    },
+  };
 }
 
 export const organizationJsonLd = {

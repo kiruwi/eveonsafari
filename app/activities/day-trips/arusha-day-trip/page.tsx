@@ -1,9 +1,10 @@
 import ActivityTemplate from "@/app/activities/_components/ActivityTemplate";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/activities/day-trips/arusha-day-trip", {
   title: "Arusha National Park Day Trip | Eve On Safari",
   description: "Full-day safari in Arusha National Park with game viewing and scenic lakes.",
-};
+});
 
 export default function ArushaDayTripPage() {
   return (

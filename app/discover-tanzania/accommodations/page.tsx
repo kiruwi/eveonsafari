@@ -1,9 +1,10 @@
 import Image from "next/image";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/discover-tanzania/accommodations", {
   title: "Accommodations | Eve On Safari",
   description: "Lodges, camps, and places to stay in Tanzania.",
-};
+});
 
 const accommodations = [
   {

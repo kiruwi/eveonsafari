@@ -1,4 +1,7 @@
 import { KiliRoutePage } from "@/components/KiliRoutePage";
+import { withCanonical } from "@/lib/seo";
+export const metadata = withCanonical("/trekking/9-days-northern-circuit-route-kilimanjaro-trek");
+
 
 const days = [
   {

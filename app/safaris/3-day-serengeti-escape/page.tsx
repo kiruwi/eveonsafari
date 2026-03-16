@@ -1,5 +1,6 @@
 import SafariPackageTemplate from "@/components/SafariPackageTemplate";
 import { safariPackagePricingUSD } from "@/lib/pricing";
+import { withCanonical } from "@/lib/seo";
 
 const itinerary = [
   {
@@ -52,11 +53,11 @@ const exclusions = [
 
 const pricing = safariPackagePricingUSD["3-day-serengeti-escape"];
 
-export const metadata = {
+export const metadata = withCanonical("/safaris/3-day-serengeti-escape", {
   title: "3-Day Quick Serengeti Escape | Eve On Safari",
   description:
     "Fast Serengeti-focused safari with central and seasonal Ndutu options, private guide, and optional night drives when available.",
-};
+});
 
 export default function SerengetiEscapePage() {
   const hero = {

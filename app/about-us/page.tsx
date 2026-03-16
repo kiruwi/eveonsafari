@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { withCanonical } from "@/lib/seo";
 
 const pillars = [
   {
@@ -17,11 +18,11 @@ const pillars = [
   },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/about", {
   title: "About Eve On Safari | Tanzania Safari Specialists",
   description:
     "Discover the story behind Eve On Safari - 10+ years designing immersive, conservation-first journeys across Tanzania's parks, peaks, and coasts.",
-};
+});
 
 export default function AboutPage() {
   return (

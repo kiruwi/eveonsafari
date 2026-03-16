@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { withCanonical } from "@/lib/seo";
+export const metadata = withCanonical("/travel-style/birthday-party-experience");
+
 
 const content = {
   heroTitle: "Birthday & Party Experience",

@@ -1,9 +1,10 @@
 import ActivityTemplate from "@/app/activities/_components/ActivityTemplate";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/activities/walking-safaris", {
   title: "Walking Safaris | Eve On Safari",
   description: "Guided walking safaris in select areas of northern Tanzania.",
-};
+});
 
 export default function WalkingSafarisPage() {
   return (

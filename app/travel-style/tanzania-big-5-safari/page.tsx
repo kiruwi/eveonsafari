@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { withCanonical } from "@/lib/seo";
+export const metadata = withCanonical("/travel-style/tanzania-big-5-safari");
+
 
 const content = {
   heroTitle: "Tanzania Big 5 Safari",

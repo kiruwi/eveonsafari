@@ -1,4 +1,7 @@
 import { KiliRoutePage } from "@/components/KiliRoutePage";
+import { withCanonical } from "@/lib/seo";
+export const metadata = withCanonical("/trekking/kilimanjaro-marangu-route-8-day");
+
 
 const days = [
   {

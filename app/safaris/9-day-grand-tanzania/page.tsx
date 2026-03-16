@@ -1,5 +1,6 @@
 import SafariPackageTemplate from "@/components/SafariPackageTemplate";
 import { safariPackagePricingUSD } from "@/lib/pricing";
+import { withCanonical } from "@/lib/seo";
 
 const itinerary = [
   {
@@ -98,11 +99,11 @@ const exclusions = [
 
 const pricing = safariPackagePricingUSD["9-day-grand-tanzania"];
 
-export const metadata = {
+export const metadata = withCanonical("/safaris/9-day-grand-tanzania", {
   title: "9 Days Grand Tanzania Safari | Eve On Safari",
   description:
     "Relaxed nine-day circuit through Tarangire or Manyara, Serengeti regions, and Ngorongoro Crater.",
-};
+});
 
 export default function GrandTanzaniaSafariPage() {
   const hero = {

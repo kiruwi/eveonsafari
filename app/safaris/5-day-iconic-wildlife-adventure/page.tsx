@@ -1,5 +1,6 @@
 import SafariPackageTemplate from "@/components/SafariPackageTemplate";
 import { safariPackagePricingUSD } from "@/lib/pricing";
+import { withCanonical } from "@/lib/seo";
 
 const itinerary = [
   {
@@ -66,11 +67,11 @@ const exclusions = [
 
 const pricing = safariPackagePricingUSD["5-day-iconic-wildlife-adventure"];
 
-export const metadata = {
+export const metadata = withCanonical("/safaris/5-day-iconic-wildlife-adventure", {
   title: "5-Day Iconic Wildlife Adventure | Eve On Safari",
   description:
     "Tarangire or Manyara start, Serengeti big cat days, and Ngorongoro finale with private guide and flexible lodges.",
-};
+});
 
 export default function IconicWildlifeAdventurePage() {
   const hero = {

@@ -1,9 +1,10 @@
 import ActivityTemplate from "@/app/activities/_components/ActivityTemplate";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/activities/day-trips/ngorongoro-crater-day-trip", {
   title: "Ngorongoro Crater Day Trip | Eve On Safari",
   description: "Long day trip to the Ngorongoro Crater for Big Five wildlife viewing.",
-};
+});
 
 export default function NgorongoroCraterDayTripPage() {
   return (

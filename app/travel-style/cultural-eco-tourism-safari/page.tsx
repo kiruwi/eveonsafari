@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { withCanonical } from "@/lib/seo";
+export const metadata = withCanonical("/travel-style/cultural-eco-tourism-safari");
+
 
 const name = "Cultural & Eco-Tourism Safaris";
 

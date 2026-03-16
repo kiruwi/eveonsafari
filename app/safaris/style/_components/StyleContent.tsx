@@ -86,8 +86,12 @@ const styleContent: Record<
 
 export const styleKeys = Object.keys(styleContent);
 
+export function getStyleContent(styleKey: string) {
+  return styleContent[styleKey];
+}
+
 export default function SafariStyleContent({ styleKey }: { styleKey: string }) {
-  const content = styleContent[styleKey];
+  const content = getStyleContent(styleKey);
 
   if (!content) {
     notFound();

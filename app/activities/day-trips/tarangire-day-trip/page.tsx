@@ -1,9 +1,10 @@
 import ActivityTemplate from "@/app/activities/_components/ActivityTemplate";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/activities/day-trips/tarangire-day-trip", {
   title: "Tarangire Day Trip | Eve On Safari",
   description: "Full-day safari to Tarangire National Park for elephant herds and baobabs.",
-};
+});
 
 export default function TarangireDayTripPage() {
   return (

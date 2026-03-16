@@ -1,9 +1,10 @@
 import IslandsGallery from "./IslandsGallery";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/discover-tanzania/islands", {
   title: "Islands | Eve On Safari",
   description: "Guide to Tanzania's islands and coastal escapes.",
-};
+});
 
 const islandCards = [
   {

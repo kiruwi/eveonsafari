@@ -1,5 +1,6 @@
 import SafariPackageTemplate from "@/components/SafariPackageTemplate";
 import { safariPackagePricingUSD } from "@/lib/pricing";
+import { withCanonical } from "@/lib/seo";
 
 const itinerary = [
   {
@@ -57,11 +58,11 @@ const exclusions = [
 
 const pricing = safariPackagePricingUSD["4-day-nyerere-safari"];
 
-export const metadata = {
+export const metadata = withCanonical("/safaris/4-day-nyerere-safari", {
   title: "4-Day Nyerere National Park Safari | Eve On Safari",
   description:
     "Boat, walking, and game drive combination in Nyerere with riverside camps and flexible flights from Dar or Zanzibar.",
-};
+});
 
 export default function NyerereSafariPage() {
   const hero = {

@@ -1,9 +1,10 @@
 import ActivityTemplate from "@/app/activities/_components/ActivityTemplate";
+import { withCanonical } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withCanonical("/activities/day-trips/lake-manyara-day-trip", {
   title: "Lake Manyara Day Trip | Eve On Safari",
   description: "Full-day safari to Lake Manyara National Park for birdlife and forest wildlife.",
-};
+});
 
 export default function LakeManyaraDayTripPage() {
   return (
