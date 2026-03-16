@@ -65,7 +65,6 @@ const coreRoutes = [
   "/trekking/kilimanjaro-machame-route-9-day",
   "/trekking/kilimanjaro-marangu-route",
   "/trekking/kilimanjaro-marangu-route-8-day",
-  "/zanzibar/5-days/zanzibar-5-days",
 ];
 
 function buildSitemap() {
