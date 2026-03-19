@@ -27,6 +27,42 @@ const CHECKOUT_RATE_LIMIT = {
   windowMs: 10 * 60 * 1000,
 };
 
+function classifyCheckoutFailure(detail: string) {
+  if (detail.includes("PESAPAL_CALLBACK_URL") || detail.includes("PESAPAL_IPN_URL")) {
+    return "config_url_validation";
+  }
+
+  if (detail.includes("NEXT_PUBLIC_SITE_URL")) {
+    return "config_canonical_origin";
+  }
+
+  if (detail.includes("PESAPAL_CONSUMER_KEY") || detail.includes("PESAPAL_CONSUMER_SECRET")) {
+    return "config_credentials";
+  }
+
+  if (detail.includes("PESAPAL_IPN_ID") || detail.includes("PESAPAL_IPN_URL")) {
+    return "config_ipn";
+  }
+
+  if (detail.startsWith("Unable to get Pesapal token:")) {
+    return "request_token";
+  }
+
+  if (detail.startsWith("Unable to register Pesapal IPN URL:")) {
+    return "register_ipn";
+  }
+
+  if (detail.startsWith("Unable to create Pesapal checkout session:")) {
+    return "create_order";
+  }
+
+  if (detail.includes("aborted")) {
+    return "network_timeout";
+  }
+
+  return "unknown";
+}
+
 export function OPTIONS(request: Request) {
   return buildPreflightResponse(request, getRequestId(request));
 }
@@ -137,11 +173,16 @@ export async function POST(request: Request) {
     );
     return response;
   } catch (error) {
+    const errorDetail =
+      error instanceof Error ? error.message : "Unknown checkout error";
+
     securityLog("error", "pesapal.checkout_failed", {
       requestId,
       ip,
       userId: auth.user.id,
-      reason: error instanceof Error ? error.message : "Unknown checkout error",
+      failureStage: classifyCheckoutFailure(errorDetail),
+      errorName: error instanceof Error ? error.name : "UnknownError",
+      errorDetail,
     });
     return errorResponse(
       request,
