@@ -12,7 +12,7 @@ import {
 } from "@/lib/security/http";
 import { securityLog } from "@/lib/security/logger";
 import { checkRateLimit } from "@/lib/security/rateLimit";
-import { parseJsonBody } from "@/lib/security/request";
+import { hasJsonContentType, parseJsonBody } from "@/lib/security/request";
 import {
   normalizeSourceForStorage,
   validateNewsletterPayload,
@@ -37,6 +37,21 @@ export async function POST(request: Request) {
 
   const csrfError = enforceCsrfToken(request, requestId);
   if (csrfError) return csrfError;
+
+  if (!hasJsonContentType(request)) {
+    securityLog("warn", "newsletter.invalid_content_type", {
+      requestId,
+      ip,
+      contentType: request.headers.get("content-type") ?? "missing",
+    });
+    return errorResponse(
+      request,
+      requestId,
+      415,
+      "Content-Type must be application/json.",
+      "invalid_content_type",
+    );
+  }
 
   const rateLimit = checkRateLimit({
     key: `newsletter:${ip}`,

@@ -2,6 +2,15 @@ type ParseBodyResult<T> =
   | { ok: true; data: T }
   | { ok: false; error: string };
 
+export function hasJsonContentType(request: Request) {
+  const contentType = request.headers.get("content-type");
+  if (!contentType) {
+    return false;
+  }
+
+  return contentType.toLowerCase().includes("application/json");
+}
+
 export async function parseJsonBody<T = Record<string, unknown>>(
   request: Request,
   maxBytes = 16_384,

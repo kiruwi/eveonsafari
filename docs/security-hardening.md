@@ -8,22 +8,27 @@ This app now enforces OWASP-focused controls for API endpoints, authz, transport
 2. Set `NODE_ENV=production`.
 3. Set `NEXT_PUBLIC_SITE_URL` and `ALLOWED_ORIGINS` to exact production origins.
 4. Set `ADMIN_EMAIL_ALLOWLIST` for admin-only API access.
-5. Set `PESAPAL_IPN_SECRET` and keep `PESAPAL_IPN_SIGNATURE_REQUIRED=true`.
-6. Keep `ENABLE_SUPABASE_TEST_ENDPOINT=false` in production.
+5. Do not expose stack traces or debug-only endpoints in production.
+6. Set `PESAPAL_IPN_SECRET` and keep `PESAPAL_IPN_SIGNATURE_REQUIRED=true`.
+7. Keep `ENABLE_SUPABASE_TEST_ENDPOINT=false` in production.
+8. Set `PASSWORD_RESET_REDIRECT_URL`, `PESAPAL_CALLBACK_URL`, and `PESAPAL_IPN_URL` to your trusted app origin only.
 
 ## Implemented Controls
 
 - Access control:
-  - Deny-by-default API guard in `proxy.ts`.
+  - Deny-by-default API guard with centralized route policy in `proxy.ts` and `lib/security/access.ts`.
   - Centralized auth and admin checks in `lib/security/auth.ts`.
   - Ownership enforcement for plan submissions (submitted email must match authenticated user).
 - Misconfiguration:
-  - Security headers and CSP in `proxy.ts`.
+  - Security headers and nonce-based CSP in `proxy.ts`.
   - Strict origin and CORS checks for browser API requests.
   - Safe API error responses with request IDs.
+  - Admin diagnostics are disabled unless explicitly enabled outside production and table-allowlisted.
 - Supply chain:
   - `package-lock.json` checked in.
+  - Direct dependency versions pinned in `package.json`.
   - CI runs dependency audit, CodeQL SAST, and secret scanning.
+  - Pull requests also run GitHub dependency review.
 - Crypto:
   - CSRF and request identifiers use cryptographically strong randomness.
   - Webhooks require HMAC SHA-256 signature verification.
@@ -31,8 +36,10 @@ This app now enforces OWASP-focused controls for API endpoints, authz, transport
   - Password hashing is delegated to Supabase Auth (managed provider), and this codebase does not store passwords directly.
 - Injection/XSS:
   - Strict input validation and normalization for all mutable API routes.
+  - JSON APIs reject non-JSON content types.
   - Parameterized Supabase query builder usage.
   - Header/value sanitization for email fields.
+  - CSP nonces remove `unsafe-inline` from scripts.
 - Auth/session:
   - Sensitive routes require server-side bearer token verification.
   - Brute-force/rate-limit controls on auth/sensitive endpoints.
@@ -45,6 +52,7 @@ This app now enforces OWASP-focused controls for API endpoints, authz, transport
   - Redaction helper masks secrets and PII keys before logging.
 - SSRF:
   - Outbound URL allowlist and private/local IP blocking for payment provider calls.
+  - Payment callback and password-reset redirect URLs must remain on trusted application origins.
 
 ## Verification Commands
 

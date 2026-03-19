@@ -17,7 +17,7 @@ import {
 } from "@/lib/security/http";
 import { securityLog } from "@/lib/security/logger";
 import { checkRateLimit } from "@/lib/security/rateLimit";
-import { parseJsonBody } from "@/lib/security/request";
+import { hasJsonContentType, parseJsonBody } from "@/lib/security/request";
 import {
   sanitizeEmailHeaderValue,
   validatePlanPayload,
@@ -126,6 +126,22 @@ export async function POST(request: Request) {
 
   const auth = await requireAuthenticatedUser(request, requestId);
   if (!auth.ok) return auth.response;
+
+  if (!hasJsonContentType(request)) {
+    securityLog("warn", "plan.invalid_content_type", {
+      requestId,
+      ip,
+      userId: auth.user.id,
+      contentType: request.headers.get("content-type") ?? "missing",
+    });
+    return errorResponse(
+      request,
+      requestId,
+      415,
+      "Content-Type must be application/json.",
+      "invalid_content_type",
+    );
+  }
 
   const rateLimit = checkRateLimit({
     key: `plan:${auth.user.id}:${ip}`,

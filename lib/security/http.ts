@@ -61,6 +61,8 @@ export function buildApiHeaders(request: Request, requestId?: string) {
   const headers = new Headers({
     "Cache-Control": "no-store",
     Pragma: "no-cache",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
   });
 
   if (requestId) {
@@ -73,6 +75,7 @@ export function buildApiHeaders(request: Request, requestId?: string) {
     headers.set("Access-Control-Allow-Credentials", "true");
     headers.set("Access-Control-Allow-Headers", "Authorization, Content-Type, X-CSRF-Token, X-Requested-With");
     headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    headers.set("Access-Control-Max-Age", "600");
     headers.set("Vary", "Origin");
   }
 
@@ -151,6 +154,12 @@ export function enforceCsrfToken(request: Request, requestId: string) {
 
   const headerValue = request.headers.get("x-csrf-token");
   if (!headerValue) {
+    securityLog("warn", "csrf.token_missing", {
+      requestId,
+      method: request.method,
+      path: new URL(request.url).pathname,
+      ip: getClientIp(request),
+    });
     return errorResponse(
       request,
       requestId,
@@ -163,6 +172,12 @@ export function enforceCsrfToken(request: Request, requestId: string) {
   const cookies = parseCookies(request);
   const cookieValue = cookies.get(CSRF_COOKIE_NAME);
   if (!cookieValue) {
+    securityLog("warn", "csrf.cookie_missing", {
+      requestId,
+      method: request.method,
+      path: new URL(request.url).pathname,
+      ip: getClientIp(request),
+    });
     return errorResponse(
       request,
       requestId,
@@ -199,6 +214,13 @@ export function enforceCsrfToken(request: Request, requestId: string) {
 export function buildPreflightResponse(request: Request, requestId: string) {
   const origin = request.headers.get("origin");
   if (!origin || !isOriginAllowed(origin)) {
+    securityLog("warn", "cors.preflight_denied", {
+      requestId,
+      method: request.method,
+      path: new URL(request.url).pathname,
+      origin: origin ?? "missing",
+      ip: getClientIp(request),
+    });
     return errorResponse(
       request,
       requestId,

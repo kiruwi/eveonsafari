@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getAllowedOrigins, isAdminEmail } from "../../lib/security/config";
+import {
+  getAllowedOrigins,
+  getCanonicalOriginOrThrow,
+  isAdminEmail,
+  isTrustedAppOrigin,
+} from "../../lib/security/config";
 
 test("getAllowedOrigins merges configured origins and canonical origin", () => {
   process.env.ALLOWED_ORIGINS = "https://app.example.com,https://www.example.com";
@@ -35,4 +40,13 @@ test("isAdminEmail checks allowlist case-insensitively", () => {
   process.env.ADMIN_EMAIL_ALLOWLIST = "admin@example.com,owner@example.com";
   assert.equal(isAdminEmail("ADMIN@example.com"), true);
   assert.equal(isAdminEmail("user@example.com"), false);
+});
+
+test("trusted app origin helpers enforce canonical origin presence", () => {
+  process.env.NEXT_PUBLIC_SITE_URL = "https://eveonsafari.com";
+  process.env.ALLOWED_ORIGINS = "https://eveonsafari.com,https://www.eveonsafari.com";
+
+  assert.equal(getCanonicalOriginOrThrow(), "https://eveonsafari.com");
+  assert.equal(isTrustedAppOrigin("https://www.eveonsafari.com/auth"), true);
+  assert.equal(isTrustedAppOrigin("https://evil.example.com"), false);
 });

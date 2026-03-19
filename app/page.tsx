@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
+import { JsonLdScript } from "@/components/JsonLdScript";
 import { PackageCheckoutSelector } from "@/components/PackageCheckoutSelector";
 import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { safariPackagePricingUSD } from "@/lib/pricing";
@@ -167,9 +167,7 @@ const getFromPrice = (pricing?: PackagePricing) => {
 export default function HomePage() {
   return (
     <>
-      <Script id="jsonld-homepage" type="application/ld+json" strategy="beforeInteractive">
-        {JSON.stringify(homePageJsonLd)}
-      </Script>
+      <JsonLdScript id="jsonld-homepage" data={homePageJsonLd} />
       <div className="bg-white">
       <section className="relative isolate -mt-[156px] overflow-hidden bg-[#0f0f0f] text-white sm:-mt-[168px]">
         <Image

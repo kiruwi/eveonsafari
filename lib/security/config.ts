@@ -52,6 +52,14 @@ export function getCanonicalOrigin() {
   return normalizeOrigin(raw);
 }
 
+export function getCanonicalOriginOrThrow() {
+  const canonicalOrigin = getCanonicalOrigin();
+  if (!canonicalOrigin) {
+    throw new Error("NEXT_PUBLIC_SITE_URL must be set to a trusted application origin.");
+  }
+  return canonicalOrigin;
+}
+
 export function getAllowedOrigins() {
   const configured = new Set<string>();
   for (const rawOrigin of parseCsvSet(process.env.ALLOWED_ORIGINS)) {
@@ -87,4 +95,10 @@ export function getPesapalAllowedHosts() {
     return new Set(DEFAULT_PESAPAL_ALLOWED_HOSTS);
   }
   return configured;
+}
+
+export function isTrustedAppOrigin(origin: string) {
+  const normalized = normalizeOrigin(origin);
+  if (!normalized) return false;
+  return getAllowedOrigins().has(normalized.toLowerCase());
 }

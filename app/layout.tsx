@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
+import { JsonLdScript } from "@/components/JsonLdScript";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
@@ -43,7 +45,7 @@ const gatheniaFont = localFont({
   display: "swap",
 });
 
-const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID ?? "G-R60T92DT4E";
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID ?? "";
 
 export const metadata: Metadata = {
   title: defaultMetaTitle,
@@ -94,28 +96,27 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = (await headers()).get("x-csp-nonce") ?? undefined;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <Script id="jsonld-organization" type="application/ld+json" strategy="beforeInteractive">
-          {JSON.stringify(organizationJsonLd)}
-        </Script>
-        <Script id="jsonld-website" type="application/ld+json" strategy="beforeInteractive">
-          {JSON.stringify(websiteJsonLd)}
-        </Script>
+        <JsonLdScript id="jsonld-organization" data={organizationJsonLd} nonce={nonce} />
+        <JsonLdScript id="jsonld-website" data={websiteJsonLd} nonce={nonce} />
         {gaMeasurementId ? (
           <>
             <Script
               async
+              nonce={nonce}
               src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
               strategy="afterInteractive"
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="google-analytics" nonce={nonce} strategy="afterInteractive">
               {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());

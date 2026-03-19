@@ -1,32 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { getApiAccessLevel } from "@/lib/security/access";
 import { CSRF_COOKIE_NAME } from "@/lib/security/constants";
+import { buildContentSecurityPolicy } from "@/lib/security/csp";
 import { ensureCsrfCookie } from "@/lib/security/http";
-
-const publicApiRoutes = new Set([
-  "/api/newsletter",
-  "/api/pesapal/ipn",
-  "/api/auth/password-reset",
-]);
 
 const isProduction = process.env.NODE_ENV === "production";
 
-const contentSecurityPolicy = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
-  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://*.supabase.co https://cybqa.pesapal.com https://pay.pesapal.com",
-  "img-src 'self' data: blob: https:",
-  "style-src 'self' 'unsafe-inline'",
-  "font-src 'self' data:",
-  "frame-ancestors 'none'",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  ...(isProduction ? ["upgrade-insecure-requests"] : []),
-].join("; ");
-
-function withSecurityHeaders(response: NextResponse) {
-  response.headers.set("Content-Security-Policy", contentSecurityPolicy);
+function withSecurityHeaders(response: NextResponse, nonce: string) {
+  response.headers.set(
+    "Content-Security-Policy",
+    buildContentSecurityPolicy(nonce, isProduction),
+  );
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
@@ -36,6 +21,10 @@ function withSecurityHeaders(response: NextResponse) {
   );
   response.headers.set("Cross-Origin-Opener-Policy", "same-origin");
   response.headers.set("Cross-Origin-Resource-Policy", "same-site");
+  response.headers.set("X-DNS-Prefetch-Control", "off");
+  response.headers.set("X-Permitted-Cross-Domain-Policies", "none");
+  response.headers.set("Origin-Agent-Cluster", "?1");
+  response.headers.set("x-csp-nonce", nonce);
   if (isProduction) {
     response.headers.set(
       "Strict-Transport-Security",
@@ -54,10 +43,16 @@ function hasBearerAuth(request: NextRequest) {
 
 export function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
+  const nonce = crypto.randomUUID().replace(/-/g, "");
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-csp-nonce", nonce);
+  const accessLevel = path.startsWith("/api/")
+    ? getApiAccessLevel(path)
+    : null;
 
   if (
-    path.startsWith("/api/") &&
-    !publicApiRoutes.has(path) &&
+    accessLevel &&
+    accessLevel !== "public" &&
     request.method !== "OPTIONS" &&
     !hasBearerAuth(request)
   ) {
@@ -66,10 +61,18 @@ export function proxy(request: NextRequest) {
         { ok: false, error: "Authentication required." },
         { status: 401 },
       ),
+      nonce,
     );
   }
 
-  const response = withSecurityHeaders(NextResponse.next());
+  const response = withSecurityHeaders(
+    NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    }),
+    nonce,
+  );
   if (!path.startsWith("/api/")) {
     ensureCsrfCookie(response, request.cookies.get(CSRF_COOKIE_NAME)?.value ?? null);
   }

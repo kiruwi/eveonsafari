@@ -46,3 +46,25 @@ test("assertSafeOutboundUrl rejects hosts outside the allowlist", () => {
     /not in the outbound allowlist/i,
   );
 });
+
+test("assertSafeOutboundUrl rejects non-http schemes and embedded credentials", () => {
+  assert.throws(
+    () =>
+      assertSafeOutboundUrl(
+        "file:///etc/passwd",
+        new Set(),
+        "PESAPAL_BASE_URL",
+      ),
+    /must use HTTP or HTTPS/i,
+  );
+
+  assert.throws(
+    () =>
+      assertSafeOutboundUrl(
+        "https://user:pass@cybqa.pesapal.com/pesapalv3",
+        new Set(["cybqa.pesapal.com"]),
+        "PESAPAL_BASE_URL",
+      ),
+    /must not include URL credentials/i,
+  );
+});

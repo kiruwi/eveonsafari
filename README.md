@@ -46,4 +46,5 @@ npm run lint
 npm run typecheck
 npm run test:security
 npm run security:deps
+npm run build
 ```

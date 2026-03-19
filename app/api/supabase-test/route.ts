@@ -23,16 +23,16 @@ function getAllowedTables() {
   return new Set(
     (process.env.SUPABASE_TEST_ALLOWED_TABLES ?? "")
       .split(",")
-      .map((value) => value.trim())
+      .map((value) => value.trim().toLowerCase())
       .filter(Boolean),
   );
 }
 
 function isEndpointEnabled() {
-  if ((process.env.ENABLE_SUPABASE_TEST_ENDPOINT ?? "").toLowerCase() === "true") {
-    return true;
-  }
-  return process.env.NODE_ENV !== "production";
+  return (
+    process.env.NODE_ENV !== "production" &&
+    (process.env.ENABLE_SUPABASE_TEST_ENDPOINT ?? "").toLowerCase() === "true"
+  );
 }
 
 export async function GET(request: Request) {
@@ -75,7 +75,7 @@ export async function GET(request: Request) {
   }
 
   const { searchParams } = new URL(request.url);
-  const tableParam = searchParams.get("table")?.trim() || "example_table";
+  const tableParam = searchParams.get("table")?.trim().toLowerCase() ?? "";
   if (!TABLE_REGEX.test(tableParam)) {
     return errorResponse(
       request,
@@ -87,7 +87,22 @@ export async function GET(request: Request) {
   }
 
   const allowedTables = getAllowedTables();
-  if (allowedTables.size > 0 && !allowedTables.has(tableParam)) {
+  if (allowedTables.size === 0) {
+    securityLog("warn", "supabase_test.misconfigured_allowlist", {
+      requestId,
+      ip,
+      userId: auth.user.id,
+    });
+    return errorResponse(
+      request,
+      requestId,
+      503,
+      "Diagnostics endpoint is not configured.",
+      "endpoint_misconfigured",
+    );
+  }
+
+  if (!allowedTables.has(tableParam)) {
     securityLog("warn", "supabase_test.table_denied", {
       requestId,
       ip,
@@ -103,7 +118,9 @@ export async function GET(request: Request) {
     );
   }
 
-  const { data, error } = await supabaseAdmin.from(tableParam).select("*").limit(1);
+  const { count, error } = await supabaseAdmin
+    .from(tableParam)
+    .select("*", { head: true, count: "exact" });
 
   if (error?.code === "42P01") {
     const response = NextResponse.json(
@@ -146,7 +163,7 @@ export async function GET(request: Request) {
       ok: true,
       requestId,
       table: tableParam,
-      rows: data?.length ?? 0,
+      rows: count ?? 0,
       note: "Connection succeeded.",
     },
     { headers: buildApiHeaders(request, requestId) },

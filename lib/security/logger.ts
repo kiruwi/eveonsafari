@@ -23,11 +23,24 @@ function redactString(value: string) {
   return `${value.slice(0, 2)}...[REDACTED]`;
 }
 
+function redactPatterns(value: string) {
+  return value
+    .replace(
+      /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi,
+      "[REDACTED_EMAIL]",
+    )
+    .replace(/\bBearer\s+[A-Za-z0-9._~+/=-]+\b/gi, "Bearer [REDACTED_TOKEN]")
+    .replace(
+      /\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9._-]+\.[A-Za-z0-9._-]+\b/g,
+      "[REDACTED_JWT]",
+    );
+}
+
 export function redactSensitive<T>(value: T): T {
   if (value === null || value === undefined) return value;
 
   if (typeof value === "string") {
-    return value as T;
+    return redactPatterns(value) as T;
   }
 
   if (Array.isArray(value)) {

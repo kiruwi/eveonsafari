@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getCanonicalOrigin, isProduction } from "@/lib/security/config";
+import { getCanonicalOrigin } from "@/lib/security/config";
 import {
   attachRateLimitHeaders,
   buildApiHeaders,
@@ -12,7 +12,8 @@ import {
 } from "@/lib/security/http";
 import { securityLog } from "@/lib/security/logger";
 import { checkRateLimit } from "@/lib/security/rateLimit";
-import { parseJsonBody } from "@/lib/security/request";
+import { hasJsonContentType, parseJsonBody } from "@/lib/security/request";
+import { assertTrustedAppUrl } from "@/lib/security/url";
 import { validatePasswordResetPayload } from "@/lib/security/validation";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
@@ -24,11 +25,7 @@ const PASSWORD_RESET_RATE_LIMIT = {
 function resolvePasswordResetRedirect() {
   const configured = process.env.PASSWORD_RESET_REDIRECT_URL;
   if (configured) {
-    const parsed = new URL(configured);
-    if (isProduction() && parsed.protocol !== "https:") {
-      throw new Error("PASSWORD_RESET_REDIRECT_URL must use HTTPS in production.");
-    }
-    return parsed.toString();
+    return assertTrustedAppUrl(configured, "PASSWORD_RESET_REDIRECT_URL");
   }
 
   const canonicalOrigin = getCanonicalOrigin();
@@ -51,6 +48,18 @@ export async function POST(request: Request) {
 
   const csrfError = enforceCsrfToken(request, requestId);
   if (csrfError) return csrfError;
+
+  if (!hasJsonContentType(request)) {
+    securityLog("warn", "auth.password_reset_invalid_content_type", {
+      requestId,
+      ip,
+      contentType: request.headers.get("content-type") ?? "missing",
+    });
+    return NextResponse.json(
+      { ok: true, requestId },
+      { headers: buildApiHeaders(request, requestId) },
+    );
+  }
 
   const parsed = await parseJsonBody(request);
   if (!parsed.ok) {

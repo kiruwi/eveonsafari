@@ -1,7 +1,8 @@
 import { randomUUID } from 'crypto';
 
-import { getPesapalAllowedHosts, isProduction } from '@/lib/security/config';
+import { getPesapalAllowedHosts } from '@/lib/security/config';
 import { assertSafeOutboundUrl } from '@/lib/security/ssrf';
+import { assertTrustedAppUrl } from '@/lib/security/url';
 
 type PesapalConfig = {
   baseUrl: string;
@@ -101,6 +102,7 @@ async function fetchWithTimeout(url: URL | string, init: RequestInit = {}) {
       ...init,
       signal: controller.signal,
       cache: 'no-store',
+      redirect: 'error',
     });
   } finally {
     clearTimeout(timeout);
@@ -108,11 +110,11 @@ async function fetchWithTimeout(url: URL | string, init: RequestInit = {}) {
 }
 
 function assertSafeCallbackUrl(rawUrl: string) {
-  const parsed = new URL(rawUrl);
-  if (isProduction() && parsed.protocol !== 'https:') {
-    throw new Error('PESAPAL_CALLBACK_URL must use HTTPS in production.');
-  }
-  return parsed.toString();
+  return assertTrustedAppUrl(rawUrl, 'PESAPAL_CALLBACK_URL');
+}
+
+function assertSafeIpnUrl(rawUrl: string) {
+  return assertTrustedAppUrl(rawUrl, 'PESAPAL_IPN_URL');
 }
 
 function getPesapalConfig(): PesapalConfig {
@@ -146,7 +148,9 @@ function getPesapalConfig(): PesapalConfig {
       process.env.PESAPAL_CALLBACK_URL ?? 'http://localhost:3000/success',
     ),
     currency: process.env.PESAPAL_CURRENCY ?? 'KES',
-    ipnUrl: process.env.PESAPAL_IPN_URL,
+    ipnUrl: process.env.PESAPAL_IPN_URL
+      ? assertSafeIpnUrl(process.env.PESAPAL_IPN_URL)
+      : undefined,
     ipnNotificationType,
     ipnNotificationId: process.env.PESAPAL_IPN_ID,
     defaultAmount: Number.isFinite(defaultAmount) ? defaultAmount : 5,
