@@ -35,6 +35,22 @@ type KiliRoutePageProps = {
   cancellation: string[];
 };
 
+const ALLOWED_REMOTE_IMAGE_HOSTS = new Set(["images.unsplash.com"]);
+
+function getDayImageSrc(image?: string) {
+  if (!image) return null;
+  if (image.startsWith("/")) return image;
+
+  try {
+    const parsed = new URL(image);
+    if (parsed.protocol !== "https:") return null;
+    if (!ALLOWED_REMOTE_IMAGE_HOSTS.has(parsed.hostname.toLowerCase())) return null;
+    return image;
+  } catch {
+    return null;
+  }
+}
+
 function StatTag({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-1 border border-white/30 bg-white/10 px-3 py-2 text-white">
@@ -46,7 +62,7 @@ function StatTag({ label, value }: { label: string; value: string }) {
 
 function DayCard({ day, index }: { day: DaySection; index: number }) {
   const isEven = index % 2 === 0;
-  const hasImage = day.image && !day.image.includes("unsplash.com");
+  const imageSrc = getDayImageSrc(day.image);
   return (
     <article
       className={`grid items-center gap-6 border border-[#e0d7c4] bg-[#f7f3ea] px-6 py-5 md:grid-cols-[1fr_360px] ${
@@ -71,11 +87,11 @@ function DayCard({ day, index }: { day: DaySection; index: number }) {
       <div
         className={`relative h-[220px] w-full overflow-hidden ${isEven ? "" : "md:order-first"}`}
       >
-        {hasImage ? (
+        {imageSrc ? (
           <>
             <div className="absolute inset-0 bg-gradient-to-br from-black/15 to-black/0" />
             <Image
-              src={day.image as string}
+              src={imageSrc}
               alt={day.title}
               fill
               className="object-cover"
