@@ -1,7 +1,14 @@
 export function buildContentSecurityPolicy(nonce: string, isProduction: boolean) {
+  const scriptSrc = [
+    "'self'",
+    `'nonce-${nonce}'`,
+    "https://www.googletagmanager.com",
+    ...(isProduction ? [] : ["'unsafe-eval'"]),
+  ].join(" ");
+
   return [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' https://www.googletagmanager.com`,
+    `script-src ${scriptSrc}`,
     "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://*.supabase.co https://cybqa.pesapal.com https://pay.pesapal.com",
     "img-src 'self' data: blob: https:",
     "style-src 'self' 'unsafe-inline'",

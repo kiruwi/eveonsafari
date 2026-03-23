@@ -8,6 +8,7 @@ test("CSP uses per-request nonces instead of unsafe-inline scripts", () => {
 
   assert.match(policy, /script-src 'self' 'nonce-nonce123'/);
   assert.doesNotMatch(policy, /script-src[^;]*'unsafe-inline'/);
+  assert.doesNotMatch(policy, /script-src[^;]*'unsafe-eval'/);
   assert.match(policy, /frame-ancestors 'none'/);
 });
 
@@ -17,4 +18,10 @@ test("production CSP upgrades insecure requests", () => {
 
   assert.match(productionPolicy, /upgrade-insecure-requests/);
   assert.doesNotMatch(developmentPolicy, /upgrade-insecure-requests/);
+});
+
+test("development CSP allows unsafe-eval for React and Turbopack debugging", () => {
+  const policy = buildContentSecurityPolicy("nonce123", false);
+
+  assert.match(policy, /script-src[^;]*'unsafe-eval'/);
 });
