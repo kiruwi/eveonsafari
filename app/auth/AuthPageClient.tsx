@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseClient } from '@/lib/supabaseClient';
 
 const authNextKey = 'auth.next';
 
@@ -44,6 +44,7 @@ export default function AuthPageClient() {
   const handleGoogle = async () => {
     setLoading(true);
     setMessage(null);
+    const supabase = getSupabaseClient();
 
     const authOrigin = resolveAuthOrigin();
     if (!authOrigin) {

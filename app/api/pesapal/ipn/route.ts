@@ -13,7 +13,7 @@ import { securityLog } from "@/lib/security/logger";
 import { checkRateLimit } from "@/lib/security/rateLimit";
 import { validateTransactionIdentifier } from "@/lib/security/validation";
 import { verifyHmacSha256Signature } from "@/lib/security/webhook";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 const trackingKeys = [
   "orderTrackingId",
@@ -161,7 +161,7 @@ async function persistTransaction({
     ? "order_tracking_id"
     : "merchant_reference";
 
-  const { error } = await supabaseAdmin
+  const { error } = await getSupabaseAdmin()
     .from("pesapal_transactions")
     .upsert(record, { onConflict });
 

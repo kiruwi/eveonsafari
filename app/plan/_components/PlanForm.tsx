@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
 import { buildAuthenticatedApiHeaders } from "@/lib/security/clientHeaders";
 
 type FeedbackState = { type: "success" | "error"; text: string } | null;
@@ -133,6 +133,7 @@ export function PlanForm() {
 
   useEffect(() => {
     let active = true;
+    const supabase = getSupabaseClient();
 
     const loadUser = async () => {
       const { data, error } = await supabase.auth.getUser();

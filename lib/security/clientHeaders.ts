@@ -1,6 +1,6 @@
 "use client";
 
-import { supabase } from "../supabaseClient";
+import { getSupabaseClient } from "../supabaseClient";
 
 import { CSRF_COOKIE_NAME } from "./constants";
 
@@ -40,6 +40,7 @@ export async function buildAuthenticatedApiHeaders(
   contentType: string | null = "application/json",
 ) {
   const headers = buildBaseHeaders(contentType);
+  const supabase = getSupabaseClient();
   const { data } = await supabase.auth.getSession();
   const token = data.session?.access_token;
   if (token) {

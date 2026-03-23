@@ -10,7 +10,7 @@ import {
 } from "@/lib/security/http";
 import { securityLog } from "@/lib/security/logger";
 import { checkRateLimit } from "@/lib/security/rateLimit";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 const TABLE_REGEX = /^[a-z_][a-z0-9_]{0,62}$/;
 
@@ -118,7 +118,7 @@ export async function GET(request: Request) {
     );
   }
 
-  const { count, error } = await supabaseAdmin
+  const { count, error } = await getSupabaseAdmin()
     .from(tableParam)
     .select("*", { head: true, count: "exact" });
 

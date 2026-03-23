@@ -15,7 +15,7 @@ import { checkRateLimit } from "@/lib/security/rateLimit";
 import { hasJsonContentType, parseJsonBody } from "@/lib/security/request";
 import { assertTrustedAppUrl } from "@/lib/security/url";
 import { validatePasswordResetPayload } from "@/lib/security/validation";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 const PASSWORD_RESET_RATE_LIMIT = {
   limit: 5,
@@ -99,7 +99,10 @@ export async function POST(request: Request) {
 
   try {
     const redirectTo = resolvePasswordResetRedirect();
-    await supabaseAdmin.auth.resetPasswordForEmail(payload.data.email, redirectTo ? { redirectTo } : undefined);
+    await getSupabaseAdmin().auth.resetPasswordForEmail(
+      payload.data.email,
+      redirectTo ? { redirectTo } : undefined,
+    );
   } catch (error) {
     securityLog("warn", "auth.password_reset_request_failed", {
       requestId,

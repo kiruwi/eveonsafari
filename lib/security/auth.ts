@@ -1,7 +1,7 @@
 import type { User } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
-import { supabaseAdmin } from "../supabaseAdmin";
+import { getSupabaseAdmin } from "../supabaseAdmin";
 import { isAdminEmail } from "./config";
 import { errorResponse, getClientIp } from "./http";
 import { securityLog } from "./logger";
@@ -43,7 +43,7 @@ export async function requireAuthenticatedUser(
     };
   }
 
-  const { data, error } = await supabaseAdmin.auth.getUser(token);
+  const { data, error } = await getSupabaseAdmin().auth.getUser(token);
   if (error || !data.user) {
     securityLog("warn", "auth.invalid_token", {
       requestId,

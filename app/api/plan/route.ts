@@ -22,7 +22,7 @@ import {
   sanitizeEmailHeaderValue,
   validatePlanPayload,
 } from "@/lib/security/validation";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 const PLAN_RATE_LIMIT = {
   limit: 5,
@@ -202,7 +202,7 @@ export async function POST(request: Request) {
     ? `${REQUIRED_BUDGET_LABEL}: ${payload.data.budgetRange}`
     : null;
 
-  const { error } = await supabaseAdmin.from("plan_requests").insert({
+  const { error } = await getSupabaseAdmin().from("plan_requests").insert({
     full_name: payload.data.fullName,
     email: payload.data.email,
     travel_dates: payload.data.travelDates,

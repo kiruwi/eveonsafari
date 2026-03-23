@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseClient } from '@/lib/supabaseClient';
 
 type AuthState =
   | { status: 'loading' }
@@ -23,6 +23,7 @@ export function UserStatus() {
 
   useEffect(() => {
     let active = true;
+    const supabase = getSupabaseClient();
 
     const loadUser = async () => {
       const { data, error: authError } = await supabase.auth.getUser();
@@ -64,6 +65,7 @@ export function UserStatus() {
 
   const handleSignOut = async () => {
     setError(null);
+    const supabase = getSupabaseClient();
     const { error: signOutError } = await supabase.auth.signOut();
     if (signOutError) setError(signOutError.message);
   };

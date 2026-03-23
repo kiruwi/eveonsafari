@@ -58,7 +58,8 @@ export function PesapalCheckoutButton({
     setError(null);
 
     try {
-      const { supabase } = await import('@/lib/supabaseClient');
+      const { getSupabaseClient } = await import('@/lib/supabaseClient');
+      const supabase = getSupabaseClient();
       const { data: authData, error: authError } = await supabase.auth.getUser();
       if (authError || !authData.user) {
         setError('Please log in to continue. Redirecting to sign in…');

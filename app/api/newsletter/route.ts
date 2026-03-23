@@ -17,7 +17,7 @@ import {
   normalizeSourceForStorage,
   validateNewsletterPayload,
 } from "@/lib/security/validation";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 const NEWSLETTER_RATE_LIMIT = {
   limit: 8,
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
     return errorResponse(request, requestId, 400, payload.error, "validation_failed");
   }
 
-  const { error } = await supabaseAdmin.from("newsletter_subscribers").insert({
+  const { error } = await getSupabaseAdmin().from("newsletter_subscribers").insert({
     email: payload.data.email,
     source: normalizeSourceForStorage(payload.data.source),
   });

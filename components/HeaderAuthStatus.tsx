@@ -62,7 +62,8 @@ export function HeaderAuthStatus({
         return;
       }
       try {
-        const { supabase } = await import('@/lib/supabaseClient');
+        const { getSupabaseClient } = await import('@/lib/supabaseClient');
+        const supabase = getSupabaseClient();
         if (!active) return;
         const { data, error: authError } = await supabase.auth.getUser();
         if (!active) return;
@@ -93,7 +94,8 @@ export function HeaderAuthStatus({
 
   const handleSignOut = async () => {
     try {
-      const { supabase } = await import('@/lib/supabaseClient');
+      const { getSupabaseClient } = await import('@/lib/supabaseClient');
+      const supabase = getSupabaseClient();
       const { error } = await supabase.auth.signOut();
       if (error) {
         console.error('Sign out failed:', error.message);

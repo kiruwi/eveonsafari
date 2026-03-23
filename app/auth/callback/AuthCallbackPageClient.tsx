@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseClient } from '@/lib/supabaseClient';
 
 const authNextKey = 'auth.next';
 
@@ -38,6 +38,7 @@ export default function AuthCallbackPageClient() {
 
   useEffect(() => {
     const exchangeCode = async () => {
+      const supabase = getSupabaseClient();
       const params = new URLSearchParams(window.location.search);
       const errorParam = params.get('error');
       const errorDescription = params.get('error_description');
