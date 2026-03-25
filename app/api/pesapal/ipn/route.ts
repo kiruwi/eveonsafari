@@ -119,6 +119,49 @@ type PersistTransactionArgs = {
   requestMethod: string;
 };
 
+async function findExistingTransaction(
+  orderTrackingId: string | null,
+  merchantReference: string | null,
+) {
+  if (merchantReference) {
+    const byMerchantReference = await getSupabaseAdmin()
+      .from("pesapal_transactions")
+      .select("order_tracking_id, merchant_reference")
+      .eq("merchant_reference", merchantReference)
+      .maybeSingle();
+
+    if (byMerchantReference.error) {
+      throw new Error(
+        `Unable to look up Pesapal transaction by merchant reference: ${byMerchantReference.error.message}`,
+      );
+    }
+
+    if (byMerchantReference.data) {
+      return byMerchantReference.data;
+    }
+  }
+
+  if (orderTrackingId) {
+    const byOrderTrackingId = await getSupabaseAdmin()
+      .from("pesapal_transactions")
+      .select("order_tracking_id, merchant_reference")
+      .eq("order_tracking_id", orderTrackingId)
+      .maybeSingle();
+
+    if (byOrderTrackingId.error) {
+      throw new Error(
+        `Unable to look up Pesapal transaction by order tracking ID: ${byOrderTrackingId.error.message}`,
+      );
+    }
+
+    if (byOrderTrackingId.data) {
+      return byOrderTrackingId.data;
+    }
+  }
+
+  return null;
+}
+
 async function persistTransaction({
   transaction,
   orderTrackingId,
@@ -148,8 +191,8 @@ async function persistTransaction({
     created_date: transaction.created_date ?? null,
     received_at: now,
     last_notification_method: requestMethod,
-    raw_payload: JSON.stringify(transaction),
-    ipn_body: body ? JSON.stringify(body) : null,
+    raw_payload: transaction,
+    ipn_body: body ?? null,
     updated_at: now,
   };
 
@@ -157,13 +200,24 @@ async function persistTransaction({
     throw new Error("Unable to store Pesapal transaction: missing identifiers.");
   }
 
-  const onConflict = record.order_tracking_id
-    ? "order_tracking_id"
-    : "merchant_reference";
+  const existing = await findExistingTransaction(
+    record.order_tracking_id,
+    record.merchant_reference,
+  );
 
-  const { error } = await getSupabaseAdmin()
-    .from("pesapal_transactions")
-    .upsert(record, { onConflict });
+  const query = existing
+    ? existing.merchant_reference
+      ? getSupabaseAdmin()
+          .from("pesapal_transactions")
+          .update(record)
+          .eq("merchant_reference", existing.merchant_reference)
+      : getSupabaseAdmin()
+          .from("pesapal_transactions")
+          .update(record)
+          .eq("order_tracking_id", existing.order_tracking_id)
+    : getSupabaseAdmin().from("pesapal_transactions").insert(record);
+
+  const { error } = await query;
 
   if (error) {
     throw new Error(`Unable to store Pesapal transaction: ${error.message}`);
