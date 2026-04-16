@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { JsonLdScript } from "@/components/JsonLdScript";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -131,6 +132,7 @@ gtag('config', '${gaMeasurementId}');`}
         <SiteHeader />
         <main className="eos-content min-h-screen bg-white">{children}</main>
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
