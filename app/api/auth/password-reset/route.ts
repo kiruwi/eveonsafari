@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 
-import { getCanonicalOrigin } from "@/lib/security/config";
 import {
   attachRateLimitHeaders,
   buildApiHeaders,
@@ -13,27 +12,12 @@ import {
 import { securityLog } from "@/lib/security/logger";
 import { checkRateLimit } from "@/lib/security/rateLimit";
 import { hasJsonContentType, parseJsonBody } from "@/lib/security/request";
-import { assertTrustedAppUrl } from "@/lib/security/url";
 import { validatePasswordResetPayload } from "@/lib/security/validation";
-import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 const PASSWORD_RESET_RATE_LIMIT = {
   limit: 5,
   windowMs: 60 * 60 * 1000,
 };
-
-function resolvePasswordResetRedirect() {
-  const configured = process.env.PASSWORD_RESET_REDIRECT_URL;
-  if (configured) {
-    return assertTrustedAppUrl(configured, "PASSWORD_RESET_REDIRECT_URL");
-  }
-
-  const canonicalOrigin = getCanonicalOrigin();
-  if (!canonicalOrigin) {
-    return undefined;
-  }
-  return `${canonicalOrigin}/auth/callback`;
-}
 
 export function OPTIONS(request: Request) {
   return buildPreflightResponse(request, getRequestId(request));
@@ -97,20 +81,10 @@ export async function POST(request: Request) {
     return response;
   }
 
-  try {
-    const redirectTo = resolvePasswordResetRedirect();
-    await getSupabaseAdmin().auth.resetPasswordForEmail(
-      payload.data.email,
-      redirectTo ? { redirectTo } : undefined,
-    );
-  } catch (error) {
-    securityLog("warn", "auth.password_reset_request_failed", {
-      requestId,
-      ip,
-      reason:
-        error instanceof Error ? error.message : "Unknown password reset failure",
-    });
-  }
+  securityLog("warn", "auth.password_reset_clerk_managed", {
+    requestId,
+    ip,
+  });
 
   const response = NextResponse.json(
     { ok: true, requestId },

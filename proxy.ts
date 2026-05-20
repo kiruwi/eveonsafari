@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
+import { NextResponse, type NextRequest } from "next/server";
 
-import { getApiAccessLevel } from "@/lib/security/access";
 import { CSRF_COOKIE_NAME } from "@/lib/security/constants";
 import { buildContentSecurityPolicy } from "@/lib/security/csp";
 import { ensureCsrfCookie } from "@/lib/security/http";
@@ -34,36 +34,12 @@ function withSecurityHeaders(response: NextResponse, nonce: string) {
   return response;
 }
 
-function hasBearerAuth(request: NextRequest) {
-  const authorization = request.headers.get("authorization");
-  if (!authorization) return false;
-  const [scheme, token] = authorization.split(" ");
-  return /^Bearer$/i.test(scheme ?? "") && Boolean(token?.trim());
-}
-
-export function proxy(request: NextRequest) {
+function applySecurityHeaders(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const nonce = crypto.randomUUID().replace(/-/g, "");
   const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("x-csp-nonce", nonce);
-  const accessLevel = path.startsWith("/api/")
-    ? getApiAccessLevel(path)
-    : null;
-
-  if (
-    accessLevel &&
-    accessLevel !== "public" &&
-    request.method !== "OPTIONS" &&
-    !hasBearerAuth(request)
-  ) {
-    return withSecurityHeaders(
-      NextResponse.json(
-        { ok: false, error: "Authentication required." },
-        { status: 401 },
-      ),
-      nonce,
-    );
-  }
 
   const response = withSecurityHeaders(
     NextResponse.next({
@@ -79,6 +55,12 @@ export function proxy(request: NextRequest) {
   return response;
 }
 
+export default clerkMiddleware((_auth, request) => applySecurityHeaders(request));
+
 export const config = {
-  matcher: ["/((?!_next|favicon.ico|robots.txt|sitemap.xml).*)"],
+  matcher: [
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
+    "/__clerk/(.*)",
+  ],
 };

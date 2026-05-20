@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { getSupabaseClient } from "@/lib/supabaseClient";
+import { SignInButton, useUser } from "@clerk/nextjs";
+import { useSearchParams } from "next/navigation";
 import { buildAuthenticatedApiHeaders } from "@/lib/security/clientHeaders";
 
 type FeedbackState = { type: "success" | "error"; text: string } | null;
@@ -85,13 +84,9 @@ const getMonthLabel = (date: Date) =>
   new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(date);
 
 export function PlanForm() {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { isLoaded, isSignedIn: clerkSignedIn, user } = useUser();
   const packageSlug = searchParams?.get("package")?.trim() || null;
-  const nextPath = useMemo(() => {
-    const query = searchParams?.toString();
-    return query ? `${pathname}?${query}` : pathname;
-  }, [pathname, searchParams]);
   const [step, setStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<FeedbackState>(null);
@@ -132,52 +127,24 @@ export function PlanForm() {
   };
 
   useEffect(() => {
-    let active = true;
-    const supabase = getSupabaseClient();
+    if (!isLoaded) {
+      setAuthStatus("loading");
+      return;
+    }
 
-    const loadUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (!active) return;
+    if (!clerkSignedIn) {
+      setAuthStatus("signedOut");
+      setAuthEmail(null);
+      return;
+    }
 
-      if (error) {
-        setAuthStatus("signedOut");
-        setAuthEmail(null);
-        return;
-      }
-
-      if (data.user) {
-        setAuthStatus("signedIn");
-        setAuthEmail(data.user.email ?? null);
-        if (data.user.email) {
-          setFormData((prev) => ({ ...prev, email: prev.email || data.user.email || "" }));
-        }
-      } else {
-        setAuthStatus("signedOut");
-        setAuthEmail(null);
-      }
-    };
-
-    loadUser();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!active) return;
-      if (session?.user) {
-        setAuthStatus("signedIn");
-        setAuthEmail(session.user.email ?? null);
-        if (session.user.email) {
-          setFormData((prev) => ({ ...prev, email: prev.email || session.user.email || "" }));
-        }
-      } else {
-        setAuthStatus("signedOut");
-        setAuthEmail(null);
-      }
-    });
-
-    return () => {
-      active = false;
-      authListener?.subscription.unsubscribe();
-    };
-  }, []);
+    const email = user?.primaryEmailAddress?.emailAddress ?? null;
+    setAuthStatus("signedIn");
+    setAuthEmail(email);
+    if (email) {
+      setFormData((prev) => ({ ...prev, email: prev.email || email }));
+    }
+  }, [clerkSignedIn, isLoaded, user]);
 
   useEffect(() => {
     if (rangeStart && rangeEnd) {
@@ -665,12 +632,14 @@ export function PlanForm() {
         </button>
         <div className="flex flex-wrap items-center gap-3">
           {showSignInGate && (
-            <Link
-              href={`/auth?next=${encodeURIComponent(nextPath)}`}
-              className="rounded-lg border border-[#E6D8C6] px-5 py-3 text-sm text-[#2B2B2B] transition hover:border-[#B28A5A]"
-            >
-              Sign in to submit
-            </Link>
+            <SignInButton mode="modal">
+              <button
+                type="button"
+                className="rounded-lg border border-[#E6D8C6] px-5 py-3 text-sm text-[#2B2B2B] transition hover:border-[#B28A5A]"
+              >
+                Sign in to submit
+              </button>
+            </SignInButton>
           )}
           <button
             type="submit"

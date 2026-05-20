@@ -1,32 +1,39 @@
-import type { User } from "@supabase/supabase-js";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-import { getSupabaseAdmin } from "../supabaseAdmin";
 import { isAdminEmail } from "./config";
 import { errorResponse, getClientIp } from "./http";
 import { securityLog } from "./logger";
 
-function extractBearerToken(request: Request) {
-  const authorization = request.headers.get("authorization");
-  if (!authorization) return null;
-
-  const [scheme, token] = authorization.split(" ");
-  if (!scheme || !token) return null;
-  if (!/^Bearer$/i.test(scheme)) return null;
-  return token.trim();
-}
+export type AuthenticatedUser = {
+  id: string;
+  email: string | null;
+};
 
 export type RequireUserResult =
-  | { ok: true; user: User; token: string }
+  | { ok: true; user: AuthenticatedUser }
   | { ok: false; response: NextResponse };
+
+async function getPrimaryEmail(userId: string) {
+  const client = await clerkClient();
+  const user = await client.users.getUser(userId);
+
+  return (
+    user.primaryEmailAddress?.emailAddress ??
+    user.emailAddresses.find((email) => email.id === user.primaryEmailAddressId)
+      ?.emailAddress ??
+    user.emailAddresses[0]?.emailAddress ??
+    null
+  );
+}
 
 export async function requireAuthenticatedUser(
   request: Request,
   requestId: string,
 ): Promise<RequireUserResult> {
-  const token = extractBearerToken(request);
-  if (!token) {
-    securityLog("warn", "auth.missing_bearer", {
+  const session = await auth();
+  if (!session.isAuthenticated || !session.userId) {
+    securityLog("warn", "auth.missing_session", {
       requestId,
       path: new URL(request.url).pathname,
       ip: getClientIp(request),
@@ -43,13 +50,21 @@ export async function requireAuthenticatedUser(
     };
   }
 
-  const { data, error } = await getSupabaseAdmin().auth.getUser(token);
-  if (error || !data.user) {
+  try {
+    const email = await getPrimaryEmail(session.userId);
+    return {
+      ok: true,
+      user: {
+        id: session.userId,
+        email,
+      },
+    };
+  } catch (error) {
     securityLog("warn", "auth.invalid_token", {
       requestId,
       path: new URL(request.url).pathname,
       ip: getClientIp(request),
-      reason: error?.message ?? "No user",
+      reason: error instanceof Error ? error.message : "Unable to load Clerk user",
     });
     return {
       ok: false,
@@ -62,8 +77,6 @@ export async function requireAuthenticatedUser(
       ),
     };
   }
-
-  return { ok: true, user: data.user, token };
 }
 
 export async function requireAdminUser(
@@ -97,7 +110,7 @@ export async function requireAdminUser(
   return auth;
 }
 
-export function isEmailOwnedByUser(email: string, user: User) {
+export function isEmailOwnedByUser(email: string, user: AuthenticatedUser) {
   const userEmail = user.email?.trim().toLowerCase();
   return Boolean(userEmail) && userEmail === email.trim().toLowerCase();
 }

@@ -196,9 +196,12 @@ export function SiteHeader() {
     ? "border-[#231f20]/25 bg-white/70 text-[#231f20]"
     : "border-white/35 bg-white/10 text-white";
   const userBadgeDetailClasses = showNavBackground ? "text-[#231f20]/70" : "text-white/80";
-  const signOutClasses = showNavBackground
+  const signInClasses = showNavBackground
     ? "rounded-full border border-[#231f20] px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#231f20] hover:text-white sm:px-3 sm:py-2 sm:text-[11px]"
     : "rounded-full border border-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#231f20] sm:px-3 sm:py-2 sm:text-[11px]";
+  const signUpClasses = showNavBackground
+    ? "rounded-full bg-[#231f20] px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-white transition hover:bg-[#3a3435] sm:px-3 sm:py-2 sm:text-[11px]"
+    : "rounded-full bg-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#231f20] transition hover:bg-[#f4efe7] sm:px-3 sm:py-2 sm:text-[11px]";
   const navMotionClasses = "sticky top-0 z-50 will-change-transform transition-[transform,opacity] duration-300";
   const navVisibilityClasses = isNavHidden
     ? "-translate-y-full opacity-0 pointer-events-none"
@@ -614,7 +617,8 @@ export function SiteHeader() {
             <HeaderAuthStatus
               userBadgeClasses={userBadgeClasses}
               userBadgeDetailClasses={userBadgeDetailClasses}
-              signOutClasses={signOutClasses}
+              signInClasses={signInClasses}
+              signUpClasses={signUpClasses}
             />
             <Link
               href="/plan"

@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-
-import { getSupabaseClient } from '@/lib/supabaseClient';
-
-const authNextKey = 'auth.next';
+import { useMemo } from 'react';
+import { SignIn, UserButton, useUser } from '@clerk/nextjs';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 const getSafeNextPath = (raw: string | null, origin: string) => {
   if (!raw) return null;
@@ -17,96 +16,40 @@ const getSafeNextPath = (raw: string | null, origin: string) => {
   }
 };
 
-const storeNextPath = (nextPath: string | null) => {
-  try {
-    if (nextPath) {
-      window.sessionStorage.setItem(authNextKey, nextPath);
-    } else {
-      window.sessionStorage.removeItem(authNextKey);
-    }
-  } catch {
-    // Ignore storage access failures.
-  }
-};
-
 export default function AuthPageClient() {
-  const [message, setMessage] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const resolveAuthOrigin = () => {
-    const rawCanonical = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '');
-    if (typeof window === 'undefined') {
-      return rawCanonical ?? null;
-    }
-    return window.location.origin;
-  };
-
-  const handleGoogle = async () => {
-    setLoading(true);
-    setMessage(null);
-    const supabase = getSupabaseClient();
-
-    const authOrigin = resolveAuthOrigin();
-    if (!authOrigin) {
-      setMessage('Redirecting to the correct site...');
-      setLoading(false);
-      return;
-    }
-
-    const nextParam = new URLSearchParams(window.location.search).get('next');
-    const referrer = document.referrer || null;
-    const nextPath = getSafeNextPath(nextParam ?? referrer, window.location.origin);
-    storeNextPath(nextPath);
-
-    const nextQuery = nextPath ? `?next=${encodeURIComponent(nextPath)}` : '';
-    const redirectTo = `${authOrigin}/auth/callback${nextQuery}`;
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo,
-        skipBrowserRedirect: true,
-      },
-    });
-
-    if (error) {
-      setMessage(error.message);
-      setLoading(false);
-      return;
-    }
-
-    if (!data?.url) {
-      setMessage('Could not start Google sign-in. Please try again.');
-      setLoading(false);
-      return;
-    }
-
-    setMessage('Redirecting to Google...');
-    window.location.assign(data.url);
-  };
+  const searchParams = useSearchParams();
+  const { isLoaded, isSignedIn, user } = useUser();
+  const fallbackRedirectUrl = useMemo(() => {
+    if (typeof window === 'undefined') return '/';
+    return getSafeNextPath(searchParams?.get('next') ?? null, window.location.origin) ?? '/';
+  }, [searchParams]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm ring-1 ring-zinc-200">
-        <h1 className="text-2xl font-bold text-zinc-900">Sign in / Sign up</h1>
-        <p className="mt-2 text-sm text-zinc-600">
-          Continue with Google to create an account or log in.
-        </p>
-
-        <button
-          type="button"
-          onClick={handleGoogle}
-          disabled={loading}
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          <span>{loading ? 'Opening Google...' : 'Continue with Google'}</span>
-        </button>
-
-        {message && (
-          <p className="mt-4 text-sm text-red-600" role="status">
-            {message}
+      {isLoaded && isSignedIn ? (
+        <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-sm ring-1 ring-zinc-200">
+          <div className="flex justify-center">
+            <UserButton />
+          </div>
+          <h1 className="mt-4 text-2xl font-bold text-zinc-900">
+            Signed in
+          </h1>
+          <p className="mt-2 text-sm text-zinc-600">
+            {user?.primaryEmailAddress?.emailAddress ?? 'Your account is active.'}
           </p>
+          <Link
+            href={fallbackRedirectUrl}
+            className="mt-6 inline-flex rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800"
+          >
+            Continue
+          </Link>
+        </div>
+      ) : (
+        <SignIn
+          fallbackRedirectUrl={fallbackRedirectUrl}
+          signUpFallbackRedirectUrl={fallbackRedirectUrl}
+        />
         )}
-      </div>
     </div>
   );
 }

@@ -11,13 +11,12 @@ This app now enforces OWASP-focused controls for API endpoints, authz, transport
 5. Do not expose stack traces or debug-only endpoints in production.
 6. Set `PESAPAL_IPN_SECRET` and keep `PESAPAL_IPN_SIGNATURE_REQUIRED=true`.
 7. Keep `ENABLE_SUPABASE_TEST_ENDPOINT=false` in production.
-8. Set `PASSWORD_RESET_REDIRECT_URL`, `PESAPAL_CALLBACK_URL`, and `PESAPAL_IPN_URL` to your trusted app origin only.
+8. Set `PESAPAL_CALLBACK_URL` and `PESAPAL_IPN_URL` to your trusted app origin only.
 
 ## Implemented Controls
 
 - Access control:
-  - Deny-by-default API guard with centralized route policy in `proxy.ts` and `lib/security/access.ts`.
-  - Centralized auth and admin checks in `lib/security/auth.ts`.
+  - Clerk middleware runs in `proxy.ts`, and protected API routes call centralized auth/admin checks in `lib/security/auth.ts`.
   - Ownership enforcement for plan submissions (submitted email must match authenticated user).
 - Misconfiguration:
   - Security headers and nonce-based CSP in `proxy.ts`.
@@ -33,7 +32,7 @@ This app now enforces OWASP-focused controls for API endpoints, authz, transport
   - CSRF and request identifiers use cryptographically strong randomness.
   - Webhooks require HMAC SHA-256 signature verification.
   - Outbound and callback URLs enforce HTTPS in production.
-  - Password hashing is delegated to Supabase Auth (managed provider), and this codebase does not store passwords directly.
+  - Password hashing is delegated to Clerk (managed provider), and this codebase does not store passwords directly.
 - Injection/XSS:
   - Strict input validation and normalization for all mutable API routes.
   - JSON APIs reject non-JSON content types.
@@ -41,9 +40,9 @@ This app now enforces OWASP-focused controls for API endpoints, authz, transport
   - Header/value sanitization for email fields.
   - CSP nonces remove `unsafe-inline` from scripts.
 - Auth/session:
-  - Sensitive routes require server-side bearer token verification.
+  - Sensitive routes require server-side Clerk session verification.
   - Brute-force/rate-limit controls on auth/sensitive endpoints.
-  - Password reset endpoint returns generic responses to prevent account enumeration.
+  - Password reset is handled by Clerk components; the legacy endpoint returns generic responses to prevent account enumeration.
 - Integrity:
   - Pesapal IPN signature verification and identifier validation.
   - CSRF double-submit token and origin checks for browser POST endpoints.
@@ -52,7 +51,7 @@ This app now enforces OWASP-focused controls for API endpoints, authz, transport
   - Redaction helper masks secrets and PII keys before logging.
 - SSRF:
   - Outbound URL allowlist and private/local IP blocking for payment provider calls.
-  - Payment callback and password-reset redirect URLs must remain on trusted application origins.
+  - Payment callback URLs must remain on trusted application origins.
 
 ## Verification Commands
 

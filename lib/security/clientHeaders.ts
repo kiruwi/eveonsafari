@@ -1,7 +1,5 @@
 "use client";
 
-import { getSupabaseClient } from "../supabaseClient";
-
 import { CSRF_COOKIE_NAME } from "./constants";
 
 type HeaderValue = Record<string, string>;
@@ -39,12 +37,5 @@ export function buildPublicApiHeaders(contentType: string | null = "application/
 export async function buildAuthenticatedApiHeaders(
   contentType: string | null = "application/json",
 ) {
-  const headers = buildBaseHeaders(contentType);
-  const supabase = getSupabaseClient();
-  const { data } = await supabase.auth.getSession();
-  const token = data.session?.access_token;
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-  return headers;
+  return buildBaseHeaders(contentType);
 }

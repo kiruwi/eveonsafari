@@ -6,9 +6,10 @@ import { buildContentSecurityPolicy } from "../../lib/security/csp";
 test("CSP uses per-request nonces instead of unsafe-inline scripts", () => {
   const policy = buildContentSecurityPolicy("nonce123", true);
 
-  assert.match(policy, /script-src 'self' 'nonce-nonce123'/);
+  assert.match(policy, /script-src 'self' 'strict-dynamic' 'nonce-nonce123'/);
   assert.doesNotMatch(policy, /script-src[^;]*'unsafe-inline'/);
   assert.doesNotMatch(policy, /script-src[^;]*'unsafe-eval'/);
+  assert.match(policy, /worker-src 'self' blob:/);
   assert.match(policy, /frame-ancestors 'none'/);
 });
 

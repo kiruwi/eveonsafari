@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { Geist } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { JsonLdScript } from "@/components/JsonLdScript";
@@ -129,10 +130,12 @@ gtag('config', '${gaMeasurementId}');`}
       <body
         className={`${geistSans.variable} ${titleFont.variable} ${americanGrungeFont.variable} ${gatheniaFont.variable} antialiased bg-white text-[#231f20]`}
       >
-        <SiteHeader />
-        <main className="eos-content min-h-screen bg-white">{children}</main>
-        <SiteFooter />
-        <Analytics />
+        <ClerkProvider nonce={nonce} dynamic>
+          <SiteHeader />
+          <main className="eos-content min-h-screen bg-white">{children}</main>
+          <SiteFooter />
+          <Analytics />
+        </ClerkProvider>
       </body>
     </html>
   );

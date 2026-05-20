@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { SignInButton, useUser } from '@clerk/nextjs';
 import {
   calculateSafariTotal,
   getPerPersonRate,
@@ -34,6 +35,7 @@ export function PesapalCheckoutButton({
   currency = 'USD',
   defaultPax = 1,
 }: PesapalCheckoutButtonProps) {
+  const { isLoaded, isSignedIn } = useUser();
   const initialPax = Number.isInteger(defaultPax) && defaultPax > 0 ? defaultPax : 1;
   const [paxInput, setPaxInput] = useState<string>(() => String(initialPax));
   const [loading, setLoading] = useState(false);
@@ -48,9 +50,18 @@ export function PesapalCheckoutButton({
   const formattedPerPerson = formatCurrency(validPerPerson, currency);
 
   const handleCheckout = async () => {
-    const nextUrl = typeof window !== 'undefined' ? window.location.href : '/';
     if (!packageSlug || !totalAmount || !validPerPerson) {
       setError('Add a price to continue.');
+      return;
+    }
+
+    if (!isLoaded) {
+      setError('Checking sign-in status. Please try again in a moment.');
+      return;
+    }
+
+    if (!isSignedIn) {
+      setError('Please sign in to continue.');
       return;
     }
 
@@ -58,15 +69,6 @@ export function PesapalCheckoutButton({
     setError(null);
 
     try {
-      const { getSupabaseClient } = await import('@/lib/supabaseClient');
-      const supabase = getSupabaseClient();
-      const { data: authData, error: authError } = await supabase.auth.getUser();
-      if (authError || !authData.user) {
-        setError('Please log in to continue. Redirecting to sign in…');
-        window.location.href = `/auth?next=${encodeURIComponent(nextUrl)}`;
-        return;
-      }
-
       const res = await fetch('/api/pesapal/checkout', {
         method: 'POST',
         headers: await buildAuthenticatedApiHeaders(),
@@ -152,6 +154,15 @@ export function PesapalCheckoutButton({
         >
           Plan a safari
         </Link>
+      ) : isLoaded && !isSignedIn ? (
+        <SignInButton mode="modal">
+          <button
+            type="button"
+            className="w-full rounded-full bg-[#ba7e47] px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-[#8a592e]"
+          >
+            Sign in to checkout
+          </button>
+        </SignInButton>
       ) : (
         <button
           type="button"
