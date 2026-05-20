@@ -1,0 +1,122 @@
+﻿2026-05-20T08:53:52.2550725Z ##[group]Run npm run build
+2026-05-20T08:53:52.2551206Z [36;1mnpm run build[0m
+2026-05-20T08:53:52.2600144Z shell: /usr/bin/bash -e {0}
+2026-05-20T08:53:52.2600556Z ##[endgroup]
+2026-05-20T08:53:52.3663536Z 
+2026-05-20T08:53:52.3663915Z > eveonsafari@0.1.0 build
+2026-05-20T08:53:52.3664231Z > next build
+2026-05-20T08:53:52.3664359Z 
+2026-05-20T08:53:52.7581478Z ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+2026-05-20T08:53:52.7689815Z Attention: Next.js now collects completely anonymous telemetry regarding usage.
+2026-05-20T08:53:52.7690515Z This information is used to shape Next.js' roadmap and prioritize features.
+2026-05-20T08:53:52.7691400Z You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+2026-05-20T08:53:52.7692008Z https://nextjs.org/telemetry
+2026-05-20T08:53:52.7692181Z 
+2026-05-20T08:53:52.7872795Z ▲ Next.js 16.2.1 (Turbopack)
+2026-05-20T08:53:52.7873527Z 
+2026-05-20T08:53:52.8567524Z   Creating an optimized production build ...
+2026-05-20T08:54:02.1188101Z ✓ Compiled successfully in 9.1s
+2026-05-20T08:54:02.1306762Z   Running TypeScript ...
+2026-05-20T08:54:08.4502543Z   Finished TypeScript in 6.3s ...
+2026-05-20T08:54:08.4545939Z   Collecting page data using 3 workers ...
+2026-05-20T08:54:09.2041615Z   Generating static pages using 3 workers (0/95) ...
+2026-05-20T08:54:09.4985048Z   Generating static pages using 3 workers (23/95) 
+2026-05-20T08:54:09.6313613Z   Generating static pages using 3 workers (47/95) 
+2026-05-20T08:54:09.7343559Z   Generating static pages using 3 workers (71/95) 
+2026-05-20T08:54:09.8244108Z ✓ Generating static pages using 3 workers (95/95) in 620ms
+2026-05-20T08:54:09.8311877Z   Finalizing page optimization ...
+2026-05-20T08:54:09.8406593Z 
+2026-05-20T08:54:09.8453019Z Route (app)
+2026-05-20T08:54:09.8457152Z ┌ ƒ /
+2026-05-20T08:54:09.8457546Z ├ ƒ /_not-found
+2026-05-20T08:54:09.8457913Z ├ ƒ /about
+2026-05-20T08:54:09.8458314Z ├ ƒ /about-us
+2026-05-20T08:54:09.8458705Z ├ ƒ /activities
+2026-05-20T08:54:09.8459351Z ├ ƒ /activities/cultural-visits
+2026-05-20T08:54:09.8460026Z ├ ƒ /activities/day-trips/arusha-day-trip
+2026-05-20T08:54:09.8460756Z ├ ƒ /activities/day-trips/chemka-hot-spring
+2026-05-20T08:54:09.8461529Z ├ ƒ /activities/day-trips/lake-manyara-day-trip
+2026-05-20T08:54:09.8462162Z ├ ƒ /activities/day-trips/materuni-waterfalls-coffee
+2026-05-20T08:54:09.8462640Z ├ ƒ /activities/day-trips/ngorongoro-crater-day-trip
+2026-05-20T08:54:09.8463068Z ├ ƒ /activities/day-trips/tarangire-day-trip
+2026-05-20T08:54:09.8463434Z ├ ƒ /activities/walking-safaris
+2026-05-20T08:54:09.8463759Z ├ ƒ /altitude
+2026-05-20T08:54:09.8464019Z ├ ƒ /api/auth/password-reset
+2026-05-20T08:54:09.8464290Z ├ ƒ /api/newsletter
+2026-05-20T08:54:09.8464544Z ├ ƒ /api/pesapal/checkout
+2026-05-20T08:54:09.8464810Z ├ ƒ /api/pesapal/ipn
+2026-05-20T08:54:09.8465036Z ├ ƒ /api/plan
+2026-05-20T08:54:09.8465274Z ├ ƒ /api/supabase-test
+2026-05-20T08:54:09.8466470Z ├ ƒ /auth
+2026-05-20T08:54:09.8467034Z ├ ƒ /auth/callback
+2026-05-20T08:54:09.8467843Z ├ ƒ /cancel
+2026-05-20T08:54:09.8468803Z ├ ƒ /discover-tanzania/accommodations
+2026-05-20T08:54:09.8469558Z ├ ƒ /discover-tanzania/islands
+2026-05-20T08:54:09.8470242Z ├ ƒ /discover-tanzania/national-parks
+2026-05-20T08:54:09.8471028Z ├ ƒ /discover-tanzania/national-parks/[slug]
+2026-05-20T08:54:09.8471620Z ├ ƒ /experiences
+2026-05-20T08:54:09.8472024Z ├ ƒ /itineraries
+2026-05-20T08:54:09.8472404Z ├ ƒ /packing
+2026-05-20T08:54:09.8472765Z ├ ƒ /plan
+2026-05-20T08:54:09.8473142Z ├ ○ /robots.txt
+2026-05-20T08:54:09.8473690Z ├ ƒ /safaris/10-day-best-of-tanzania
+2026-05-20T08:54:09.8474783Z ├ ƒ /safaris/10-days/10-day-best-of-tanzania
+2026-05-20T08:54:09.8475614Z ├ ƒ /safaris/2-day-ngorongoro-crater-adventure
+2026-05-20T08:54:09.8477097Z ├ ƒ /safaris/3-day-manyara-ngorongoro-tarangire
+2026-05-20T08:54:09.8477887Z ├ ƒ /safaris/3-day-serengeti-escape
+2026-05-20T08:54:09.8478723Z ├ ƒ /safaris/3-days/3-day-manyara-ngorongoro-tarangire
+2026-05-20T08:54:09.8479911Z ├ ƒ /safaris/4-day-nyerere-safari
+2026-05-20T08:54:09.8480630Z ├ ƒ /safaris/5-day-iconic-wildlife-adventure
+2026-05-20T08:54:09.8481345Z ├ ƒ /safaris/6-day-best-northern-parks
+2026-05-20T08:54:09.8482034Z ├ ƒ /safaris/7-day-northern-highlights
+2026-05-20T08:54:09.8482810Z ├ ƒ /safaris/8-day-migration-cultural-wonders
+2026-05-20T08:54:09.8483669Z ├ ƒ /safaris/8-days/8-day-migration-cultural-wonders
+2026-05-20T08:54:09.8484440Z ├ ƒ /safaris/9-day-grand-tanzania
+2026-05-20T08:54:09.8485097Z ├ ƒ /safaris/9-days/9-day-grand-tanzania
+2026-05-20T08:54:09.8486049Z ├ ƒ /safaris/duration/[duration]
+2026-05-20T08:54:09.8486744Z ├ ƒ /safaris/duration/2-days
+2026-05-20T08:54:09.8487325Z ├ ƒ /safaris/duration/3-days
+2026-05-20T08:54:09.8487892Z ├ ƒ /safaris/duration/4-days
+2026-05-20T08:54:09.8488430Z ├ ƒ /safaris/duration/5-days
+2026-05-20T08:54:09.8488962Z ├ ƒ /safaris/duration/6-days
+2026-05-20T08:54:09.8489492Z ├ ƒ /safaris/duration/7-days
+2026-05-20T08:54:09.8490089Z ├ ƒ /safaris/duration/8-plus-days
+2026-05-20T08:54:09.8490667Z ├ ƒ /safaris/style/[style]
+2026-05-20T08:54:09.8491285Z ├ ƒ /safaris/style/classic-wildlife
+2026-05-20T08:54:09.8491932Z ├ ƒ /safaris/style/cultural-safaris
+2026-05-20T08:54:09.8492599Z ├ ƒ /safaris/style/family-safaris
+2026-05-20T08:54:09.8493256Z ├ ƒ /safaris/style/migration-safaris
+2026-05-20T08:54:09.8493754Z ├ ○ /sitemap.xml
+2026-05-20T08:54:09.8494172Z ├ ƒ /success
+2026-05-20T08:54:09.8494611Z ├ ƒ /travel-style
+2026-05-20T08:54:09.8495196Z ├ ƒ /travel-style/africa-family-safari
+2026-05-20T08:54:09.8496250Z ├ ƒ /travel-style/beach-and-holiday-in-africa
+2026-05-20T08:54:09.8497080Z ├ ƒ /travel-style/birthday-party-experience
+2026-05-20T08:54:09.8497900Z ├ ƒ /travel-style/cultural-eco-tourism-safari
+2026-05-20T08:54:09.8498593Z ├ ƒ /travel-style/family-safaris
+2026-05-20T08:54:09.8499719Z ├ ƒ /travel-style/fly-in-out-safari
+2026-05-20T08:54:09.8500407Z ├ ƒ /travel-style/honeymoon-safari
+2026-05-20T08:54:09.8501064Z ├ ƒ /travel-style/honeymoon-safaris
+2026-05-20T08:54:09.8501826Z ├ ƒ /travel-style/mountain-gorilla-trekking
+2026-05-20T08:54:09.8502538Z ├ ƒ /travel-style/tanzania-big-5-safari
+2026-05-20T08:54:09.8503318Z ├ ƒ /travel-style/tanzania-bird-watching-safari
+2026-05-20T08:54:09.8504164Z ├ ƒ /travel-style/tanzania-photographic-safaris
+2026-05-20T08:54:09.8504978Z ├ ƒ /travel-style/tanzania-walking-safaris
+2026-05-20T08:54:09.8509663Z ├ ƒ /travel-style/the-great-migration-safari
+2026-05-20T08:54:09.8510383Z ├ ƒ /trekking
+2026-05-20T08:54:09.8511035Z ├ ƒ /trekking/6-day-umbwe-route-kilimanjaro-trek
+2026-05-20T08:54:09.8511906Z ├ ƒ /trekking/7-day-rongai-route-kilimanjaro-trek
+2026-05-20T08:54:09.8512962Z ├ ƒ /trekking/9-days-northern-circuit-route-kilimanjaro-trek
+2026-05-20T08:54:09.8513851Z ├ ƒ /trekking/kilimanjaro-lemosho-route
+2026-05-20T08:54:09.8514574Z ├ ƒ /trekking/kilimanjaro-machame-route
+2026-05-20T08:54:09.8515336Z ├ ƒ /trekking/kilimanjaro-machame-route-9-day
+2026-05-20T08:54:09.8516459Z ├ ƒ /trekking/kilimanjaro-marangu-route
+2026-05-20T08:54:09.8517283Z ├ ƒ /trekking/kilimanjaro-marangu-route-8-day
+2026-05-20T08:54:09.8518019Z └ ƒ /zanzibar/5-days/zanzibar-5-days
+2026-05-20T08:54:09.8518360Z 
+2026-05-20T08:54:09.8518377Z 
+2026-05-20T08:54:09.8518663Z ƒ Proxy (Middleware)
+2026-05-20T08:54:09.8518927Z 
+2026-05-20T08:54:09.8519324Z ○  (Static)   prerendered as static content
+2026-05-20T08:54:09.8520013Z ƒ  (Dynamic)  server-rendered on demand
+2026-05-20T08:54:09.8520344Z 

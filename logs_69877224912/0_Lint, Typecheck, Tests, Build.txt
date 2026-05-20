@@ -1,0 +1,530 @@
+﻿2026-05-20T08:53:17.2892878Z Current runner version: '2.334.0'
+2026-05-20T08:53:17.2920830Z ##[group]Runner Image Provisioner
+2026-05-20T08:53:17.2921721Z Hosted Compute Agent
+2026-05-20T08:53:17.2922269Z Version: 20260213.493
+2026-05-20T08:53:17.2922867Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-05-20T08:53:17.2923608Z Build Date: 2026-02-13T00:28:41Z
+2026-05-20T08:53:17.2924206Z Worker ID: {b85a8697-8845-49ee-9648-0e9769b65eac}
+2026-05-20T08:53:17.2924960Z Azure Region: northcentralus
+2026-05-20T08:53:17.2925597Z ##[endgroup]
+2026-05-20T08:53:17.2927425Z ##[group]Operating System
+2026-05-20T08:53:17.2928040Z Ubuntu
+2026-05-20T08:53:17.2928677Z 24.04.4
+2026-05-20T08:53:17.2929116Z LTS
+2026-05-20T08:53:17.2929579Z ##[endgroup]
+2026-05-20T08:53:17.2930583Z ##[group]Runner Image
+2026-05-20T08:53:17.2931157Z Image: ubuntu-24.04
+2026-05-20T08:53:17.2931664Z Version: 20260513.135.3
+2026-05-20T08:53:17.2932918Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260513.135/images/ubuntu/Ubuntu2404-Readme.md
+2026-05-20T08:53:17.2934344Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260513.135
+2026-05-20T08:53:17.2935372Z ##[endgroup]
+2026-05-20T08:53:17.2936739Z ##[group]GITHUB_TOKEN Permissions
+2026-05-20T08:53:17.2939182Z Contents: read
+2026-05-20T08:53:17.2939758Z Metadata: read
+2026-05-20T08:53:17.2940317Z ##[endgroup]
+2026-05-20T08:53:17.2942589Z Secret source: Actions
+2026-05-20T08:53:17.2943592Z Prepare workflow directory
+2026-05-20T08:53:17.3297362Z Prepare all required actions
+2026-05-20T08:53:17.3337899Z Getting action download info
+2026-05-20T08:53:17.6920740Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-05-20T08:53:17.8402095Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-05-20T08:53:18.0453027Z Complete job name: Lint, Typecheck, Tests, Build
+2026-05-20T08:53:18.1254127Z ##[group]Run actions/checkout@v4
+2026-05-20T08:53:18.1255096Z with:
+2026-05-20T08:53:18.1255588Z   repository: kiruwi/eveonsafari
+2026-05-20T08:53:18.1256784Z   token: ***
+2026-05-20T08:53:18.1257219Z   ssh-strict: true
+2026-05-20T08:53:18.1257659Z   ssh-user: git
+2026-05-20T08:53:18.1258103Z   persist-credentials: true
+2026-05-20T08:53:18.1258590Z   clean: true
+2026-05-20T08:53:18.1259030Z   sparse-checkout-cone-mode: true
+2026-05-20T08:53:18.1259545Z   fetch-depth: 1
+2026-05-20T08:53:18.1259971Z   fetch-tags: false
+2026-05-20T08:53:18.1260404Z   show-progress: true
+2026-05-20T08:53:18.1260851Z   lfs: false
+2026-05-20T08:53:18.1261244Z   submodules: false
+2026-05-20T08:53:18.1261675Z   set-safe-directory: true
+2026-05-20T08:53:18.1262454Z ##[endgroup]
+2026-05-20T08:53:18.2418470Z Syncing repository: kiruwi/eveonsafari
+2026-05-20T08:53:18.2420602Z ##[group]Getting Git version info
+2026-05-20T08:53:18.2421401Z Working directory is '/home/runner/work/eveonsafari/eveonsafari'
+2026-05-20T08:53:18.2422568Z [command]/usr/bin/git version
+2026-05-20T08:53:18.2494249Z git version 2.54.0
+2026-05-20T08:53:18.2524339Z ##[endgroup]
+2026-05-20T08:53:18.2541326Z Temporarily overriding HOME='/home/runner/work/_temp/3ad01cf0-8001-4163-856a-158cec427e3c' before making global git config changes
+2026-05-20T08:53:18.2543813Z Adding repository directory to the temporary git global config as a safe directory
+2026-05-20T08:53:18.2557083Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/eveonsafari/eveonsafari
+2026-05-20T08:53:18.2612401Z Deleting the contents of '/home/runner/work/eveonsafari/eveonsafari'
+2026-05-20T08:53:18.2617378Z ##[group]Initializing the repository
+2026-05-20T08:53:18.2622583Z [command]/usr/bin/git init /home/runner/work/eveonsafari/eveonsafari
+2026-05-20T08:53:18.2727051Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-05-20T08:53:18.2729188Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-05-20T08:53:18.2730907Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-05-20T08:53:18.2732319Z hint: call:
+2026-05-20T08:53:18.2732967Z hint:
+2026-05-20T08:53:18.2733526Z hint: 	git config --global init.defaultBranch <name>
+2026-05-20T08:53:18.2734157Z hint:
+2026-05-20T08:53:18.2734749Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-05-20T08:53:18.2735703Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-05-20T08:53:18.2736862Z hint:
+2026-05-20T08:53:18.2737638Z hint: 	git branch -m <name>
+2026-05-20T08:53:18.2738425Z hint:
+2026-05-20T08:53:18.2739078Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-05-20T08:53:18.2740193Z Initialized empty Git repository in /home/runner/work/eveonsafari/eveonsafari/.git/
+2026-05-20T08:53:18.2745138Z [command]/usr/bin/git remote add origin https://github.com/kiruwi/eveonsafari
+2026-05-20T08:53:18.2792738Z ##[endgroup]
+2026-05-20T08:53:18.2793598Z ##[group]Disabling automatic garbage collection
+2026-05-20T08:53:18.2797820Z [command]/usr/bin/git config --local gc.auto 0
+2026-05-20T08:53:18.2829914Z ##[endgroup]
+2026-05-20T08:53:18.2830694Z ##[group]Setting up auth
+2026-05-20T08:53:18.2837890Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-05-20T08:53:18.2874539Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-05-20T08:53:18.3251330Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-05-20T08:53:18.3290819Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-05-20T08:53:18.3548551Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-05-20T08:53:18.3586766Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-05-20T08:53:18.3853066Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-05-20T08:53:18.3890467Z ##[endgroup]
+2026-05-20T08:53:18.3891292Z ##[group]Fetching the repository
+2026-05-20T08:53:18.3900310Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +04b5a1ae52ca23e512c7855cece105f79e678bec:refs/remotes/origin/main
+2026-05-20T08:53:19.8526156Z From https://github.com/kiruwi/eveonsafari
+2026-05-20T08:53:19.8528706Z  * [new ref]         04b5a1ae52ca23e512c7855cece105f79e678bec -> origin/main
+2026-05-20T08:53:19.8567093Z ##[endgroup]
+2026-05-20T08:53:19.8568959Z ##[group]Determining the checkout info
+2026-05-20T08:53:19.8570948Z ##[endgroup]
+2026-05-20T08:53:19.8575764Z [command]/usr/bin/git sparse-checkout disable
+2026-05-20T08:53:19.8625088Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-05-20T08:53:19.8653933Z ##[group]Checking out the ref
+2026-05-20T08:53:19.8658474Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-05-20T08:53:19.9647425Z Switched to a new branch 'main'
+2026-05-20T08:53:19.9649181Z branch 'main' set up to track 'origin/main'.
+2026-05-20T08:53:19.9676462Z ##[endgroup]
+2026-05-20T08:53:19.9719903Z [command]/usr/bin/git log -1 --format=%H
+2026-05-20T08:53:19.9743888Z 04b5a1ae52ca23e512c7855cece105f79e678bec
+2026-05-20T08:53:20.0103180Z ##[group]Run actions/setup-node@v4
+2026-05-20T08:53:20.0104376Z with:
+2026-05-20T08:53:20.0105190Z   node-version: 22
+2026-05-20T08:53:20.0106350Z   cache: npm
+2026-05-20T08:53:20.0107204Z   always-auth: false
+2026-05-20T08:53:20.0108130Z   check-latest: false
+2026-05-20T08:53:20.0109414Z   token: ***
+2026-05-20T08:53:20.0110258Z ##[endgroup]
+2026-05-20T08:53:20.2027929Z Found in cache @ /opt/hostedtoolcache/node/22.22.2/x64
+2026-05-20T08:53:20.2035992Z ##[group]Environment details
+2026-05-20T08:53:20.5902281Z node: v22.22.2
+2026-05-20T08:53:20.5902820Z npm: 10.9.7
+2026-05-20T08:53:20.5903096Z yarn: 1.22.22
+2026-05-20T08:53:20.5903613Z ##[endgroup]
+2026-05-20T08:53:20.5926406Z [command]/opt/hostedtoolcache/node/22.22.2/x64/bin/npm config get cache
+2026-05-20T08:53:20.7085661Z /home/runner/.npm
+2026-05-20T08:53:20.9238798Z Cache hit for: node-cache-Linux-x64-npm-7908fffe28855d7d5e96101098e9aaf580cede8ff3b0f6c30754243ec0230e08
+2026-05-20T08:53:22.0558304Z Received 130023424 of 181773451 (71.5%), 123.9 MBs/sec
+2026-05-20T08:53:22.3833368Z Received 181773451 of 181773451 (100.0%), 130.4 MBs/sec
+2026-05-20T08:53:22.3834548Z Cache Size: ~173 MB (181773451 B)
+2026-05-20T08:53:22.3866981Z [command]/usr/bin/tar -xf /home/runner/work/_temp/a40f20df-fc49-4881-8548-96eb61b6749d/cache.tzst -P -C /home/runner/work/eveonsafari/eveonsafari --use-compress-program unzstd
+2026-05-20T08:53:22.7751524Z Cache restored successfully
+2026-05-20T08:53:22.7845098Z Cache restored from key: node-cache-Linux-x64-npm-7908fffe28855d7d5e96101098e9aaf580cede8ff3b0f6c30754243ec0230e08
+2026-05-20T08:53:22.8025176Z ##[group]Run npm ci
+2026-05-20T08:53:22.8025471Z [36;1mnpm ci[0m
+2026-05-20T08:53:22.8073873Z shell: /usr/bin/bash -e {0}
+2026-05-20T08:53:22.8074153Z ##[endgroup]
+2026-05-20T08:53:35.9276838Z 
+2026-05-20T08:53:35.9283967Z added 470 packages, and audited 471 packages in 13s
+2026-05-20T08:53:35.9284324Z 
+2026-05-20T08:53:35.9284545Z 150 packages are looking for funding
+2026-05-20T08:53:35.9284918Z   run `npm fund` for details
+2026-05-20T08:53:36.0502782Z 
+2026-05-20T08:53:36.0503645Z 9 vulnerabilities (6 moderate, 3 high)
+2026-05-20T08:53:36.0504136Z 
+2026-05-20T08:53:36.0504580Z To address issues that do not require attention, run:
+2026-05-20T08:53:36.0505218Z   npm audit fix
+2026-05-20T08:53:36.0505452Z 
+2026-05-20T08:53:36.0506173Z To address all issues (including breaking changes), run:
+2026-05-20T08:53:36.0506851Z   npm audit fix --force
+2026-05-20T08:53:36.0507131Z 
+2026-05-20T08:53:36.0507373Z Run `npm audit` for details.
+2026-05-20T08:53:36.1811999Z ##[group]Run npm run lint
+2026-05-20T08:53:36.1812596Z [36;1mnpm run lint[0m
+2026-05-20T08:53:36.1854035Z shell: /usr/bin/bash -e {0}
+2026-05-20T08:53:36.1854437Z ##[endgroup]
+2026-05-20T08:53:36.2949812Z 
+2026-05-20T08:53:36.2950699Z > eveonsafari@0.1.0 lint
+2026-05-20T08:53:36.2951258Z > eslint
+2026-05-20T08:53:36.2951452Z 
+2026-05-20T08:53:43.3691859Z 
+2026-05-20T08:53:43.3693188Z /home/runner/work/eveonsafari/eveonsafari/app/plan/_components/PlanForm.tsx
+2026-05-20T08:53:43.3722350Z ##[warning]  155:6  warning  React Hook useEffect has a missing dependency: 'updateField'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+2026-05-20T08:53:43.3731172Z 
+2026-05-20T08:53:43.3731579Z /home/runner/work/eveonsafari/eveonsafari/components/SiteHeader.tsx
+2026-05-20T08:53:43.3733359Z ##[warning]  324:5  warning  React Hook useCallback has an unnecessary dependency: 'isMobile'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+2026-05-20T08:53:43.3734645Z 
+2026-05-20T08:53:43.3734970Z /home/runner/work/eveonsafari/eveonsafari/lib/security/validation.ts
+2026-05-20T08:53:43.3736445Z ##[warning]  98:10  warning  'cleanAmount' is defined but never used  @typescript-eslint/no-unused-vars
+2026-05-20T08:53:43.3737304Z 
+2026-05-20T08:53:43.3737737Z ✖ 3 problems (0 errors, 3 warnings)
+2026-05-20T08:53:43.3737926Z 
+2026-05-20T08:53:43.6212492Z ##[group]Run npm run typecheck
+2026-05-20T08:53:43.6212794Z [36;1mnpm run typecheck[0m
+2026-05-20T08:53:43.6247111Z shell: /usr/bin/bash -e {0}
+2026-05-20T08:53:43.6247360Z ##[endgroup]
+2026-05-20T08:53:43.7267770Z 
+2026-05-20T08:53:43.7268398Z > eveonsafari@0.1.0 typecheck
+2026-05-20T08:53:43.7269044Z > tsc --noEmit
+2026-05-20T08:53:43.7269289Z 
+2026-05-20T08:53:49.6647664Z ##[group]Run npm run test:security
+2026-05-20T08:53:49.6648259Z [36;1mnpm run test:security[0m
+2026-05-20T08:53:49.6698997Z shell: /usr/bin/bash -e {0}
+2026-05-20T08:53:49.6699419Z ##[endgroup]
+2026-05-20T08:53:49.7734772Z 
+2026-05-20T08:53:49.7736090Z > eveonsafari@0.1.0 test:security
+2026-05-20T08:53:49.7737123Z > tsc -p tsconfig.security-tests.json && node --test --test-concurrency=1 .tmp-security-tests/tests/security/*.test.js
+2026-05-20T08:53:49.7737755Z 
+2026-05-20T08:53:51.6116014Z TAP version 13
+2026-05-20T08:53:51.6464958Z # Subtest: API access policy is deny-by-default
+2026-05-20T08:53:51.6474837Z ok 1 - API access policy is deny-by-default
+2026-05-20T08:53:51.6478134Z   ---
+2026-05-20T08:53:51.6478818Z   duration_ms: 0.932291
+2026-05-20T08:53:51.6479524Z   type: 'test'
+2026-05-20T08:53:51.6480096Z   ...
+2026-05-20T08:53:51.6481067Z # Subtest: API access policy classifies public and admin routes centrally
+2026-05-20T08:53:51.6482471Z ok 2 - API access policy classifies public and admin routes centrally
+2026-05-20T08:53:51.6483366Z   ---
+2026-05-20T08:53:51.6483929Z   duration_ms: 0.193109
+2026-05-20T08:53:51.6484550Z   type: 'test'
+2026-05-20T08:53:51.6485122Z   ...
+2026-05-20T08:53:51.6959715Z # Subtest: getAllowedOrigins merges configured origins and canonical origin
+2026-05-20T08:53:51.6962946Z ok 3 - getAllowedOrigins merges configured origins and canonical origin
+2026-05-20T08:53:51.6963700Z   ---
+2026-05-20T08:53:51.6964237Z   duration_ms: 1.360065
+2026-05-20T08:53:51.6964677Z   type: 'test'
+2026-05-20T08:53:51.6965041Z   ...
+2026-05-20T08:53:51.6967546Z # Subtest: getAllowedOrigins normalizes configured origin paths and trailing slashes
+2026-05-20T08:53:51.6975577Z ok 4 - getAllowedOrigins normalizes configured origin paths and trailing slashes
+2026-05-20T08:53:51.6976907Z   ---
+2026-05-20T08:53:51.6977265Z   duration_ms: 0.195673
+2026-05-20T08:53:51.6977683Z   type: 'test'
+2026-05-20T08:53:51.6978040Z   ...
+2026-05-20T08:53:51.6978808Z # Subtest: getAllowedOrigins adds canonical sibling host
+2026-05-20T08:53:51.6979659Z ok 5 - getAllowedOrigins adds canonical sibling host
+2026-05-20T08:53:51.6980203Z   ---
+2026-05-20T08:53:51.6980527Z   duration_ms: 0.299396
+2026-05-20T08:53:51.6980902Z   type: 'test'
+2026-05-20T08:53:51.6981220Z   ...
+2026-05-20T08:53:51.6981882Z # Subtest: isAdminEmail checks allowlist case-insensitively
+2026-05-20T08:53:51.6987518Z ok 6 - isAdminEmail checks allowlist case-insensitively
+2026-05-20T08:53:51.6988642Z   ---
+2026-05-20T08:53:51.6989322Z   duration_ms: 0.190945
+2026-05-20T08:53:51.6990085Z   type: 'test'
+2026-05-20T08:53:51.6990759Z   ...
+2026-05-20T08:53:51.6991721Z # Subtest: trusted app origin helpers enforce canonical origin presence
+2026-05-20T08:53:51.6993170Z ok 7 - trusted app origin helpers enforce canonical origin presence
+2026-05-20T08:53:51.6994176Z   ---
+2026-05-20T08:53:51.6994889Z   duration_ms: 0.375147
+2026-05-20T08:53:51.6995592Z   type: 'test'
+2026-05-20T08:53:51.6996597Z   ...
+2026-05-20T08:53:51.7430634Z # Subtest: CSP uses per-request nonces instead of unsafe-inline scripts
+2026-05-20T08:53:51.7432021Z ok 8 - CSP uses per-request nonces instead of unsafe-inline scripts
+2026-05-20T08:53:51.7432891Z   ---
+2026-05-20T08:53:51.7433456Z   duration_ms: 1.263636
+2026-05-20T08:53:51.7433897Z   type: 'test'
+2026-05-20T08:53:51.7438700Z   ...
+2026-05-20T08:53:51.7448249Z # Subtest: production CSP upgrades insecure requests
+2026-05-20T08:53:51.7451243Z ok 9 - production CSP upgrades insecure requests
+2026-05-20T08:53:51.7456897Z   ---
+2026-05-20T08:53:51.7457426Z   duration_ms: 0.208758
+2026-05-20T08:53:51.7458060Z   type: 'test'
+2026-05-20T08:53:51.7458610Z   ...
+2026-05-20T08:53:51.7459653Z # Subtest: development CSP allows unsafe-eval for React and Turbopack debugging
+2026-05-20T08:53:51.7461064Z ok 10 - development CSP allows unsafe-eval for React and Turbopack debugging
+2026-05-20T08:53:51.7461979Z   ---
+2026-05-20T08:53:51.7462509Z   duration_ms: 0.195172
+2026-05-20T08:53:51.7463063Z   type: 'test'
+2026-05-20T08:53:51.7464033Z   ...
+2026-05-20T08:53:51.8371729Z # {"timestamp":"2026-05-20T08:53:51.835Z","level":"warn","event":"csrf.token_missing","details":{"requestId":"req-2","method":"POST","path":"/api/plan","ip":"unknown"}}
+2026-05-20T08:53:51.8431489Z # Subtest: enforceSameOrigin accepts allowed origins
+2026-05-20T08:53:51.8440790Z ok 11 - enforceSameOrigin accepts allowed origins
+2026-05-20T08:53:51.8441697Z   ---
+2026-05-20T08:53:51.8442822Z   duration_ms: 2.483341
+2026-05-20T08:53:51.8443636Z   type: 'test'
+2026-05-20T08:53:51.8444286Z   ...
+2026-05-20T08:53:51.8445377Z # Subtest: enforceSameOrigin accepts same-host origins even without allowlist
+2026-05-20T08:53:51.8447198Z ok 12 - enforceSameOrigin accepts same-host origins even without allowlist
+2026-05-20T08:53:51.8448205Z   ---
+2026-05-20T08:53:51.8448826Z   duration_ms: 0.404401
+2026-05-20T08:53:51.8449546Z   type: 'test'
+2026-05-20T08:53:51.8450155Z   ...
+2026-05-20T08:53:51.8451193Z # Subtest: enforceSameOrigin accepts localhost origins in non-production
+2026-05-20T08:53:51.8452616Z ok 13 - enforceSameOrigin accepts localhost origins in non-production
+2026-05-20T08:53:51.8453584Z   ---
+2026-05-20T08:53:51.8454150Z   duration_ms: 0.308553
+2026-05-20T08:53:51.8454780Z   type: 'test'
+2026-05-20T08:53:51.8455327Z   ...
+2026-05-20T08:53:51.8456413Z # Subtest: enforceCsrfToken rejects missing tokens
+2026-05-20T08:53:51.8457424Z ok 14 - enforceCsrfToken rejects missing tokens
+2026-05-20T08:53:51.8458163Z   ---
+2026-05-20T08:53:51.8458728Z   duration_ms: 5.09434
+2026-05-20T08:53:51.8459380Z   type: 'test'
+2026-05-20T08:53:51.8459994Z   ...
+2026-05-20T08:53:51.8460893Z # Subtest: enforceCsrfToken accepts matching header and cookie
+2026-05-20T08:53:51.8462122Z ok 15 - enforceCsrfToken accepts matching header and cookie
+2026-05-20T08:53:51.8462990Z   ---
+2026-05-20T08:53:51.8463592Z   duration_ms: 0.48427
+2026-05-20T08:53:51.8464263Z   type: 'test'
+2026-05-20T08:53:51.8464894Z   ...
+2026-05-20T08:53:51.8929567Z # Subtest: redactSensitive masks sensitive keys while preserving non-sensitive fields
+2026-05-20T08:53:51.8931028Z ok 16 - redactSensitive masks sensitive keys while preserving non-sensitive fields
+2026-05-20T08:53:51.8931854Z   ---
+2026-05-20T08:53:51.8932203Z   duration_ms: 1.577319
+2026-05-20T08:53:51.8932602Z   type: 'test'
+2026-05-20T08:53:51.8932983Z   ...
+2026-05-20T08:53:51.8937093Z # Subtest: redactSensitive strips token and email patterns from plain strings
+2026-05-20T08:53:51.8940612Z ok 17 - redactSensitive strips token and email patterns from plain strings
+2026-05-20T08:53:51.8941493Z   ---
+2026-05-20T08:53:51.8941824Z   duration_ms: 0.457409
+2026-05-20T08:53:51.8942195Z   type: 'test'
+2026-05-20T08:53:51.8942497Z   ...
+2026-05-20T08:53:51.9419911Z # Subtest: rate limiter denies after threshold within the window
+2026-05-20T08:53:51.9421141Z ok 18 - rate limiter denies after threshold within the window
+2026-05-20T08:53:51.9421809Z   ---
+2026-05-20T08:53:51.9422178Z   duration_ms: 1.030012
+2026-05-20T08:53:51.9422599Z   type: 'test'
+2026-05-20T08:53:51.9422995Z   ...
+2026-05-20T08:53:51.9426453Z # Subtest: rate limiter resets after window expires
+2026-05-20T08:53:51.9429775Z ok 19 - rate limiter resets after window expires
+2026-05-20T08:53:51.9430303Z   ---
+2026-05-20T08:53:51.9430626Z   duration_ms: 0.214718
+2026-05-20T08:53:51.9430944Z   type: 'test'
+2026-05-20T08:53:51.9431135Z   ...
+2026-05-20T08:53:52.0133536Z # Subtest: hasJsonContentType accepts application/json and rejects other types
+2026-05-20T08:53:52.0136198Z ok 20 - hasJsonContentType accepts application/json and rejects other types
+2026-05-20T08:53:52.0136923Z   ---
+2026-05-20T08:53:52.0137246Z   duration_ms: 22.491828
+2026-05-20T08:53:52.0137564Z   type: 'test'
+2026-05-20T08:53:52.0137771Z   ...
+2026-05-20T08:53:52.0141550Z # Subtest: parseJsonBody rejects oversized payloads
+2026-05-20T08:53:52.0144907Z ok 21 - parseJsonBody rejects oversized payloads
+2026-05-20T08:53:52.0145404Z   ---
+2026-05-20T08:53:52.0145713Z   duration_ms: 1.766295
+2026-05-20T08:53:52.0146374Z   type: 'test'
+2026-05-20T08:53:52.0147040Z   ...
+2026-05-20T08:53:52.0695590Z # Subtest: assertSafeOutboundUrl allows explicitly allowlisted hosts
+2026-05-20T08:53:52.0697460Z ok 22 - assertSafeOutboundUrl allows explicitly allowlisted hosts
+2026-05-20T08:53:52.0698391Z   ---
+2026-05-20T08:53:52.0698987Z   duration_ms: 4.983326
+2026-05-20T08:53:52.0700202Z   type: 'test'
+2026-05-20T08:53:52.0700694Z   ...
+2026-05-20T08:53:52.0701653Z # Subtest: assertSafeOutboundUrl rejects localhost and private IP targets
+2026-05-20T08:53:52.0702973Z ok 23 - assertSafeOutboundUrl rejects localhost and private IP targets
+2026-05-20T08:53:52.0703703Z   ---
+2026-05-20T08:53:52.0704065Z   duration_ms: 0.810792
+2026-05-20T08:53:52.0704471Z   type: 'test'
+2026-05-20T08:53:52.0704804Z   ...
+2026-05-20T08:53:52.0705546Z # Subtest: assertSafeOutboundUrl rejects hosts outside the allowlist
+2026-05-20T08:53:52.0708850Z ok 24 - assertSafeOutboundUrl rejects hosts outside the allowlist
+2026-05-20T08:53:52.0713406Z   ---
+2026-05-20T08:53:52.0714483Z   duration_ms: 2.062167
+2026-05-20T08:53:52.0715323Z   type: 'test'
+2026-05-20T08:53:52.0715646Z   ...
+2026-05-20T08:53:52.0716644Z # Subtest: assertSafeOutboundUrl rejects non-http schemes and embedded credentials
+2026-05-20T08:53:52.0717530Z ok 25 - assertSafeOutboundUrl rejects non-http schemes and embedded credentials
+2026-05-20T08:53:52.0717931Z   ---
+2026-05-20T08:53:52.0718120Z   duration_ms: 0.349522
+2026-05-20T08:53:52.0718336Z   type: 'test'
+2026-05-20T08:53:52.0718511Z   ...
+2026-05-20T08:53:52.1316425Z # Subtest: assertTrustedAppUrl allows URLs on configured application origins
+2026-05-20T08:53:52.1317822Z ok 26 - assertTrustedAppUrl allows URLs on configured application origins
+2026-05-20T08:53:52.1318600Z   ---
+2026-05-20T08:53:52.1318966Z   duration_ms: 5.105594
+2026-05-20T08:53:52.1319357Z   type: 'test'
+2026-05-20T08:53:52.1319711Z   ...
+2026-05-20T08:53:52.1323667Z # Subtest: assertTrustedAppUrl rejects redirects to untrusted origins
+2026-05-20T08:53:52.1326666Z ok 27 - assertTrustedAppUrl rejects redirects to untrusted origins
+2026-05-20T08:53:52.1327377Z   ---
+2026-05-20T08:53:52.1327724Z   duration_ms: 1.792724
+2026-05-20T08:53:52.1328133Z   type: 'test'
+2026-05-20T08:53:52.1328487Z   ...
+2026-05-20T08:53:52.1809058Z # Subtest: validatePlanPayload accepts a valid payload
+2026-05-20T08:53:52.1813759Z ok 28 - validatePlanPayload accepts a valid payload
+2026-05-20T08:53:52.1814587Z   ---
+2026-05-20T08:53:52.1815104Z   duration_ms: 1.34534
+2026-05-20T08:53:52.1815694Z   type: 'test'
+2026-05-20T08:53:52.1816485Z   ...
+2026-05-20T08:53:52.1819338Z # Subtest: validatePlanPayload rejects invalid interests
+2026-05-20T08:53:52.1821326Z ok 29 - validatePlanPayload rejects invalid interests
+2026-05-20T08:53:52.1821964Z   ---
+2026-05-20T08:53:52.1826972Z   duration_ms: 0.209621
+2026-05-20T08:53:52.1827584Z   type: 'test'
+2026-05-20T08:53:52.1828205Z   ...
+2026-05-20T08:53:52.1829085Z # Subtest: validateNewsletterPayload normalizes valid input
+2026-05-20T08:53:52.1830250Z ok 30 - validateNewsletterPayload normalizes valid input
+2026-05-20T08:53:52.1831092Z   ---
+2026-05-20T08:53:52.1831682Z   duration_ms: 0.31606
+2026-05-20T08:53:52.1832332Z   type: 'test'
+2026-05-20T08:53:52.1832888Z   ...
+2026-05-20T08:53:52.1833908Z # Subtest: validateCheckoutPayload enforces the online checkout pax cap and requires a safari
+2026-05-20T08:53:52.1834863Z ok 31 - validateCheckoutPayload enforces the online checkout pax cap and requires a safari
+2026-05-20T08:53:52.1835292Z   ---
+2026-05-20T08:53:52.1835480Z   duration_ms: 0.341137
+2026-05-20T08:53:52.1835686Z   type: 'test'
+2026-05-20T08:53:52.1836187Z   ...
+2026-05-20T08:53:52.2306767Z # Subtest: verifyHmacSha256Signature accepts valid signatures
+2026-05-20T08:53:52.2309257Z ok 32 - verifyHmacSha256Signature accepts valid signatures
+2026-05-20T08:53:52.2309939Z   ---
+2026-05-20T08:53:52.2310317Z   duration_ms: 1.371599
+2026-05-20T08:53:52.2310765Z   type: 'test'
+2026-05-20T08:53:52.2311134Z   ...
+2026-05-20T08:53:52.2314528Z # Subtest: verifyHmacSha256Signature rejects invalid signatures
+2026-05-20T08:53:52.2318910Z ok 33 - verifyHmacSha256Signature rejects invalid signatures
+2026-05-20T08:53:52.2319733Z   ---
+2026-05-20T08:53:52.2320237Z   duration_ms: 0.262941
+2026-05-20T08:53:52.2320471Z   type: 'test'
+2026-05-20T08:53:52.2320667Z   ...
+2026-05-20T08:53:52.2394168Z 1..33
+2026-05-20T08:53:52.2394501Z # tests 33
+2026-05-20T08:53:52.2394955Z # suites 0
+2026-05-20T08:53:52.2395546Z # pass 33
+2026-05-20T08:53:52.2396304Z # fail 0
+2026-05-20T08:53:52.2396911Z # cancelled 0
+2026-05-20T08:53:52.2397453Z # skipped 0
+2026-05-20T08:53:52.2397947Z # todo 0
+2026-05-20T08:53:52.2398536Z # duration_ms 645.571748
+2026-05-20T08:53:52.2550737Z ##[group]Run npm run build
+2026-05-20T08:53:52.2551212Z [36;1mnpm run build[0m
+2026-05-20T08:53:52.2600154Z shell: /usr/bin/bash -e {0}
+2026-05-20T08:53:52.2600561Z ##[endgroup]
+2026-05-20T08:53:52.3663576Z 
+2026-05-20T08:53:52.3663919Z > eveonsafari@0.1.0 build
+2026-05-20T08:53:52.3664234Z > next build
+2026-05-20T08:53:52.3664362Z 
+2026-05-20T08:53:52.7581520Z ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+2026-05-20T08:53:52.7689844Z Attention: Next.js now collects completely anonymous telemetry regarding usage.
+2026-05-20T08:53:52.7690517Z This information is used to shape Next.js' roadmap and prioritize features.
+2026-05-20T08:53:52.7691404Z You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+2026-05-20T08:53:52.7692010Z https://nextjs.org/telemetry
+2026-05-20T08:53:52.7692184Z 
+2026-05-20T08:53:52.7872990Z ▲ Next.js 16.2.1 (Turbopack)
+2026-05-20T08:53:52.7873534Z 
+2026-05-20T08:53:52.8567555Z   Creating an optimized production build ...
+2026-05-20T08:54:02.1188152Z ✓ Compiled successfully in 9.1s
+2026-05-20T08:54:02.1306789Z   Running TypeScript ...
+2026-05-20T08:54:08.4502582Z   Finished TypeScript in 6.3s ...
+2026-05-20T08:54:08.4545969Z   Collecting page data using 3 workers ...
+2026-05-20T08:54:09.2041657Z   Generating static pages using 3 workers (0/95) ...
+2026-05-20T08:54:09.4985095Z   Generating static pages using 3 workers (23/95) 
+2026-05-20T08:54:09.6313659Z   Generating static pages using 3 workers (47/95) 
+2026-05-20T08:54:09.7343606Z   Generating static pages using 3 workers (71/95) 
+2026-05-20T08:54:09.8244161Z ✓ Generating static pages using 3 workers (95/95) in 620ms
+2026-05-20T08:54:09.8311908Z   Finalizing page optimization ...
+2026-05-20T08:54:09.8406626Z 
+2026-05-20T08:54:09.8453051Z Route (app)
+2026-05-20T08:54:09.8457166Z ┌ ƒ /
+2026-05-20T08:54:09.8457552Z ├ ƒ /_not-found
+2026-05-20T08:54:09.8457960Z ├ ƒ /about
+2026-05-20T08:54:09.8458318Z ├ ƒ /about-us
+2026-05-20T08:54:09.8458713Z ├ ƒ /activities
+2026-05-20T08:54:09.8459359Z ├ ƒ /activities/cultural-visits
+2026-05-20T08:54:09.8460040Z ├ ƒ /activities/day-trips/arusha-day-trip
+2026-05-20T08:54:09.8460761Z ├ ƒ /activities/day-trips/chemka-hot-spring
+2026-05-20T08:54:09.8461535Z ├ ƒ /activities/day-trips/lake-manyara-day-trip
+2026-05-20T08:54:09.8462166Z ├ ƒ /activities/day-trips/materuni-waterfalls-coffee
+2026-05-20T08:54:09.8462643Z ├ ƒ /activities/day-trips/ngorongoro-crater-day-trip
+2026-05-20T08:54:09.8463070Z ├ ƒ /activities/day-trips/tarangire-day-trip
+2026-05-20T08:54:09.8463437Z ├ ƒ /activities/walking-safaris
+2026-05-20T08:54:09.8463763Z ├ ƒ /altitude
+2026-05-20T08:54:09.8464021Z ├ ƒ /api/auth/password-reset
+2026-05-20T08:54:09.8464292Z ├ ƒ /api/newsletter
+2026-05-20T08:54:09.8464546Z ├ ƒ /api/pesapal/checkout
+2026-05-20T08:54:09.8464813Z ├ ƒ /api/pesapal/ipn
+2026-05-20T08:54:09.8465038Z ├ ƒ /api/plan
+2026-05-20T08:54:09.8465295Z ├ ƒ /api/supabase-test
+2026-05-20T08:54:09.8466477Z ├ ƒ /auth
+2026-05-20T08:54:09.8467040Z ├ ƒ /auth/callback
+2026-05-20T08:54:09.8467856Z ├ ƒ /cancel
+2026-05-20T08:54:09.8468821Z ├ ƒ /discover-tanzania/accommodations
+2026-05-20T08:54:09.8469567Z ├ ƒ /discover-tanzania/islands
+2026-05-20T08:54:09.8470249Z ├ ƒ /discover-tanzania/national-parks
+2026-05-20T08:54:09.8471033Z ├ ƒ /discover-tanzania/national-parks/[slug]
+2026-05-20T08:54:09.8471625Z ├ ƒ /experiences
+2026-05-20T08:54:09.8472029Z ├ ƒ /itineraries
+2026-05-20T08:54:09.8472409Z ├ ƒ /packing
+2026-05-20T08:54:09.8472770Z ├ ƒ /plan
+2026-05-20T08:54:09.8473147Z ├ ○ /robots.txt
+2026-05-20T08:54:09.8473696Z ├ ƒ /safaris/10-day-best-of-tanzania
+2026-05-20T08:54:09.8474790Z ├ ƒ /safaris/10-days/10-day-best-of-tanzania
+2026-05-20T08:54:09.8475621Z ├ ƒ /safaris/2-day-ngorongoro-crater-adventure
+2026-05-20T08:54:09.8477107Z ├ ƒ /safaris/3-day-manyara-ngorongoro-tarangire
+2026-05-20T08:54:09.8477895Z ├ ƒ /safaris/3-day-serengeti-escape
+2026-05-20T08:54:09.8479073Z ├ ƒ /safaris/3-days/3-day-manyara-ngorongoro-tarangire
+2026-05-20T08:54:09.8479917Z ├ ƒ /safaris/4-day-nyerere-safari
+2026-05-20T08:54:09.8480635Z ├ ƒ /safaris/5-day-iconic-wildlife-adventure
+2026-05-20T08:54:09.8481351Z ├ ƒ /safaris/6-day-best-northern-parks
+2026-05-20T08:54:09.8482040Z ├ ƒ /safaris/7-day-northern-highlights
+2026-05-20T08:54:09.8482817Z ├ ƒ /safaris/8-day-migration-cultural-wonders
+2026-05-20T08:54:09.8483677Z ├ ƒ /safaris/8-days/8-day-migration-cultural-wonders
+2026-05-20T08:54:09.8484447Z ├ ƒ /safaris/9-day-grand-tanzania
+2026-05-20T08:54:09.8485103Z ├ ƒ /safaris/9-days/9-day-grand-tanzania
+2026-05-20T08:54:09.8486063Z ├ ƒ /safaris/duration/[duration]
+2026-05-20T08:54:09.8486751Z ├ ƒ /safaris/duration/2-days
+2026-05-20T08:54:09.8487329Z ├ ƒ /safaris/duration/3-days
+2026-05-20T08:54:09.8487897Z ├ ƒ /safaris/duration/4-days
+2026-05-20T08:54:09.8488434Z ├ ƒ /safaris/duration/5-days
+2026-05-20T08:54:09.8488966Z ├ ƒ /safaris/duration/6-days
+2026-05-20T08:54:09.8489496Z ├ ƒ /safaris/duration/7-days
+2026-05-20T08:54:09.8490115Z ├ ƒ /safaris/duration/8-plus-days
+2026-05-20T08:54:09.8490674Z ├ ƒ /safaris/style/[style]
+2026-05-20T08:54:09.8491290Z ├ ƒ /safaris/style/classic-wildlife
+2026-05-20T08:54:09.8491938Z ├ ƒ /safaris/style/cultural-safaris
+2026-05-20T08:54:09.8492604Z ├ ƒ /safaris/style/family-safaris
+2026-05-20T08:54:09.8493262Z ├ ƒ /safaris/style/migration-safaris
+2026-05-20T08:54:09.8493759Z ├ ○ /sitemap.xml
+2026-05-20T08:54:09.8494179Z ├ ƒ /success
+2026-05-20T08:54:09.8494619Z ├ ƒ /travel-style
+2026-05-20T08:54:09.8495203Z ├ ƒ /travel-style/africa-family-safari
+2026-05-20T08:54:09.8496259Z ├ ƒ /travel-style/beach-and-holiday-in-africa
+2026-05-20T08:54:09.8497086Z ├ ƒ /travel-style/birthday-party-experience
+2026-05-20T08:54:09.8497904Z ├ ƒ /travel-style/cultural-eco-tourism-safari
+2026-05-20T08:54:09.8498604Z ├ ƒ /travel-style/family-safaris
+2026-05-20T08:54:09.8499728Z ├ ƒ /travel-style/fly-in-out-safari
+2026-05-20T08:54:09.8500414Z ├ ƒ /travel-style/honeymoon-safari
+2026-05-20T08:54:09.8501096Z ├ ƒ /travel-style/honeymoon-safaris
+2026-05-20T08:54:09.8501833Z ├ ƒ /travel-style/mountain-gorilla-trekking
+2026-05-20T08:54:09.8502544Z ├ ƒ /travel-style/tanzania-big-5-safari
+2026-05-20T08:54:09.8503326Z ├ ƒ /travel-style/tanzania-bird-watching-safari
+2026-05-20T08:54:09.8504171Z ├ ƒ /travel-style/tanzania-photographic-safaris
+2026-05-20T08:54:09.8504986Z ├ ƒ /travel-style/tanzania-walking-safaris
+2026-05-20T08:54:09.8509677Z ├ ƒ /travel-style/the-great-migration-safari
+2026-05-20T08:54:09.8510390Z ├ ƒ /trekking
+2026-05-20T08:54:09.8511039Z ├ ƒ /trekking/6-day-umbwe-route-kilimanjaro-trek
+2026-05-20T08:54:09.8511916Z ├ ƒ /trekking/7-day-rongai-route-kilimanjaro-trek
+2026-05-20T08:54:09.8512970Z ├ ƒ /trekking/9-days-northern-circuit-route-kilimanjaro-trek
+2026-05-20T08:54:09.8513856Z ├ ƒ /trekking/kilimanjaro-lemosho-route
+2026-05-20T08:54:09.8514578Z ├ ƒ /trekking/kilimanjaro-machame-route
+2026-05-20T08:54:09.8515341Z ├ ƒ /trekking/kilimanjaro-machame-route-9-day
+2026-05-20T08:54:09.8516491Z ├ ƒ /trekking/kilimanjaro-marangu-route
+2026-05-20T08:54:09.8517290Z ├ ƒ /trekking/kilimanjaro-marangu-route-8-day
+2026-05-20T08:54:09.8518024Z └ ƒ /zanzibar/5-days/zanzibar-5-days
+2026-05-20T08:54:09.8518368Z 
+2026-05-20T08:54:09.8518380Z 
+2026-05-20T08:54:09.8518671Z ƒ Proxy (Middleware)
+2026-05-20T08:54:09.8518931Z 
+2026-05-20T08:54:09.8519329Z ○  (Static)   prerendered as static content
+2026-05-20T08:54:09.8520017Z ƒ  (Dynamic)  server-rendered on demand
+2026-05-20T08:54:09.8520348Z 
+2026-05-20T08:54:09.9658049Z Post job cleanup.
+2026-05-20T08:54:10.1449866Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-7908fffe28855d7d5e96101098e9aaf580cede8ff3b0f6c30754243ec0230e08, not saving cache.
+2026-05-20T08:54:10.1579280Z Post job cleanup.
+2026-05-20T08:54:10.2600287Z [command]/usr/bin/git version
+2026-05-20T08:54:10.2638897Z git version 2.54.0
+2026-05-20T08:54:10.2686053Z Temporarily overriding HOME='/home/runner/work/_temp/45588c6a-44c4-41af-beb2-5d384698cb47' before making global git config changes
+2026-05-20T08:54:10.2687699Z Adding repository directory to the temporary git global config as a safe directory
+2026-05-20T08:54:10.2692953Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/eveonsafari/eveonsafari
+2026-05-20T08:54:10.2736763Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-05-20T08:54:10.2772173Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-05-20T08:54:10.3006993Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-05-20T08:54:10.3029909Z http.https://github.com/.extraheader
+2026-05-20T08:54:10.3042694Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-05-20T08:54:10.3075597Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-05-20T08:54:10.3303128Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-05-20T08:54:10.3335552Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-05-20T08:54:10.3703265Z Cleaning up orphan processes
+2026-05-20T08:54:10.4186082Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4, actions/setup-node@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,0 +1,217 @@
+﻿2026-05-20T08:53:49.6647642Z ##[group]Run npm run test:security
+2026-05-20T08:53:49.6648250Z [36;1mnpm run test:security[0m
+2026-05-20T08:53:49.6698987Z shell: /usr/bin/bash -e {0}
+2026-05-20T08:53:49.6699415Z ##[endgroup]
+2026-05-20T08:53:49.7734724Z 
+2026-05-20T08:53:49.7736074Z > eveonsafari@0.1.0 test:security
+2026-05-20T08:53:49.7737119Z > tsc -p tsconfig.security-tests.json && node --test --test-concurrency=1 .tmp-security-tests/tests/security/*.test.js
+2026-05-20T08:53:49.7737752Z 
+2026-05-20T08:53:51.6115972Z TAP version 13
+2026-05-20T08:53:51.6464913Z # Subtest: API access policy is deny-by-default
+2026-05-20T08:53:51.6474804Z ok 1 - API access policy is deny-by-default
+2026-05-20T08:53:51.6478115Z   ---
+2026-05-20T08:53:51.6478809Z   duration_ms: 0.932291
+2026-05-20T08:53:51.6479516Z   type: 'test'
+2026-05-20T08:53:51.6480090Z   ...
+2026-05-20T08:53:51.6481057Z # Subtest: API access policy classifies public and admin routes centrally
+2026-05-20T08:53:51.6482362Z ok 2 - API access policy classifies public and admin routes centrally
+2026-05-20T08:53:51.6483359Z   ---
+2026-05-20T08:53:51.6483924Z   duration_ms: 0.193109
+2026-05-20T08:53:51.6484544Z   type: 'test'
+2026-05-20T08:53:51.6485116Z   ...
+2026-05-20T08:53:51.6959669Z # Subtest: getAllowedOrigins merges configured origins and canonical origin
+2026-05-20T08:53:51.6962932Z ok 3 - getAllowedOrigins merges configured origins and canonical origin
+2026-05-20T08:53:51.6963691Z   ---
+2026-05-20T08:53:51.6964229Z   duration_ms: 1.360065
+2026-05-20T08:53:51.6964671Z   type: 'test'
+2026-05-20T08:53:51.6965034Z   ...
+2026-05-20T08:53:51.6967532Z # Subtest: getAllowedOrigins normalizes configured origin paths and trailing slashes
+2026-05-20T08:53:51.6975561Z ok 4 - getAllowedOrigins normalizes configured origin paths and trailing slashes
+2026-05-20T08:53:51.6976896Z   ---
+2026-05-20T08:53:51.6977258Z   duration_ms: 0.195673
+2026-05-20T08:53:51.6977676Z   type: 'test'
+2026-05-20T08:53:51.6978034Z   ...
+2026-05-20T08:53:51.6978762Z # Subtest: getAllowedOrigins adds canonical sibling host
+2026-05-20T08:53:51.6979653Z ok 5 - getAllowedOrigins adds canonical sibling host
+2026-05-20T08:53:51.6980199Z   ---
+2026-05-20T08:53:51.6980524Z   duration_ms: 0.299396
+2026-05-20T08:53:51.6980898Z   type: 'test'
+2026-05-20T08:53:51.6981216Z   ...
+2026-05-20T08:53:51.6981873Z # Subtest: isAdminEmail checks allowlist case-insensitively
+2026-05-20T08:53:51.6987504Z ok 6 - isAdminEmail checks allowlist case-insensitively
+2026-05-20T08:53:51.6988620Z   ---
+2026-05-20T08:53:51.6989313Z   duration_ms: 0.190945
+2026-05-20T08:53:51.6990076Z   type: 'test'
+2026-05-20T08:53:51.6990751Z   ...
+2026-05-20T08:53:51.6991709Z # Subtest: trusted app origin helpers enforce canonical origin presence
+2026-05-20T08:53:51.6993159Z ok 7 - trusted app origin helpers enforce canonical origin presence
+2026-05-20T08:53:51.6994165Z   ---
+2026-05-20T08:53:51.6994880Z   duration_ms: 0.375147
+2026-05-20T08:53:51.6995586Z   type: 'test'
+2026-05-20T08:53:51.6996589Z   ...
+2026-05-20T08:53:51.7430557Z # Subtest: CSP uses per-request nonces instead of unsafe-inline scripts
+2026-05-20T08:53:51.7432005Z ok 8 - CSP uses per-request nonces instead of unsafe-inline scripts
+2026-05-20T08:53:51.7432880Z   ---
+2026-05-20T08:53:51.7433447Z   duration_ms: 1.263636
+2026-05-20T08:53:51.7433890Z   type: 'test'
+2026-05-20T08:53:51.7438692Z   ...
+2026-05-20T08:53:51.7448234Z # Subtest: production CSP upgrades insecure requests
+2026-05-20T08:53:51.7451230Z ok 9 - production CSP upgrades insecure requests
+2026-05-20T08:53:51.7456886Z   ---
+2026-05-20T08:53:51.7457420Z   duration_ms: 0.208758
+2026-05-20T08:53:51.7458053Z   type: 'test'
+2026-05-20T08:53:51.7458604Z   ...
+2026-05-20T08:53:51.7459644Z # Subtest: development CSP allows unsafe-eval for React and Turbopack debugging
+2026-05-20T08:53:51.7461057Z ok 10 - development CSP allows unsafe-eval for React and Turbopack debugging
+2026-05-20T08:53:51.7461972Z   ---
+2026-05-20T08:53:51.7462502Z   duration_ms: 0.195172
+2026-05-20T08:53:51.7463058Z   type: 'test'
+2026-05-20T08:53:51.7463550Z   ...
+2026-05-20T08:53:51.8371680Z # {"timestamp":"2026-05-20T08:53:51.835Z","level":"warn","event":"csrf.token_missing","details":{"requestId":"req-2","method":"POST","path":"/api/plan","ip":"unknown"}}
+2026-05-20T08:53:51.8431455Z # Subtest: enforceSameOrigin accepts allowed origins
+2026-05-20T08:53:51.8440763Z ok 11 - enforceSameOrigin accepts allowed origins
+2026-05-20T08:53:51.8441689Z   ---
+2026-05-20T08:53:51.8442811Z   duration_ms: 2.483341
+2026-05-20T08:53:51.8443625Z   type: 'test'
+2026-05-20T08:53:51.8444279Z   ...
+2026-05-20T08:53:51.8445366Z # Subtest: enforceSameOrigin accepts same-host origins even without allowlist
+2026-05-20T08:53:51.8447170Z ok 12 - enforceSameOrigin accepts same-host origins even without allowlist
+2026-05-20T08:53:51.8448197Z   ---
+2026-05-20T08:53:51.8448818Z   duration_ms: 0.404401
+2026-05-20T08:53:51.8449539Z   type: 'test'
+2026-05-20T08:53:51.8450148Z   ...
+2026-05-20T08:53:51.8451184Z # Subtest: enforceSameOrigin accepts localhost origins in non-production
+2026-05-20T08:53:51.8452582Z ok 13 - enforceSameOrigin accepts localhost origins in non-production
+2026-05-20T08:53:51.8453578Z   ---
+2026-05-20T08:53:51.8454142Z   duration_ms: 0.308553
+2026-05-20T08:53:51.8454774Z   type: 'test'
+2026-05-20T08:53:51.8455322Z   ...
+2026-05-20T08:53:51.8456402Z # Subtest: enforceCsrfToken rejects missing tokens
+2026-05-20T08:53:51.8457420Z ok 14 - enforceCsrfToken rejects missing tokens
+2026-05-20T08:53:51.8458158Z   ---
+2026-05-20T08:53:51.8458722Z   duration_ms: 5.09434
+2026-05-20T08:53:51.8459372Z   type: 'test'
+2026-05-20T08:53:51.8459988Z   ...
+2026-05-20T08:53:51.8460882Z # Subtest: enforceCsrfToken accepts matching header and cookie
+2026-05-20T08:53:51.8462113Z ok 15 - enforceCsrfToken accepts matching header and cookie
+2026-05-20T08:53:51.8462983Z   ---
+2026-05-20T08:53:51.8463585Z   duration_ms: 0.48427
+2026-05-20T08:53:51.8464256Z   type: 'test'
+2026-05-20T08:53:51.8464887Z   ...
+2026-05-20T08:53:51.8929484Z # Subtest: redactSensitive masks sensitive keys while preserving non-sensitive fields
+2026-05-20T08:53:51.8931016Z ok 16 - redactSensitive masks sensitive keys while preserving non-sensitive fields
+2026-05-20T08:53:51.8931844Z   ---
+2026-05-20T08:53:51.8932198Z   duration_ms: 1.577319
+2026-05-20T08:53:51.8932596Z   type: 'test'
+2026-05-20T08:53:51.8932977Z   ...
+2026-05-20T08:53:51.8937075Z # Subtest: redactSensitive strips token and email patterns from plain strings
+2026-05-20T08:53:51.8940602Z ok 17 - redactSensitive strips token and email patterns from plain strings
+2026-05-20T08:53:51.8941487Z   ---
+2026-05-20T08:53:51.8941820Z   duration_ms: 0.457409
+2026-05-20T08:53:51.8942191Z   type: 'test'
+2026-05-20T08:53:51.8942494Z   ...
+2026-05-20T08:53:51.9419864Z # Subtest: rate limiter denies after threshold within the window
+2026-05-20T08:53:51.9421120Z ok 18 - rate limiter denies after threshold within the window
+2026-05-20T08:53:51.9421794Z   ---
+2026-05-20T08:53:51.9422172Z   duration_ms: 1.030012
+2026-05-20T08:53:51.9422594Z   type: 'test'
+2026-05-20T08:53:51.9422951Z   ...
+2026-05-20T08:53:51.9426439Z # Subtest: rate limiter resets after window expires
+2026-05-20T08:53:51.9429762Z ok 19 - rate limiter resets after window expires
+2026-05-20T08:53:51.9430299Z   ---
+2026-05-20T08:53:51.9430622Z   duration_ms: 0.214718
+2026-05-20T08:53:51.9430940Z   type: 'test'
+2026-05-20T08:53:51.9431133Z   ...
+2026-05-20T08:53:52.0133492Z # Subtest: hasJsonContentType accepts application/json and rejects other types
+2026-05-20T08:53:52.0136179Z ok 20 - hasJsonContentType accepts application/json and rejects other types
+2026-05-20T08:53:52.0136919Z   ---
+2026-05-20T08:53:52.0137242Z   duration_ms: 22.491828
+2026-05-20T08:53:52.0137561Z   type: 'test'
+2026-05-20T08:53:52.0137768Z   ...
+2026-05-20T08:53:52.0141543Z # Subtest: parseJsonBody rejects oversized payloads
+2026-05-20T08:53:52.0144900Z ok 21 - parseJsonBody rejects oversized payloads
+2026-05-20T08:53:52.0145401Z   ---
+2026-05-20T08:53:52.0145709Z   duration_ms: 1.766295
+2026-05-20T08:53:52.0146369Z   type: 'test'
+2026-05-20T08:53:52.0146671Z   ...
+2026-05-20T08:53:52.0695541Z # Subtest: assertSafeOutboundUrl allows explicitly allowlisted hosts
+2026-05-20T08:53:52.0697449Z ok 22 - assertSafeOutboundUrl allows explicitly allowlisted hosts
+2026-05-20T08:53:52.0698381Z   ---
+2026-05-20T08:53:52.0698978Z   duration_ms: 4.983326
+2026-05-20T08:53:52.0700193Z   type: 'test'
+2026-05-20T08:53:52.0700688Z   ...
+2026-05-20T08:53:52.0701635Z # Subtest: assertSafeOutboundUrl rejects localhost and private IP targets
+2026-05-20T08:53:52.0702963Z ok 23 - assertSafeOutboundUrl rejects localhost and private IP targets
+2026-05-20T08:53:52.0703696Z   ---
+2026-05-20T08:53:52.0704058Z   duration_ms: 0.810792
+2026-05-20T08:53:52.0704464Z   type: 'test'
+2026-05-20T08:53:52.0704799Z   ...
+2026-05-20T08:53:52.0705535Z # Subtest: assertSafeOutboundUrl rejects hosts outside the allowlist
+2026-05-20T08:53:52.0708836Z ok 24 - assertSafeOutboundUrl rejects hosts outside the allowlist
+2026-05-20T08:53:52.0713395Z   ---
+2026-05-20T08:53:52.0714476Z   duration_ms: 2.062167
+2026-05-20T08:53:52.0715300Z   type: 'test'
+2026-05-20T08:53:52.0715643Z   ...
+2026-05-20T08:53:52.0716637Z # Subtest: assertSafeOutboundUrl rejects non-http schemes and embedded credentials
+2026-05-20T08:53:52.0717527Z ok 25 - assertSafeOutboundUrl rejects non-http schemes and embedded credentials
+2026-05-20T08:53:52.0717929Z   ---
+2026-05-20T08:53:52.0718117Z   duration_ms: 0.349522
+2026-05-20T08:53:52.0718334Z   type: 'test'
+2026-05-20T08:53:52.0718509Z   ...
+2026-05-20T08:53:52.1316379Z # Subtest: assertTrustedAppUrl allows URLs on configured application origins
+2026-05-20T08:53:52.1317807Z ok 26 - assertTrustedAppUrl allows URLs on configured application origins
+2026-05-20T08:53:52.1318592Z   ---
+2026-05-20T08:53:52.1318960Z   duration_ms: 5.105594
+2026-05-20T08:53:52.1319353Z   type: 'test'
+2026-05-20T08:53:52.1319705Z   ...
+2026-05-20T08:53:52.1323651Z # Subtest: assertTrustedAppUrl rejects redirects to untrusted origins
+2026-05-20T08:53:52.1326613Z ok 27 - assertTrustedAppUrl rejects redirects to untrusted origins
+2026-05-20T08:53:52.1327368Z   ---
+2026-05-20T08:53:52.1327718Z   duration_ms: 1.792724
+2026-05-20T08:53:52.1328128Z   type: 'test'
+2026-05-20T08:53:52.1328482Z   ...
+2026-05-20T08:53:52.1809012Z # Subtest: validatePlanPayload accepts a valid payload
+2026-05-20T08:53:52.1813734Z ok 28 - validatePlanPayload accepts a valid payload
+2026-05-20T08:53:52.1814581Z   ---
+2026-05-20T08:53:52.1815099Z   duration_ms: 1.34534
+2026-05-20T08:53:52.1815682Z   type: 'test'
+2026-05-20T08:53:52.1816476Z   ...
+2026-05-20T08:53:52.1819325Z # Subtest: validatePlanPayload rejects invalid interests
+2026-05-20T08:53:52.1821315Z ok 29 - validatePlanPayload rejects invalid interests
+2026-05-20T08:53:52.1821957Z   ---
+2026-05-20T08:53:52.1826959Z   duration_ms: 0.209621
+2026-05-20T08:53:52.1827576Z   type: 'test'
+2026-05-20T08:53:52.1828197Z   ...
+2026-05-20T08:53:52.1829074Z # Subtest: validateNewsletterPayload normalizes valid input
+2026-05-20T08:53:52.1830240Z ok 30 - validateNewsletterPayload normalizes valid input
+2026-05-20T08:53:52.1831061Z   ---
+2026-05-20T08:53:52.1831674Z   duration_ms: 0.31606
+2026-05-20T08:53:52.1832322Z   type: 'test'
+2026-05-20T08:53:52.1832883Z   ...
+2026-05-20T08:53:52.1833898Z # Subtest: validateCheckoutPayload enforces the online checkout pax cap and requires a safari
+2026-05-20T08:53:52.1834859Z ok 31 - validateCheckoutPayload enforces the online checkout pax cap and requires a safari
+2026-05-20T08:53:52.1835290Z   ---
+2026-05-20T08:53:52.1835477Z   duration_ms: 0.341137
+2026-05-20T08:53:52.1835683Z   type: 'test'
+2026-05-20T08:53:52.1836183Z   ...
+2026-05-20T08:53:52.2306724Z # Subtest: verifyHmacSha256Signature accepts valid signatures
+2026-05-20T08:53:52.2309238Z ok 32 - verifyHmacSha256Signature accepts valid signatures
+2026-05-20T08:53:52.2309931Z   ---
+2026-05-20T08:53:52.2310311Z   duration_ms: 1.371599
+2026-05-20T08:53:52.2310757Z   type: 'test'
+2026-05-20T08:53:52.2311128Z   ...
+2026-05-20T08:53:52.2314513Z # Subtest: verifyHmacSha256Signature rejects invalid signatures
+2026-05-20T08:53:52.2318335Z ok 33 - verifyHmacSha256Signature rejects invalid signatures
+2026-05-20T08:53:52.2319718Z   ---
+2026-05-20T08:53:52.2320229Z   duration_ms: 0.262941
+2026-05-20T08:53:52.2320468Z   type: 'test'
+2026-05-20T08:53:52.2320664Z   ...
+2026-05-20T08:53:52.2394150Z 1..33
+2026-05-20T08:53:52.2394497Z # tests 33
+2026-05-20T08:53:52.2394952Z # suites 0
+2026-05-20T08:53:52.2395538Z # pass 33
+2026-05-20T08:53:52.2396299Z # fail 0
+2026-05-20T08:53:52.2396908Z # cancelled 0
+2026-05-20T08:53:52.2397450Z # skipped 0
+2026-05-20T08:53:52.2397943Z # todo 0
+2026-05-20T08:53:52.2398533Z # duration_ms 645.571748

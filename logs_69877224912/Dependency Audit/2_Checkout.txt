@@ -1,0 +1,72 @@
+﻿2026-05-20T08:53:17.3721026Z ##[group]Run actions/checkout@v4
+2026-05-20T08:53:17.3721964Z with:
+2026-05-20T08:53:17.3722421Z   repository: kiruwi/eveonsafari
+2026-05-20T08:53:17.3723373Z   token: ***
+2026-05-20T08:53:17.3723799Z   ssh-strict: true
+2026-05-20T08:53:17.3724233Z   ssh-user: git
+2026-05-20T08:53:17.3724667Z   persist-credentials: true
+2026-05-20T08:53:17.3725155Z   clean: true
+2026-05-20T08:53:17.3725600Z   sparse-checkout-cone-mode: true
+2026-05-20T08:53:17.3726119Z   fetch-depth: 1
+2026-05-20T08:53:17.3726544Z   fetch-tags: false
+2026-05-20T08:53:17.3726986Z   show-progress: true
+2026-05-20T08:53:17.3727440Z   lfs: false
+2026-05-20T08:53:17.3727877Z   submodules: false
+2026-05-20T08:53:17.3728322Z   set-safe-directory: true
+2026-05-20T08:53:17.3729078Z ##[endgroup]
+2026-05-20T08:53:17.4840789Z Syncing repository: kiruwi/eveonsafari
+2026-05-20T08:53:17.4843792Z ##[group]Getting Git version info
+2026-05-20T08:53:17.4845063Z Working directory is '/home/runner/work/eveonsafari/eveonsafari'
+2026-05-20T08:53:17.4846554Z [command]/usr/bin/git version
+2026-05-20T08:53:17.4926857Z git version 2.54.0
+2026-05-20T08:53:17.4954310Z ##[endgroup]
+2026-05-20T08:53:17.4969989Z Temporarily overriding HOME='/home/runner/work/_temp/b0ac116d-f091-457d-a893-ad60c012aebd' before making global git config changes
+2026-05-20T08:53:17.4972878Z Adding repository directory to the temporary git global config as a safe directory
+2026-05-20T08:53:17.4984597Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/eveonsafari/eveonsafari
+2026-05-20T08:53:17.5036985Z Deleting the contents of '/home/runner/work/eveonsafari/eveonsafari'
+2026-05-20T08:53:17.5040846Z ##[group]Initializing the repository
+2026-05-20T08:53:17.5046336Z [command]/usr/bin/git init /home/runner/work/eveonsafari/eveonsafari
+2026-05-20T08:53:17.5156410Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-05-20T08:53:17.5157907Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-05-20T08:53:17.5158883Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-05-20T08:53:17.5159917Z hint: call:
+2026-05-20T08:53:17.5160327Z hint:
+2026-05-20T08:53:17.5160853Z hint: 	git config --global init.defaultBranch <name>
+2026-05-20T08:53:17.5161486Z hint:
+2026-05-20T08:53:17.5162078Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-05-20T08:53:17.5163308Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-05-20T08:53:17.5164183Z hint:
+2026-05-20T08:53:17.5164987Z hint: 	git branch -m <name>
+2026-05-20T08:53:17.5165971Z hint:
+2026-05-20T08:53:17.5167207Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-05-20T08:53:17.5169421Z Initialized empty Git repository in /home/runner/work/eveonsafari/eveonsafari/.git/
+2026-05-20T08:53:17.5178748Z [command]/usr/bin/git remote add origin https://github.com/kiruwi/eveonsafari
+2026-05-20T08:53:17.5225931Z ##[endgroup]
+2026-05-20T08:53:17.5227462Z ##[group]Disabling automatic garbage collection
+2026-05-20T08:53:17.5229831Z [command]/usr/bin/git config --local gc.auto 0
+2026-05-20T08:53:17.5261950Z ##[endgroup]
+2026-05-20T08:53:17.5264262Z ##[group]Setting up auth
+2026-05-20T08:53:17.5270525Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-05-20T08:53:17.5309215Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-05-20T08:53:17.5663763Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-05-20T08:53:17.5695765Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-05-20T08:53:17.5915410Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-05-20T08:53:17.5946955Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-05-20T08:53:17.6175347Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-05-20T08:53:17.6208688Z ##[endgroup]
+2026-05-20T08:53:17.6209549Z ##[group]Fetching the repository
+2026-05-20T08:53:17.6217403Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +04b5a1ae52ca23e512c7855cece105f79e678bec:refs/remotes/origin/main
+2026-05-20T08:53:18.6726215Z From https://github.com/kiruwi/eveonsafari
+2026-05-20T08:53:18.6729380Z  * [new ref]         04b5a1ae52ca23e512c7855cece105f79e678bec -> origin/main
+2026-05-20T08:53:18.6764443Z ##[endgroup]
+2026-05-20T08:53:18.6765615Z ##[group]Determining the checkout info
+2026-05-20T08:53:18.6767165Z ##[endgroup]
+2026-05-20T08:53:18.6771110Z [command]/usr/bin/git sparse-checkout disable
+2026-05-20T08:53:18.6812310Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-05-20T08:53:18.6837516Z ##[group]Checking out the ref
+2026-05-20T08:53:18.6840677Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-05-20T08:53:18.7810658Z Switched to a new branch 'main'
+2026-05-20T08:53:18.7812406Z branch 'main' set up to track 'origin/main'.
+2026-05-20T08:53:18.7839286Z ##[endgroup]
+2026-05-20T08:53:18.7877936Z [command]/usr/bin/git log -1 --format=%H
+2026-05-20T08:53:18.7900151Z 04b5a1ae52ca23e512c7855cece105f79e678bec

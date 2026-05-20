@@ -1,0 +1,20 @@
+﻿2026-05-20T08:53:36.1811971Z ##[group]Run npm run lint
+2026-05-20T08:53:36.1812590Z [36;1mnpm run lint[0m
+2026-05-20T08:53:36.1854024Z shell: /usr/bin/bash -e {0}
+2026-05-20T08:53:36.1854433Z ##[endgroup]
+2026-05-20T08:53:36.2949752Z 
+2026-05-20T08:53:36.2950677Z > eveonsafari@0.1.0 lint
+2026-05-20T08:53:36.2951252Z > eslint
+2026-05-20T08:53:36.2951449Z 
+2026-05-20T08:53:43.3691812Z 
+2026-05-20T08:53:43.3693170Z /home/runner/work/eveonsafari/eveonsafari/app/plan/_components/PlanForm.tsx
+2026-05-20T08:53:43.3722330Z ##[warning]  155:6  warning  React Hook useEffect has a missing dependency: 'updateField'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+2026-05-20T08:53:43.3731154Z 
+2026-05-20T08:53:43.3731574Z /home/runner/work/eveonsafari/eveonsafari/components/SiteHeader.tsx
+2026-05-20T08:53:43.3733351Z ##[warning]  324:5  warning  React Hook useCallback has an unnecessary dependency: 'isMobile'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+2026-05-20T08:53:43.3734588Z 
+2026-05-20T08:53:43.3734967Z /home/runner/work/eveonsafari/eveonsafari/lib/security/validation.ts
+2026-05-20T08:53:43.3736437Z ##[warning]  98:10  warning  'cleanAmount' is defined but never used  @typescript-eslint/no-unused-vars
+2026-05-20T08:53:43.3737300Z 
+2026-05-20T08:53:43.3737733Z ✖ 3 problems (0 errors, 3 warnings)
+2026-05-20T08:53:43.3737923Z 

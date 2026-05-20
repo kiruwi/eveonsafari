@@ -1,0 +1,22 @@
+﻿2026-05-20T08:53:18.8238656Z ##[group]Run actions/setup-node@v4
+2026-05-20T08:53:18.8239808Z with:
+2026-05-20T08:53:18.8240625Z   node-version: 22
+2026-05-20T08:53:18.8241496Z   cache: npm
+2026-05-20T08:53:18.8242336Z   always-auth: false
+2026-05-20T08:53:18.8243464Z   check-latest: false
+2026-05-20T08:53:18.8244699Z   token: ***
+2026-05-20T08:53:18.8245512Z ##[endgroup]
+2026-05-20T08:53:19.0339488Z Found in cache @ /opt/hostedtoolcache/node/22.22.2/x64
+2026-05-20T08:53:19.0346968Z ##[group]Environment details
+2026-05-20T08:53:21.3992553Z node: v22.22.2
+2026-05-20T08:53:21.3993862Z npm: 10.9.7
+2026-05-20T08:53:21.3994059Z yarn: 1.22.22
+2026-05-20T08:53:21.3994662Z ##[endgroup]
+2026-05-20T08:53:21.4018429Z [command]/opt/hostedtoolcache/node/22.22.2/x64/bin/npm config get cache
+2026-05-20T08:53:21.6489600Z /home/runner/.npm
+2026-05-20T08:53:21.8838669Z Cache hit for: node-cache-Linux-x64-npm-7908fffe28855d7d5e96101098e9aaf580cede8ff3b0f6c30754243ec0230e08
+2026-05-20T08:53:22.7797846Z Received 181773451 of 181773451 (100.0%), 201.3 MBs/sec
+2026-05-20T08:53:22.7799058Z Cache Size: ~173 MB (181773451 B)
+2026-05-20T08:53:22.7840496Z [command]/usr/bin/tar -xf /home/runner/work/_temp/04c9ab02-f925-454a-bf6d-1a26eab80133/cache.tzst -P -C /home/runner/work/eveonsafari/eveonsafari --use-compress-program unzstd
+2026-05-20T08:53:23.1283560Z Cache restored successfully
+2026-05-20T08:53:23.1370059Z Cache restored from key: node-cache-Linux-x64-npm-7908fffe28855d7d5e96101098e9aaf580cede8ff3b0f6c30754243ec0230e08

@@ -1,0 +1,94 @@
+﻿2026-05-20T08:53:36.4223321Z ##[group]Run npm run security:deps
+2026-05-20T08:53:36.4223688Z [36;1mnpm run security:deps[0m
+2026-05-20T08:53:36.4259969Z shell: /usr/bin/bash -e {0}
+2026-05-20T08:53:36.4260229Z ##[endgroup]
+2026-05-20T08:53:36.5312233Z 
+2026-05-20T08:53:36.5313134Z > eveonsafari@0.1.0 security:deps
+2026-05-20T08:53:36.5313886Z > npm audit --audit-level=high
+2026-05-20T08:53:36.5314179Z 
+2026-05-20T08:53:38.2061490Z # npm audit report
+2026-05-20T08:53:38.2061828Z 
+2026-05-20T08:53:38.2062122Z brace-expansion  <1.1.13 || >=2.0.0 <2.0.3
+2026-05-20T08:53:38.2062571Z Severity: moderate
+2026-05-20T08:53:38.2063729Z brace-expansion: Zero-step sequence causes process hang and memory exhaustion - https://github.com/advisories/GHSA-f886-m6hf-6m8v
+2026-05-20T08:53:38.2065052Z brace-expansion: Zero-step sequence causes process hang and memory exhaustion - https://github.com/advisories/GHSA-f886-m6hf-6m8v
+2026-05-20T08:53:38.2065839Z fix available via `npm audit fix`
+2026-05-20T08:53:38.2066443Z node_modules/@typescript-eslint/typescript-estree/node_modules/brace-expansion
+2026-05-20T08:53:38.2067060Z node_modules/brace-expansion
+2026-05-20T08:53:38.2067272Z 
+2026-05-20T08:53:38.2067406Z fast-xml-builder  <=1.1.6
+2026-05-20T08:53:38.2067679Z Severity: high
+2026-05-20T08:53:38.2068656Z fast-xml-builder allows attribute values with unwanted quotes to bypass malicious or unwanted attributes - https://github.com/advisories/GHSA-5wm8-gmm8-39j9
+2026-05-20T08:53:38.2069552Z fix available via `npm audit fix`
+2026-05-20T08:53:38.2069891Z node_modules/fast-xml-builder
+2026-05-20T08:53:38.2070090Z 
+2026-05-20T08:53:38.2070217Z fast-xml-parser  <5.7.0
+2026-05-20T08:53:38.2070498Z Severity: moderate
+2026-05-20T08:53:38.2071423Z fast-xml-parser XMLBuilder: XML Comment and CDATA Injection via Unescaped Delimiters - https://github.com/advisories/GHSA-gh4j-gqv2-49f6
+2026-05-20T08:53:38.2072228Z fix available via `npm audit fix`
+2026-05-20T08:53:38.2072566Z node_modules/fast-xml-parser
+2026-05-20T08:53:38.2073148Z   @aws-sdk/xml-builder  3.894.0 - 3.972.18
+2026-05-20T08:53:38.2073658Z   Depends on vulnerable versions of fast-xml-parser
+2026-05-20T08:53:38.2074390Z   node_modules/@aws-sdk/xml-builder
+2026-05-20T08:53:38.2074609Z 
+2026-05-20T08:53:38.2074779Z next  9.3.4-canary.0 - 16.3.0-canary.5
+2026-05-20T08:53:38.2075086Z Severity: high
+2026-05-20T08:53:38.2075751Z Next.js has a Denial of Service with Server Components - https://github.com/advisories/GHSA-q4gf-8mx6-v5v3
+2026-05-20T08:53:38.2076818Z Next.js Vulnerable to Denial of Service with Server Components - https://github.com/advisories/GHSA-8h8q-6873-q5fj
+2026-05-20T08:53:38.2078240Z Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes - Incomplete Fix Follow-Up - https://github.com/advisories/GHSA-26hh-7cqf-hhc6
+2026-05-20T08:53:38.2079501Z Next.js's Middleware / Proxy redirects can be cache-poisoned - https://github.com/advisories/GHSA-3g8h-86w9-wvmq
+2026-05-20T08:53:38.2080538Z Next.js vulnerable to cross-site scripting in App Router applications using CSP nonces - https://github.com/advisories/GHSA-ffhc-5mcf-pf4q
+2026-05-20T08:53:38.2081637Z Next.js vulnerable to cache poisoning via collisions in React Server Component cache-busting - https://github.com/advisories/GHSA-vfv6-92ff-j949
+2026-05-20T08:53:38.2082733Z Next.js has cross-site scripting in beforeInteractive scripts with untrusted input - https://github.com/advisories/GHSA-gx5p-jg67-6x7h
+2026-05-20T08:53:38.2084765Z Next.js vulnerable to Denial of Service via connection exhaustion in applications using Cache Components - https://github.com/advisories/GHSA-mg66-mrh9-m8jx
+2026-05-20T08:53:38.2086933Z Next.js has a Denial of Service in the Image Optimization API - https://github.com/advisories/GHSA-h64f-5h5j-jqjh
+2026-05-20T08:53:38.2088357Z Next.js vulnerable to server-side request forgery in applications using WebSocket upgrades - https://github.com/advisories/GHSA-c4j6-fc7j-m34r
+2026-05-20T08:53:38.2089698Z Next.js has a Middleware / Proxy bypass through dynamic route parameter injection - https://github.com/advisories/GHSA-492v-c6pp-mqqv
+2026-05-20T08:53:38.2090959Z Next.js vulnerable to cache poisoning in React Server Component responses - https://github.com/advisories/GHSA-wfc6-r584-vfw7
+2026-05-20T08:53:38.2092014Z Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes - https://github.com/advisories/GHSA-267c-6grr-h53f
+2026-05-20T08:53:38.2093310Z Next.js has a Middleware / Proxy bypass in Pages Router applications using i18n - https://github.com/advisories/GHSA-36qx-fr4f-26g5
+2026-05-20T08:53:38.2093956Z Depends on vulnerable versions of postcss
+2026-05-20T08:53:38.2094303Z fix available via `npm audit fix --force`
+2026-05-20T08:53:38.2094767Z Will install next@16.2.6, which is outside the stated dependency range
+2026-05-20T08:53:38.2095139Z node_modules/next
+2026-05-20T08:53:38.2095263Z 
+2026-05-20T08:53:38.2095374Z nodemailer  <=8.0.4
+2026-05-20T08:53:38.2095584Z Severity: moderate
+2026-05-20T08:53:38.2096261Z Nodemailer has SMTP command injection due to unsanitized `envelope.size` parameter - https://github.com/advisories/GHSA-c7w3-x93f-qmm8
+2026-05-20T08:53:38.2097373Z Nodemailer Vulnerable to SMTP Command Injection via CRLF in Transport name Option (EHLO/HELO)  - https://github.com/advisories/GHSA-vvjj-xcjg-gr5g
+2026-05-20T08:53:38.2098228Z fix available via `npm audit fix --force`
+2026-05-20T08:53:38.2098632Z Will install nodemailer@8.0.7, which is a breaking change
+2026-05-20T08:53:38.2098962Z node_modules/nodemailer
+2026-05-20T08:53:38.2099107Z 
+2026-05-20T08:53:38.2099240Z picomatch  <=2.3.1 || 4.0.0 - 4.0.3
+2026-05-20T08:53:38.2099488Z Severity: high
+2026-05-20T08:53:38.2100167Z Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching - https://github.com/advisories/GHSA-3v7f-55p6-f55p
+2026-05-20T08:53:38.2101217Z Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching - https://github.com/advisories/GHSA-3v7f-55p6-f55p
+2026-05-20T08:53:38.2102169Z Picomatch has a ReDoS vulnerability via extglob quantifiers - https://github.com/advisories/GHSA-c2c7-rcm5-vvqj
+2026-05-20T08:53:38.2103428Z Picomatch has a ReDoS vulnerability via extglob quantifiers - https://github.com/advisories/GHSA-c2c7-rcm5-vvqj
+2026-05-20T08:53:38.2104005Z fix available via `npm audit fix`
+2026-05-20T08:53:38.2104272Z node_modules/picomatch
+2026-05-20T08:53:38.2104565Z node_modules/tinyglobby/node_modules/picomatch
+2026-05-20T08:53:38.2104775Z 
+2026-05-20T08:53:38.2104856Z postcss  <8.5.10
+2026-05-20T08:53:38.2105063Z Severity: moderate
+2026-05-20T08:53:38.2105655Z PostCSS has XSS via Unescaped </style> in its CSS Stringify Output - https://github.com/advisories/GHSA-qx2v-qp2m-jg93
+2026-05-20T08:53:38.2106244Z fix available via `npm audit fix --force`
+2026-05-20T08:53:38.2106687Z Will install next@16.2.6, which is outside the stated dependency range
+2026-05-20T08:53:38.2107101Z node_modules/next/node_modules/postcss
+2026-05-20T08:53:38.2107372Z node_modules/postcss
+2026-05-20T08:53:38.2107499Z 
+2026-05-20T08:53:38.2107597Z ws  8.0.0 - 8.20.0
+2026-05-20T08:53:38.2107832Z Severity: moderate
+2026-05-20T08:53:38.2108365Z ws: Uninitialized memory disclosure - https://github.com/advisories/GHSA-58qx-3vcg-4xpx
+2026-05-20T08:53:38.2108897Z fix available via `npm audit fix`
+2026-05-20T08:53:38.2109143Z node_modules/ws
+2026-05-20T08:53:38.2109256Z 
+2026-05-20T08:53:38.2109419Z 9 vulnerabilities (6 moderate, 3 high)
+2026-05-20T08:53:38.2109598Z 
+2026-05-20T08:53:38.2109798Z To address issues that do not require attention, run:
+2026-05-20T08:53:38.2110097Z   npm audit fix
+2026-05-20T08:53:38.2110217Z 
+2026-05-20T08:53:38.2110424Z To address all issues (including breaking changes), run:
+2026-05-20T08:53:38.2110740Z   npm audit fix --force
+2026-05-20T08:53:38.2318178Z ##[error]Process completed with exit code 1.
