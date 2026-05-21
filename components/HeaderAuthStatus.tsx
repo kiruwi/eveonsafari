@@ -3,7 +3,6 @@
 import {
   Show,
   SignInButton,
-  SignUpButton,
   UserButton,
   useUser,
 } from '@clerk/nextjs';
@@ -12,14 +11,12 @@ type HeaderAuthStatusProps = {
   userBadgeClasses: string;
   userBadgeDetailClasses: string;
   signInClasses: string;
-  signUpClasses: string;
 };
 
 export function HeaderAuthStatus({
   userBadgeClasses,
   userBadgeDetailClasses,
   signInClasses,
-  signUpClasses,
 }: HeaderAuthStatusProps) {
   const { user } = useUser();
   const signedInUser =
@@ -34,11 +31,6 @@ export function HeaderAuthStatus({
               Sign in
             </button>
           </SignInButton>
-          <SignUpButton mode="modal">
-            <button type="button" className={signUpClasses}>
-              Sign up
-            </button>
-          </SignUpButton>
         </div>
       </Show>
       <Show when="signed-in">
