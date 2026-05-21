@@ -55,7 +55,13 @@ function applySecurityHeaders(request: NextRequest) {
   return response;
 }
 
-export default clerkMiddleware((_auth, request) => applySecurityHeaders(request));
+const bypassClerkMiddleware =
+  process.env.NODE_ENV !== "production" &&
+  process.env.DISABLE_CLERK_MIDDLEWARE === "true";
+
+export default bypassClerkMiddleware
+  ? applySecurityHeaders
+  : clerkMiddleware((_auth, request) => applySecurityHeaders(request));
 
 export const config = {
   matcher: [
